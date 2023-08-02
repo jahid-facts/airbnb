@@ -28,7 +28,7 @@ const SlideImage = (props) => {
                 </div>
             </div>
         </Slide>
-    );
+    ); 
 };
 
 export default SlideImage;

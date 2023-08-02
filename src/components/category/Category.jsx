@@ -13,7 +13,7 @@ export default function Category() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container  maxWidth='xl'>
+      <Container  maxWidth='xl' sx={{ borderBottom: "1px solid #f2f2f2", }}>
         <Box mb={2} display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
           <Box gridColumn="span 12">
             <Tabs
@@ -24,24 +24,24 @@ export default function Category() {
               scrollButtons="auto"
               aria-label="scrollable auto tabs example"
             >
-              <Tab label="Sea" icon={<AccountBalance />} />
-              <Tab label="National parks" icon={ <DepartureBoard />} />
-              <Tab label="Countryside" icon={<Park />} />
-              <Tab label="Bed & breakfasts" icon={<Nature />} />
-              <Tab label="Amazing views" icon={<Traffic />} />
-              <Tab label="OMG!" icon={<AccountBalance />} />
-              <Tab label="Item Seven" icon={<Nature />}  />
-              <Tab label="Rooms" icon={<Nature />}  />
-              <Tab label="Tropical" icon={<AccountTree />}  /> 
-              <Tab label="Amazing views" icon={<House />}  /> 
-              <Tab label="Tree" />
-              <Tab label="Rooms" />
-              <Tab label="Tropical" />
-              <Tab label="Tropical" />
-              <Tab label="Tropical" />
-              <Tab label="Tropical" />
-              <Tab label="Tropical" />
-              <Tab label="Tropical" />
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="Sea" icon={<AccountBalance sx={{ fontSize:'19px', }} />} />
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="National parks" icon={ <DepartureBoard sx={{ fontSize:'19px', }} />} />
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="Countryside" icon={<Park sx={{ fontSize:'19px', }} />} />
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="Bed & breakfasts" icon={<Nature sx={{ fontSize:'19px', }} />} />
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="Amazing views" icon={<Traffic sx={{ fontSize:'19px', }} />} />
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="OMG!" icon={<AccountBalance sx={{ fontSize:'19px', }} />} />
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="Item Seven" icon={<Nature sx={{ fontSize:'19px', }} />}  />
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="Rooms" icon={<Nature sx={{ fontSize:'19px', }} />}  /> 
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="Tropical" icon={<AccountTree sx={{ fontSize:'19px', }} />}  /> 
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="Amazing views" icon={<House sx={{ fontSize:'19px', }} />}  /> 
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="Tree" icon={<House sx={{ fontSize:'19px', }} />} /> 
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="Rooms" icon={<House sx={{ fontSize:'19px', }} />} />
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="Tropical" icon={<House sx={{ fontSize:'19px', }} />} />
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="Tropical" icon={<House sx={{ fontSize:'19px', }} />} />
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="Tropical" icon={<House sx={{ fontSize:'19px', }} />} />
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="Tropical" icon={<House sx={{ fontSize:'19px', }} />} />
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="Tropical" icon={<House sx={{ fontSize:'19px', }} />} />
+              <Tab sx={{ textTransform:'capitalize', fontSize:'12px', }} label="Tropical" icon={<House sx={{ fontSize:'19px', }} />} />
             </Tabs>
           </Box>
         </Box>
