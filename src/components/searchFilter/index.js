@@ -20,7 +20,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
 import { DateRangeCalendar } from "@mui/x-date-pickers-pro/DateRangeCalendar";
 import Who from "./Who";
 import Where from "./Where";
-import When from "./When";
+import WhenDate from "./WhenDate";
 
 const SearchFilter = () => {
   const [activeBox, setActiveBox] = useState(null);
@@ -241,7 +241,7 @@ const SearchFilter = () => {
                   >
                     {/* onClick={() => setOpenPopper((prev) => ({ ...prev, 2: false }))} */}
                     <Box>
-                      <When />
+                      <WhenDate />
                     </Box>
                   </MenuList>
                 </ClickAwayListener>

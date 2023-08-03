@@ -13,7 +13,7 @@ export default function Category() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container  maxWidth='xl' sx={{ borderBottom: "1px solid #f2f2f2", }}>
+      <Container  maxWidth='xl'>
         <Box mb={2} display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
           <Box gridColumn="span 12">
             <Tabs

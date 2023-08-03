@@ -1,4 +1,4 @@
-import { Favorite, ManSharp, MessageSharp, NotificationAddSharp } from "@mui/icons-material";
+import { Favorite, MessageSharp, Person, Notifications } from "@mui/icons-material";
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import React from "react";
 
@@ -6,7 +6,7 @@ export const BottomBar = () => {
   const [value, setValue] = React.useState(0);
   return (
     <>
-      <Paper
+      <Paper 
         sx={{
           position: "fixed",
           bottom: 0,
@@ -24,10 +24,10 @@ export const BottomBar = () => {
             setValue(newValue);
           }}
         >
-          <BottomNavigationAction label="Recents" icon={<MessageSharp />} />
-          <BottomNavigationAction label="Favorites" icon={<Favorite />} />
-          <BottomNavigationAction label="Message" icon={<NotificationAddSharp />} />  
-          <BottomNavigationAction label="Archive" icon={<ManSharp />} />
+          <BottomNavigationAction label="Messages" icon={<MessageSharp />} />
+          <BottomNavigationAction label="Wishlist" icon={<Favorite />} />
+          <BottomNavigationAction label="Notifications" icon={<Notifications />} />  
+          <BottomNavigationAction label="Account" icon={<Person />} />
         </BottomNavigation>
       </Paper>
     </>

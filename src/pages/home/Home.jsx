@@ -3,7 +3,7 @@ import { Box, Container, Grid } from "@mui/material";
 
 import images from "./Images";
 import ReservationCard from "../../components/reservationCard";
-import BottomBar from "../../components/bottom_bar/BottomBar";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -14,6 +14,7 @@ export default function Home() {
             .sort(() => Math.random() - 0.5)
             .map((card) => (
               <Grid item xs={12} sm={6} md={4} lg={3}>
+              <Link to={'/reservation-details'} >
                 <ReservationCard
                   image1={card.image1}
                   image2={card.image2}
@@ -23,11 +24,11 @@ export default function Home() {
                   price={card.price}
                   review={"4.9"}
                 />
+                </Link>
               </Grid>
             ))}
         </Grid>
-        <Box sx={{ display: { md: 'none'} }}> 
-        <BottomBar />
+        <Box sx={{ display: { md: "none" } }}>
         </Box>
       </Container>
     </>

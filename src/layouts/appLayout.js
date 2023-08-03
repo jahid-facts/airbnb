@@ -8,6 +8,8 @@ import Footer from "../components/footer/Footer";
 import { Box } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { AdminLayout } from "./adminLayout";
+import ReservationDetails from "../pages/reservationDetails/ReservationDetails";
+import BottomBar from "../components/bottom_bar/BottomBar";
 
 export const AppLayout = () => {
   const location = useLocation();
@@ -27,9 +29,12 @@ export const AppLayout = () => {
         <Route>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/reservation-details" element={<ReservationDetails />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
-      </Routes>
+      </Routes> 
+      
+      <BottomBar />
       <Footer />
       <Routes>
         <Route>

@@ -33,11 +33,11 @@ export default function ReservationCard(props) {
           <Checkbox
             icon={<FavoriteBorder sx={{ fontSize: "29px", color: "#fff" }} />}
             checkedIcon={
-              <Favorite sx={{ fontSize: "29px", color: "secondary.main" }} />
+              <Favorite sx={{ fontSize: "29px", color: "secondary.main", }} />
             }
           />
         </Box>
-        
+
         <Box
           display={"flex"}
           justifyContent={"space-between"}

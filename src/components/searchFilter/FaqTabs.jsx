@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Tabs, Tab, Typography } from "@mui/material";
 import Who from "./Who";
 import Where from "./Where";
-import When from "./When";
+import WhenDate from "./WhenDate";
 
 const FaqTabs = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -64,10 +64,10 @@ const FaqTabs = () => {
             marginTop: "25px",
           }}
         >
-          <Typography pl={"20px"} variant="h6">
+          <Typography variant="h6" pl={"20px"} fontWeight={"bold"} mb={'20px'}>
             Who's comming
-          </Typography>
-          <When />
+          </Typography> 
+          <WhenDate />
         </div>
       )}
       {activeTab === 2 && (
