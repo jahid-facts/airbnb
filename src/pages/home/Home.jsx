@@ -13,17 +13,18 @@ export default function Home() {
           {images
             .sort(() => Math.random() - 0.5)
             .map((card) => (
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-              <Link to={'/reservation-details'} >
-                <ReservationCard
-                  image1={card.image1}
-                  image2={card.image2}
-                  image3={card.image3}
-                  title={"Chaing Rai, Thailand"}
-                  subtitle={"29 km to Lam Nam Kok National Park Aug 19 - 24"}
-                  price={card.price}
-                  review={"4.9"}
-                />
+              <Grid item xs={12} sm={6} md={4} lg={3} key={card.uuid}>
+                <Link to={'/reservation-details'} >
+                  <ReservationCard
+                    id={card.id}
+                    image1={card.image1}
+                    image2={card.image2}
+                    image3={card.image3}
+                    title={"Chaing Rai, Thailand"}
+                    subtitle={"29 km to Lam Nam Kok National Park Aug 19 - 24"}
+                    price={card.price}
+                    review={"4.9"}
+                  />
                 </Link>
               </Grid>
             ))}

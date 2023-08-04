@@ -12,10 +12,14 @@ import { Star, FavoriteBorder, Favorite } from "@mui/icons-material";
 import SlideImage from "../slide";
 
 export default function ReservationCard(props) {
-  const { image1, image2, image3, title, subtitle, price, review } = props;
+  const { id, image1, image2, image3, title, subtitle, price, review } = props;
 
+  const handleReservation = (event) => {
+    console.log(event.target.id);
+  };
   return (
     <Card
+      key={id}
       sx={{
         maxWidth: "100%",
         boxShadow: "none",
@@ -24,8 +28,9 @@ export default function ReservationCard(props) {
           background: "#ffffff",
         },
       }}
+      onClick={handleReservation}
     >
-      <CardActionArea>
+      <CardActionArea onClick={handleReservation}>
         <CardMedia>
           <SlideImage image1={image1} image2={image2} image3={image3} />
         </CardMedia>
