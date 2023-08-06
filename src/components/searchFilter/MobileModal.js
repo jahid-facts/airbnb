@@ -4,8 +4,6 @@ import {
   Drawer,
   Divider,
   List,
-  ListItem,
-  ListItemText,
   Button,
   Typography,
 } from "@mui/material";

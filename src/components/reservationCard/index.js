@@ -10,6 +10,7 @@ import {
 
 import { Star, FavoriteBorder, Favorite } from "@mui/icons-material";
 import SlideImage from "../slide";
+import { Link } from "react-router-dom";
 
 export default function ReservationCard(props) {
   const { image1, image2, image3, title, subtitle, price, review } = props;
@@ -37,52 +38,56 @@ export default function ReservationCard(props) {
             }
           />
         </Box>
-
-        <Box
-          display={"flex"}
-          justifyContent={"space-between"}
-          alignItems={"center"}
-          mt={2}
-        >
-          <Typography
-            gutterBottom
-            variant="h6"
-            component="div"
-            fontWeight={"bold"}
-            fontSize={"16px"}
+        
+        <Link to={"/reservation-details"}>
+          <Box
+            display={"flex"}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+            mt={2}
           >
-            {/* Chaing Rai, Thailand */}
-            {title}
-          </Typography>
-          <Box display={"flex"} alignItems={"center"}>
-            <Star color="text.secondary" sx={{ fontSize: "19px" }} />
             <Typography
-              variant="subtitle2"
-              color="text.secondary"
-              fontSize={"15px"}
-              justifyItems={"center"}
+              gutterBottom
+              variant="h6"
+              component="div"
+              fontWeight={"bold"}
+              fontSize={"16px"}
+                color="text.secondary"
             >
-              {review}
+              {/* Chaing Rai, Thailand */}
+              {title}
             </Typography>
+            <Box display={"flex"} alignItems={"center"}>
+              <Star 
+                 sx={{ fontSize: "19px", color:"text.secondary" }} />
+              <Typography
+                variant="subtitle2"
+                color="text.secondary"
+                fontSize={"15px"}
+                justifyItems={"center"}
+              >
+                {review}
+              </Typography>
+            </Box>
           </Box>
-        </Box>
-        <Typography
-          variant="subtitle2"
-          color="text.secondary"
-          fontSize={"15px"}
-          justifyItems={"center"}
-        >
-          {/* 29 km to Lam Nam Kok National Park Aug 19 - 24 */}
-          {subtitle}
-        </Typography>
-        <Typography
-          variant="subtitle2"
-          color="text.secondary"
-          fontSize={"15px"}
-          justifyItems={"center"}
-        >
-          <span style={{ fontWeight: "bold" }}>${price}</span> night
-        </Typography>
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+            fontSize={"15px"}
+            justifyItems={"center"}
+          >
+            {/* 29 km to Lam Nam Kok National Park Aug 19 - 24 */}
+            {subtitle}
+          </Typography>
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+            fontSize={"15px"}
+            justifyItems={"center"}
+          >
+            <span style={{ fontWeight: "bold" }}>${price}</span> night
+          </Typography>
+        </Link>
       </CardActionArea>
     </Card>
   );
