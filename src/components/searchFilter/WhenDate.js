@@ -1,28 +1,38 @@
 import React, { useState } from "react";
-import "react-date-range/dist/styles.css"; // main css file
-import "react-date-range/dist/theme/default.css"; // theme css file
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css"; 
 import { DateRange } from "react-date-range";
 import { Box } from "@mui/material";
+import './CustomCalendarStyles.css';
 
-const WhenDate = () => {
-  const [state, setState] = useState([
-    {
-      startDate: new Date(),
-      endDate: null,
-      key: "selection",
-    },
-  ]);
+const WhenDate = ({ onSelect }) => {
+
+  const [selectedRange, setSelectedRange] = useState({
+    startDate: null,
+    endDate: null,
+    key: 'selection',
+  });
+  const [rangeColor, setRangeColor] = useState(false);
+
+  const handleSelect = (ranges) => {
+    setSelectedRange(ranges.selection);
+    onSelect(ranges.selection);
+    setRangeColor(true);
+  };
 
   return (
-    <Box sx={{ textAlign:'center',  }}>
-      <DateRange
-        editableDateInputs={true}
-        onChange={(item) => setState([item.selection])}
-        moveRangeOnFirstSelection={false}
-        ranges={state}
-      />
-    </Box>
+    <div>
+    <DateRange
+      ranges={[selectedRange]}
+      onChange={handleSelect} 
+      // rangeColors={['#ff0000']}
+      rangeColors={rangeColor ? ['#ff0000'] : ['#245554']}
+      showSelectionPreview={true}
+      moveRangeOnFirstSelection={false}
+      editableDateInputs={true}
+    />
+  </div>
   );
-};
+}
 
-export default WhenDate;
+export default WhenDate;  

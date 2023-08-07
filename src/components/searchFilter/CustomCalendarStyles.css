@@ -1,0 +1,28 @@
+/* CustomCalendarStyles.css */
+/* .DayPicker-Day--selected:not(.DayPicker-Day--outside) {
+    background-color: #f0a30a; 
+    color: rgb(255, 255, 255);
+  }
+  
+  .DayPicker-Day--hover:not(.DayPicker-Day--selected):not(.DayPicker-Day--outside) {
+    background-color: #00ff73;
+  } */
+
+
+  /* CustomCalendarStyles.css */
+.DayPicker-Day--selected:not(.DayPicker-Day--outside) {
+    background-color: #f0a30a; /* Change this color to your desired initial range color */
+    color: white;
+  }
+  
+  .DayPicker-Day--selected.DayPicker-Day--start:not(.DayPicker-Day--outside) {
+    background-color: #f0a30a; /* Change this color to your desired initial range color */
+    color: white;
+  }
+  
+  .DayPicker-Day--selected.DayPicker-Day--end:not(.DayPicker-Day--outside) {
+    background-color: #f0a30a; /* Change this color to your desired initial range color */
+    color: white;
+  }
+  
+  

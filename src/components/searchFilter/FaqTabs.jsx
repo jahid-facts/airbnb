@@ -1,6 +1,6 @@
 // FaqTabs.js
 import React, { useState } from "react";
-import { Tabs, Tab, Typography } from "@mui/material";
+import { Box, Tabs, Tab, Typography } from "@mui/material";
 import Who from "./Who";
 import Where from "./Where";
 import WhenDate from "./WhenDate";
@@ -11,6 +11,17 @@ const FaqTabs = () => {
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
   };
+
+  // Handle the selected range in your parent component
+    const [selectedRange, setSelectedRange] = useState({
+      startDate: null,
+      endDate: null,
+      key: 'selection',
+    });
+
+    const handleDateSelect = (newRange) => {
+      setSelectedRange(newRange);
+    };
 
   return (
     <div style={{ padding: "20px" }}>
@@ -52,7 +63,9 @@ const FaqTabs = () => {
           <Typography variant="h6" pl={"20px"} fontWeight={"bold"}>
             Where to?
           </Typography>
-          <Where />
+          <Box textAlign={'left'} >
+            <Where />
+          </Box>
         </div>
       )}
       {activeTab === 1 && (
@@ -67,7 +80,7 @@ const FaqTabs = () => {
           <Typography variant="h6" pl={"20px"} fontWeight={"bold"} mb={'20px'}>
             Who's comming
           </Typography> 
-          <WhenDate />
+          <WhenDate onSelect={handleDateSelect} />
         </div>
       )}
       {activeTab === 2 && (

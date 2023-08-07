@@ -1,8 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Box, Divider, MenuItem, Stack, Typography } from "@mui/material";
 import {
-  AddCircleOutlineOutlined,
-  RemoveCircleOutlineOutlined,
   Search,
 } from "@mui/icons-material";
 
@@ -12,12 +10,7 @@ import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
 import MenuList from "@mui/material/MenuList";
 
-//for date picker
 
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { LocalizationProvider } from "@mui/x-date-pickers-pro";
-import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
-import { DateRangeCalendar } from "@mui/x-date-pickers-pro/DateRangeCalendar";
 import Who from "./Who";
 import Where from "./Where";
 import WhenDate from "./WhenDate";
@@ -64,6 +57,19 @@ const SearchFilter = () => {
   const box2Ref = useRef(null);
   const box3Ref = useRef(null);
   const box4Ref = useRef(null);
+
+   // Handle the selected range in your parent component
+   const [selectedRange, setSelectedRange] = useState({
+    startDate: null,
+    endDate: null,
+    key: 'selection',
+  });
+
+  const handleDateSelect = (newRange) => {
+    setSelectedRange(newRange);
+  };
+
+
 
   return (
     <Stack
@@ -200,7 +206,9 @@ const SearchFilter = () => {
               fontSize={"12px"}
               fontWeight={"400"}
             >
-              Add dates
+             {selectedRange.startDate?.toLocaleDateString() == null
+                ? 'Add dates'
+                : selectedRange.startDate?.toLocaleDateString('en-GB')}
             </Typography>
           </Box>
         </Box>
@@ -241,7 +249,7 @@ const SearchFilter = () => {
                   >
                     {/* onClick={() => setOpenPopper((prev) => ({ ...prev, 2: false }))} */}
                     <Box>
-                      <WhenDate />
+                      <WhenDate onSelect={handleDateSelect} />
                     </Box>
                   </MenuList>
                 </ClickAwayListener>
@@ -282,7 +290,9 @@ const SearchFilter = () => {
               fontSize={"12px"}
               fontWeight={"400"}
             >
-              Add dates
+              {selectedRange.endDate?.toLocaleDateString() == null
+                ? 'Add dates'
+                : selectedRange.endDate?.toLocaleDateString('en-GB')}
             </Typography>
           </Box>
         </Box>

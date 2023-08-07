@@ -1,22 +1,9 @@
-import React, { useState } from "react";
-import {
-  AddCircleOutlineOutlined,
-  RemoveCircleOutlineOutlined,
-} from "@mui/icons-material";
+import React from "react";
+
 import { Box, Divider, Typography } from "@mui/material";
+import Counter from "./Counter";
 
-const Counter = ({ label, description }) => {
-  const [count, setCount] = useState(0);
-
-  const handleIncrement = () => {
-    setCount(count + 1);
-  };
-
-  const handleDecrement = () => {
-    if (count > 0) {
-      setCount(count - 1);
-    }
-  };
+const WhoComponent = ({ label, description, counter }) => {
 
   return (
     <>
@@ -51,15 +38,11 @@ const Counter = ({ label, description }) => {
             display: "flex",
             alignItems: "center",
             width: "fit-content",
-            px: "15px",
-            py: "10px",
+            // px: "15px",
+            // py: "10px",
           }}
         >
-          <RemoveCircleOutlineOutlined onClick={handleDecrement} />
-          <Typography variant="text" mx={"10px"}>
-            {count}
-          </Typography>
-          <AddCircleOutlineOutlined onClick={handleIncrement} />
+         <Counter />
         </Box>
       </Box>
       <Divider />
@@ -70,10 +53,10 @@ const Counter = ({ label, description }) => {
 const Who = () => {
   return (
     <>
-      <Counter label="Adults" description="Ages 13 or above" />
-      <Counter label="Children" description="Ages 2-12" />
-      <Counter label="Infants" description="Under 2" />
-      <Counter label="Pets" description="Bringing a service animal?" />
+      <WhoComponent label="Adults" description="Ages 13 or above" counter={<Counter />} />
+      <WhoComponent label="Children" description="Ages 2-12" counter={<Counter />} />
+      <WhoComponent label="Infants" description="Under 2" counter={<Counter />} />
+      <WhoComponent label="Pets" description="Bringing a service animal?" counter={<Counter />} />
     </>
   );
 };

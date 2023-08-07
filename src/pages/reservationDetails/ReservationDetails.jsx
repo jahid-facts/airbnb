@@ -294,7 +294,7 @@ export default function ReservationDetails() {
               </Box>
               
               <Divider />
-              <Box sx={{ my: "40px" }}>
+              {/* <Box sx={{ my: "40px" }}>
                 <Typography
                   variant="h6"
                   fontSize={"18px"}
@@ -312,10 +312,10 @@ export default function ReservationDetails() {
                 >
                   Aug 10, 2023 - Aug 18, 2023
                 </Typography>
-                <Box textAlign={'center'} mt={3}> 
+                <Box  mt={3}> 
                   <WhenDate />
                 </Box>
-              </Box>
+              </Box> */}
             </Grid>
             <Grid item xs={4}>
               <Reserve />
