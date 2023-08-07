@@ -24,7 +24,6 @@ const WhenDate = ({ onSelect }) => {
     <DateRange
       ranges={[selectedRange]}
       onChange={handleSelect} 
-      // rangeColors={['#ff0000']}
       rangeColors={rangeColor ? ['#ff0000'] : ['#245554']}
       showSelectionPreview={true}
       moveRangeOnFirstSelection={false}
