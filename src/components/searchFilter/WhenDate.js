@@ -3,7 +3,6 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css"; 
 import { DateRange } from "react-date-range";
 import { Box } from "@mui/material";
-import './CustomCalendarStyles.css';
 
 const WhenDate = ({ onSelect }) => {
 
