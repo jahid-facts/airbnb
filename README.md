@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# Chatbot Feature Plan:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 1.	Chatbot Functionality:
 
-## Available Scripts
+•	Implement a natural language processing (NLP) chatbot capable of answering common questions related to the rental property.
+•	Train the chatbot using a dataset of frequently asked questions and responses, enhancing its ability to provide accurate information. (For future)
+•	Integrate sentiment analysis to ensure the chatbot can detect and respond to user emotions effectively.
 
-In the project directory, you can run:
+## 2.	User Interaction:
 
-### `npm start`
+•	When a user selects a specific rental property, provide a chatbot icon/button in the property's details page for initiating conversations.
+•	Allow users to ask questions about the property's amenities, location, pricing, availability, and any other relevant information.
+•	Implement a user-friendly interface for interacting with the chatbot, including text input and message display.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 3.	Integration with House Owner:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+•	Include an option for users to initiate a conversation with the house owner directly, in addition to chatting with the chatbot.
+•	Notify the house owner about incoming messages and facilitate seamless communication between the owner and potential renters.
+•	Maintain user privacy by allowing users to communicate without revealing personal contact information until they choose to share it.
 
-### `npm test`
+## 4.	Data Structure:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+•	Maintain a database of rental properties with attributes such as property ID, owner information, location, pricing, amenities, and availability.
+•	Store user interactions with the chatbot, including messages sent, timestamps, and associated property IDs.
+•	Implement a separate data structure for user-to-owner communications, ensuring privacy and secure communication.
 
-### `npm run build`
+## 5.	User Interface (UI) Wireframe:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ### Property Details Page:
+    •	Display property images, description, location, pricing, and amenities.
+    •	Show a chatbot icon/button for initiating conversations related to the specific property.
+    •	Include an option for users to start a direct chat with the house owner
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ### Chat Interface:
+    •	Provide a text input field for users to type their messages.
+    •	Display messages in a conversation-style format, showing user and chatbot/house owner messages with timestamps.
+    •	Include clear indicators for distinguishing between chatbot and house owner responses.
+    •	Offer a simple interface to switch between chatbot and house owner conversations.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ### Notifications:
+    •	Implement real-time notifications to alert users about new messages and responses.
+    •	Ensure users can easily access their ongoing conversations and switch between different rental properties.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
