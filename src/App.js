@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PageNotFound } from "./pages/404";
 import { AppLayout } from "./layouts/appLayout";
 import { Dashboard } from "./pages/dashboard";
+import { Notification } from "./pages/notification/Notification";
 
 export default function App() {
   return (
@@ -14,6 +15,8 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/*" element={<AppLayout />} />
           <Route path="*" element={<PageNotFound />} />
+          <Route path="notification" element={<Notification />} />
+
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
