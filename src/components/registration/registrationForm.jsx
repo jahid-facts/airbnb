@@ -43,7 +43,7 @@ const registrationForm = () => {
     },
   });
 
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setSubmitting, getFieldProps } = formik;
+  const { values, errors, touched, isSubmitting } = formik;
 
   return (
     <form onSubmit={formik.handleSubmit}>
