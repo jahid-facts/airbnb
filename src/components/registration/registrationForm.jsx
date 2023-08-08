@@ -43,6 +43,8 @@ const registrationForm = () => {
     },
   });
 
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setSubmitting, getFieldProps } = formik;
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <TextField
@@ -140,9 +142,9 @@ const registrationForm = () => {
         }
       />
 
-      <Button type="submit" variant="contained" color="primary">
-        Submit
-      </Button>
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
+                                Save Details
+      </LoadingButton>
     </form>
   );
 };
