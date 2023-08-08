@@ -15,6 +15,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "dayjs": "^1.11.9",
+    "formik": "^2.4.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
     "react-date-range": "^1.4.0",
@@ -24,10 +25,15 @@
     "react-router-dom": "^6.14.2",
     "react-scripts": "5.0.1",
     "react-slideshow-image": "^4.2.1",
+<<<<<<< HEAD
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
     "web-vitals": "^2.1.4"
+=======
+    "web-vitals": "^2.1.4",
+    "yup": "^1.2.0"
+>>>>>>> e025a8fc782b3966f35ec1162b794789d683b2c1
   },
   "scripts": {
     "start": "react-scripts start",
