@@ -7,16 +7,11 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import {
-  Logout,
-  PersonAdd,
-  Settings,
-} from "@mui/icons-material";
+import { Logout, PersonAdd, Settings, Chat } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import assets from "../../assets";
 export const Avater = () => {
-
   const [anchorEl, setAnchorEl] = useState(null);
 
   return (
@@ -98,6 +93,20 @@ export const Avater = () => {
           <Avatar /> My account
         </MenuItem>
         <Divider />
+        <Link
+          to={"/messages"}
+          style={{ textDecoration: "none", color: "MenuText" }}
+        >
+          <MenuItem
+            onClick={() => setAnchorEl(null)}
+            sx={{ textDecoration: "none" }}
+          >
+            <ListItemIcon>
+              <Chat fontSize="small" />
+            </ListItemIcon>
+            Messages
+          </MenuItem>
+        </Link>
         <MenuItem>
           <ListItemIcon>
             <PersonAdd fontSize="small" />

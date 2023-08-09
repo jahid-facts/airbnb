@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PageNotFound } from "./pages/404";
 import { AppLayout } from "./layouts/appLayout";
 import { Dashboard } from "./pages/dashboard";
+import MessagesPage from "./components/chatFeature/MessagesPage";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/messages" element={<MessagesPage />} />
           <Route path="/*" element={<AppLayout />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
