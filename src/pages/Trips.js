@@ -10,7 +10,7 @@ import LuggageIcon from '@mui/icons-material/Luggage';
 import RecentTrip from './travel';
 import HistoryTrip from './history';
 
-function App() {
+function Trips() {
   return (
     <div className="App">
       <header className="App-header">
@@ -49,7 +49,7 @@ function App() {
 
 
 
-      <BottomNavigation
+      {/* <BottomNavigation
         showLabels
         //value={value}
         onChange={(event, newValue) => {
@@ -61,11 +61,11 @@ function App() {
         <BottomNavigationAction label="Trip" icon={<LuggageIcon />} />
         <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
         <BottomNavigationAction label="Profile" icon={<AccountCircleIcon />} />
-      </BottomNavigation>
+      </BottomNavigation> */}
 
 
     </div>
   );
 }
 
-export default App;
+export default Trips;
