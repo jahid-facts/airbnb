@@ -1,35 +1,20 @@
 import {
   Box,
   Grid,
-  InputAdornment,
   Stack,
-  TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import React from "react";
 import assets from "../../assets";
-import { Search } from "@mui/icons-material";
 
-const Where = () => {
+const Where = ({ onSelect }) => {
+  const handleRegionClicked = (event) => {
+    const region = event.target.alt;
+    onSelect(region);
+  }
+  
   return (
     <Stack sx={{ padding: "20px", maxWidth: "100%" }}>
-      <Box sx={{ display: { md: "none" } }}>
-        <TextField
-          // label="Search destinations"
-          placeholder="Search destinations"
-          variant="outlined"
-          size="small"
-          fullWidth
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Box>
-
       <Typography
         sx={{
           color: "primary.main",
@@ -45,12 +30,12 @@ const Where = () => {
       <Grid container spacing={""}>
         <Grid item xs={6} sm={6}>
           <Box sx={{ p: "5px" }}>
-            <img src={assets.images.bdMap} className="countryMap" alt="" />
+            <img src={assets.images.bdMap} className="countryMap" alt="Bangladesh" onClick={handleRegionClicked} />
           </Box>
         </Grid>
         <Grid item xs={6} sm={6}>
           <Box sx={{ p: "5px" }}>
-            <img src={assets.images.ukMap} className="countryMap" alt="" />
+            <img src={assets.images.ukMap} className="countryMap" alt="United Kingdom" onClick={handleRegionClicked} />
           </Box>
         </Grid>
       </Grid>
