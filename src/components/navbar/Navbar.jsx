@@ -8,7 +8,6 @@ import {
   Stack,
   Toolbar,
   styled,
-  Divider,
 } from "@mui/material";
 import { FavoriteBorder } from "@mui/icons-material";
 import "./Navbar.css";
@@ -71,17 +70,37 @@ export default function Navbar(props) {
 
   return (
     <>
-    <CssBaseline />
-    <ElevationScroll {...props}>
-      <AppBar
-        sx={{
-          backgroundColor: "white",
-          padding:'0px'
-        }}
-      >
-        <Container maxWidth={containerWidth}>
-          <StyledToolbar>
-            <Link to="/">
+      <CssBaseline />
+      <ElevationScroll {...props}>
+        <AppBar
+          sx={{
+            backgroundColor: "white",
+            padding: "0px",
+          }}
+        >
+          <Container maxWidth={containerWidth}>
+            <StyledToolbar>
+              <Link to="/">
+                <Box
+                  sx={{
+                    display: {
+                      xs: "none",
+                      md: "block",
+                    },
+                  }}
+                >
+                  <img
+                    src={assets.images.logo}
+                    alt="Logo"
+                    style={{
+                      height: "40px",
+                      cursor: "pointer",
+                      border: "1px solid #f3f3f3",
+                    }}
+                  />
+                </Box>
+              </Link>
+
               <Box
                 sx={{
                   display: {
@@ -90,77 +109,61 @@ export default function Navbar(props) {
                   },
                 }}
               >
-                <img
-                  src={assets.images.logo}
-                  alt="Logo"
-                  style={{ 
-                    height: "40px",
-                    cursor: "pointer",
-                    border: "1px solid #f3f3f3",
-                  }}
-                />
+                {showSearchFilter}
               </Box>
-            </Link>
+              <Box 
+                sx={{
+                  width: "100%",
+                  display: {
+                    md: "none",
+                  },
+                }}
+              >
+                {showSearchMobile}
+              </Box>
 
-            <Box
-              sx={{
-                display: {
-                  xs: "none",
-                  md: "block",
-                },
-              }}
-            >
-              {showSearchFilter}
-            </Box>
-            <Box
-              sx={{
-                width: "100%",
-                display: {
-                  md: "none",
-                },
-              }}
-            >
-              {showSearchMobile}
-            </Box>
-
-            <Stack direction={"row"} alignItems={"center"}>
+              <Stack direction={"row"} alignItems={"center"}>
                 <Link to={"/profile"}>
                   <Button
                     variant="text"
                     size="small"
                     sx={{
                       borderRadius: "20px",
-                      mr:'15px',
+                      mr: "15px",
                       py: "7px",
                       px: "10px",
-                      textTransform:'capitalize', 
+                      textTransform: "capitalize",
+                      display: {
+                        xs: "none",
+                        md: "block",
+                      },
                     }}
                   >
                     Switch to hosting
                   </Button>
                 </Link>
-              <Badge
-                max={9}
-                badgeContent={10}
-                color="primary"
-                sx={{
-                  marginRight: "30px",
-                  display: {
-                    xs: "none",
-                    md: "block",
-                  },
-                }}
-              >
-                <FavoriteBorder color="action" />
-              </Badge>
+                <Badge
+                  max={9}
+                  badgeContent={10}
+                  color="secondary"
+                  sx={{
+                    marginRight: "30px",
+                    display: {
+                      xs: "none",
+                      md: "block",
+                    },
+                  }}
+                >
+                  <FavoriteBorder color="action" />
+                </Badge>
 
-              <Avater />
-            </Stack>
-          </StyledToolbar>
-          {showCategory}
-        </Container>
-      </AppBar>
-    </ElevationScroll>
+                <Avater />
+              </Stack>
+            </StyledToolbar>
+            {showCategory}
+          </Container>
+        </AppBar>
+      </ElevationScroll>
     </>
   );
 }

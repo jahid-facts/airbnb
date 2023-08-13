@@ -6,6 +6,8 @@ import { PageNotFound } from "./pages/404";
 import { AppLayout } from "./layouts/appLayout";
 import { Dashboard } from "./pages/dashboard";
 
+import Login from "./components/Sign-in/Login";
+
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -14,6 +16,7 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/*" element={<AppLayout />} />
           <Route path="*" element={<PageNotFound />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

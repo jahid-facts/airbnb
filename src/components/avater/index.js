@@ -41,11 +41,11 @@ export const Avater = () => {
           py={"5px"}
           borderRadius={"50px"}
         >
-          <MenuIcon sx={{ marginRight: "15px" }} color={"otherColor"} />
+          <MenuIcon color={"otherColor"} />
           <Avatar
             alt="Remy Sharp"
             src={assets.images.avatar}
-            sx={{ width: 35, height: 35 }}
+            sx={{ width: 35, height: 35, marginLeft: "10px" }}
           />
         </Box>
       </Box>

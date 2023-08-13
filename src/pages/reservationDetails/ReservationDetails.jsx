@@ -10,8 +10,19 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { FavoriteOutlined, Share, Wifi, DriveEta } from "@mui/icons-material";
+import {
+  FavoriteOutlined,
+  Share,
+  Wifi,
+  DriveEta,
+  LocationCity,
+  Tv,
+  DriveEtaOutlined,
+  Camera,
+} from "@mui/icons-material";
 import assets from "../../assets";
+import WhenDate from "../../components/searchFilter/WhenDate";
+import Reserve from "../../components/Reserve";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -88,7 +99,7 @@ export default function ReservationDetails() {
 
         <Grid item xs={12}>
           <Grid container spacing={2}>
-            <Grid item xs={8}>
+            <Grid item xs={12} sm={8}>
               <Box
                 display={"flex"}
                 justifyContent={"space-between"}
@@ -160,12 +171,155 @@ export default function ReservationDetails() {
                     fontSize={"14px"}
                     color={"primary.main"}
                   >
-                   This is one of the few places in the area with a pool.
+                    This is one of the few places in the area with a pool.
                   </Typography>
                 </Box>
               </Box>
+              <Box display={"flex"} my={4} flexDirection={"row"}>
+                <Box mr={3}>
+                  <LocationCity color={"primary.main"} />
+                </Box>
+                <Box>
+                  <Typography
+                    variant="h3"
+                    fontSize={"17px"}
+                    color={"primary.main"}
+                    fontWeight={"600"}
+                  >
+                    Great location
+                  </Typography>
+                  <Typography
+                    variant="text"
+                    fontSize={"14px"}
+                    color={"primary.main"}
+                  >
+                    90% of recent guests gave the location a 5-star rating.
+                  </Typography>
+                </Box>
+              </Box>
+              <Divider />
+              <Box sx={{ my: "40px" }}>
+                <Typography
+                  variant="text"
+                  fontSize={"14px"}
+                  color={"primary.main"}
+                >
+                  We keep it simple here. 1 km walk from Pai walking street.
+                  Peaceful setting tucked away from all the noise. Rise with
+                  rooster crowing in the morning with cat and dog playing in the
+                  garden, walk in the paddy field and feed the cow with banana
+                  during the day, and enjoy quite afternoon sun set.
+                </Typography>
+              </Box>
+              <Divider />
+              <Box sx={{ my: "40px" }}>
+                <Typography
+                  variant="h6"
+                  fontSize={"16px"}
+                  fontWeight={"600"}
+                  color={"primary.main"}
+                  mb={3}
+                >
+                  What this place offers
+                </Typography>
+                <Grid container spacing={2}>
+                  <Grid item xs={6}>
+                    <Box display={"flex"} flexDirection={"row"}>
+                      <Box mr={3}>
+                        <Wifi color={"primary.main"} /> 
+                      </Box>
+                      <Box>
+                        <Typography
+                          variant="text"
+                          fontSize={"14px"}
+                          color={"primary.main"}
+                        >
+                          Wifi
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Box display={"flex"} flexDirection={"row"}>
+                      <Box mr={3}>
+                        <Tv color={"primary.main"} />
+                      </Box>
+                      <Box>
+                        <Typography
+                          variant="text"
+                          fontSize={"14px"}
+                          color={"primary.main"}
+                        >
+                          TV
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Box display={"flex"} flexDirection={"row"}>
+                      <Box mr={3}>
+                        <DriveEtaOutlined color={"primary.main"} /> 
+                      </Box>
+                      <Box>
+                        <Typography
+                          variant="text"
+                          fontSize={"14px"}
+                          color={"primary.main"}
+                        >
+                          Free parking on premises
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Box display={"flex"} flexDirection={"row"}>
+                      <Box mr={3}>
+                        <Camera color={"primary.main"} /> 
+                      </Box>
+                      <Box>
+                        <Typography
+                          variant="text"
+                          fontSize={"14px"}
+                          color={"primary.main"}
+                        >
+                          Security cameras on property
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button sx={{ mt:'20px', }} variant="outlined">Show all 28 amenities</Button>
+                  </Grid>
+                </Grid>
+              </Box>
+              
+              <Divider />
+              {/* <Box sx={{ my: "40px" }}>
+                <Typography
+                  variant="h6"
+                  fontSize={"18px"}
+                  fontWeight={"600"}
+                  color={"primary.main"}
+                  mb={1}
+                >
+                  8 night
+                </Typography>
+                <Typography
+                  variant="text"
+                  fontSize={"14px"}
+                  color={"primary.main"}
+                  mb={3}
+                >
+                  Aug 10, 2023 - Aug 18, 2023
+                </Typography>
+                <Box  mt={3}> 
+                  <WhenDate />
+                </Box>
+              </Box> */}
             </Grid>
-            <Grid item xs={4}></Grid>
+            <Grid item xs={4}>
+              <Reserve />
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
