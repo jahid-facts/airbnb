@@ -29,7 +29,7 @@ const PaymentForm = (prop) => {
           <Grid item xs={12}>
             <Grid container spacing={2}>
               {/* left side content start */}
-              <Grid item columns={{ xs: 12, md: 7 }}>
+              <Grid item columns={{ xs: 12, md: 7 }} order={{ xs: 2, md: 1 }}>
                 {/* trip part start*/}
                 <Grid item xs={12}>
                   <Box
