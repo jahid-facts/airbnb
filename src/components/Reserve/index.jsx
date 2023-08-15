@@ -13,8 +13,9 @@ import {
 } from "@mui/material";
 import { KeyboardArrowDown, Star } from "@mui/icons-material";
 import WhenDate from "../searchFilter/WhenDate";
+import { Link } from "react-router-dom";
 
-const Reserve = () => {
+const Reserve = (prop) => {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
 
@@ -166,15 +167,17 @@ const Reserve = () => {
             </Box>
           </Box>
         </Box>
-        <Button
-          variant="contained"
-          fullWidth
-          color="secondary"
-          size="large"
-          sx={{ fontWeight: "600", zIndex:-1, }}
-        >
-          Reserve
-        </Button>
+        <Link to={'/payment-details?id='}>
+          <Button
+            variant="contained"
+            fullWidth
+            color="secondary"
+            size="large"
+            sx={{ fontWeight: "600", zIndex:-1, }}
+          >
+            Reserve
+          </Button>
+        </Link>
         <Box textAlign={"center"} fontSize={"13px"} my={2}>
           <Typography variant="text">You won't be charged yet</Typography>
         </Box>

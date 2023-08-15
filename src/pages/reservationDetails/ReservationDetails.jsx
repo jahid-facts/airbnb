@@ -27,9 +27,8 @@ import Reserve from "../../components/Reserve";
 function srcset(image, size, rows = 1, cols = 1) {
   return {
     src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
-    srcSet: `${image}?w=${size * cols}&h=${
-      size * rows
-    }&fit=crop&auto=format&dpr=2 2x`,
+    srcSet: `${image}?w=${size * cols}&h=${size * rows
+      }&fit=crop&auto=format&dpr=2 2x`,
   };
 }
 
@@ -226,7 +225,7 @@ export default function ReservationDetails() {
                   <Grid item xs={6}>
                     <Box display={"flex"} flexDirection={"row"}>
                       <Box mr={3}>
-                        <Wifi color={"primary.main"} /> 
+                        <Wifi color={"primary.main"} />
                       </Box>
                       <Box>
                         <Typography
@@ -258,7 +257,7 @@ export default function ReservationDetails() {
                   <Grid item xs={6}>
                     <Box display={"flex"} flexDirection={"row"}>
                       <Box mr={3}>
-                        <DriveEtaOutlined color={"primary.main"} /> 
+                        <DriveEtaOutlined color={"primary.main"} />
                       </Box>
                       <Box>
                         <Typography
@@ -274,7 +273,7 @@ export default function ReservationDetails() {
                   <Grid item xs={6}>
                     <Box display={"flex"} flexDirection={"row"}>
                       <Box mr={3}>
-                        <Camera color={"primary.main"} /> 
+                        <Camera color={"primary.main"} />
                       </Box>
                       <Box>
                         <Typography
@@ -288,11 +287,11 @@ export default function ReservationDetails() {
                     </Box>
                   </Grid>
                   <Grid item xs={12}>
-                    <Button sx={{ mt:'20px', }} variant="outlined">Show all 28 amenities</Button>
+                    <Button sx={{ mt: '20px', }} variant="outlined">Show all 28 amenities</Button>
                   </Grid>
                 </Grid>
               </Box>
-              
+
               <Divider />
               {/* <Box sx={{ my: "40px" }}>
                 <Typography

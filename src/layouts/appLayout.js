@@ -10,6 +10,7 @@ import { useLocation } from "react-router-dom";
 import { AdminLayout } from "./adminLayout";
 import ReservationDetails from "../pages/reservationDetails/ReservationDetails";
 import BottomBar from "../components/bottom_bar/BottomBar";
+import PaymentForm from "../pages/Payments/PaymentForm";
 
 export const AppLayout = () => {
   const location = useLocation();
@@ -30,6 +31,7 @@ export const AppLayout = () => {
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/reservation-details" element={<ReservationDetails />} />
+          <Route path="/payment-details" element={<PaymentForm />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes> 
