@@ -140,17 +140,29 @@ const PaymentForm = (prop) => {
                     </Link>
                   </FormControl>
                   <Divider my={2}>or</Divider>
-                  <Stack spacing={2} direction="row">
-                    <Button variant="outlined">
-                      <Facebook />
-                    </Button>
-                    <Button variant="outlined">
-                      <Google />
-                    </Button>
-                    <Button variant="outlined">
-                      <Apple />
-                    </Button>
-                  </Stack>
+                  <Grid item xs={12}>
+                    <Stack spacing={2} direction="row" my={2}>
+                      <Button variant="outlined" size="large">
+                        <Facebook />
+                      </Button>
+                      <Button variant="outlined">
+                        <Google />
+                      </Button>
+                      <Button variant="outlined">
+                        <Apple />
+                      </Button>
+                    </Stack>
+                    <Link to={'#'}>
+                      <Button
+                        variant="outlined"
+                        fullWidth
+                        size="large"
+                        my={2}
+                      >
+                        Continue with email
+                      </Button>
+                    </Link>
+                  </Grid>
                 </Grid>
                 {/* Log in part end */}
               </Grid>
