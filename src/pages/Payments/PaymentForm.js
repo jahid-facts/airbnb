@@ -29,7 +29,7 @@ const PaymentForm = (prop) => {
           <Grid item xs={12}>
             <Grid container spacing={2}>
               {/* left side content start */}
-              <Grid item xs={7}>
+              <Grid item columns={{ xs: 12, md: 7 }}>
                 {/* trip part start*/}
                 <Grid item xs={12}>
                   <Box
@@ -145,10 +145,10 @@ const PaymentForm = (prop) => {
                       <Button variant="outlined" size="large">
                         <Facebook />
                       </Button>
-                      <Button variant="outlined">
+                      <Button variant="outlined" size="large">
                         <Google />
                       </Button>
-                      <Button variant="outlined">
+                      <Button variant="outlined" size="large">
                         <Apple />
                       </Button>
                     </Stack>
@@ -169,7 +169,7 @@ const PaymentForm = (prop) => {
               {/* left side content end */}
 
               {/* right sidebar start*/}
-              <Grid item xs={5}>
+              <Grid item columns={{ xs: 12, md: 4 }} order={{ xs: 1, md: 2 }}>
                 <Box
                   p={"20px"}
                   m={"10px"}
