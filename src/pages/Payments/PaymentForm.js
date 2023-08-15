@@ -14,7 +14,7 @@ const PaymentForm = (prop) => {
   return (
     <>
       <Container maxWidth="lg">
-        <Grid container spacing={4}>
+        <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography
               variant="h2"
@@ -27,7 +27,7 @@ const PaymentForm = (prop) => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Grid container spacing={2}>
+            <Grid container spacing={5}>
               {/* left side content start */}
               <Grid item columns={{ xs: 12, md: 7 }} order={{ xs: 2, md: 1 }}>
                 {/* trip part start*/}
@@ -172,7 +172,6 @@ const PaymentForm = (prop) => {
               <Grid item columns={{ xs: 12, md: 4 }} order={{ xs: 1, md: 2 }}>
                 <Box
                   p={"20px"}
-                  m={"10px"}
                   boxShadow={"0px 0px 8px 0px #6363633b"}
                   borderRadius={"16px"}
                 >
@@ -182,7 +181,7 @@ const PaymentForm = (prop) => {
                     justifyContent={"space-between"}
                     alignItems={"center"}
                   >
-                    <Grid container spacing={5}>
+                    <Grid container spacing={2}>
                       <Grid item>
                         <Box
                           component="img"
@@ -198,15 +197,15 @@ const PaymentForm = (prop) => {
                       <Grid item xs={12} sm container>
                         <Grid item xs container direction="column" spacing={5}>
                           <Grid item>
-                            <Typography variant="body2" gutterBottom fontSize={"12px"} sx={{ color: "#808283" }}>
+                            <Typography variant="body2" fontSize={"12px"} sx={{ color: "#808283" }}>
                               Room in condo
                             </Typography>
-                            <Typography gutterBottom variant="subtitle1" component="div" fontSize={"14px"} >
+                            <Typography variant="subtitle1" component="div" fontSize={"14px"} >
                               Noble room into the historical Torino
                             </Typography>
                           </Grid>
                           <Grid item>
-                            <Typography variant="body2" gutterBottom fontSize={"12px"}>
+                            <Typography variant="body2" fontSize={"12px"}>
                               <Star fontSize={"10px"} /><strong>4.80 </strong> (50 reviews)
                             </Typography>
                           </Grid>
