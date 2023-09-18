@@ -7,24 +7,35 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import {
-  Logout,
-  PersonAdd,
-  Settings,
-} from "@mui/icons-material";
-import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
+import { AddHome, ArrowDropDownCircle, Logout, PersonAdd, Settings } from "@mui/icons-material";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import assets from "../../assets";
-export const Avater = () => {
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../redux/features/AuthSlice";
+import { useIsAuthenticated } from "../../helpers/Authenticated";
 
+export const Avater = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const isAuthenticated = useIsAuthenticated();
+
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+
+  //logout
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate("/login");
+  };
 
   return (
     <>
       <Box
         sx={{
           display: {
-            xs: "none",
+            xs: isHomePage ? "none" : "block",
             md: "block",
           },
         }}
@@ -41,11 +52,11 @@ export const Avater = () => {
           py={"5px"}
           borderRadius={"50px"}
         >
-          <MenuIcon color={"otherColor"} />
-          <Avatar
+          <ArrowDropDownCircle  />
+          <Avatar 
             alt="Remy Sharp"
             src={assets.images.avatar}
-            sx={{ width: 35, height: 35, marginLeft: "10px" }}
+            sx={{ width: 30, height: 30, marginLeft: "10px" }}
           />
         </Box>
       </Box>
@@ -83,39 +94,84 @@ export const Avater = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <Link
-          to={"/profile"}
-          style={{ textDecoration: "none", color: "MenuText" }}
-        >
-          <MenuItem
-            onClick={() => setAnchorEl(null)}
-            sx={{ textDecoration: "none" }}
-          >
-            <Avatar /> Profile
-          </MenuItem>
-        </Link>
-        <MenuItem>
-          <Avatar /> My account
-        </MenuItem>
-        <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
+        {isAuthenticated ? (
+          // Menu items for authenticated user
+          <>
+            <Link
+              to={"/profile"}
+              style={{ textDecoration: "none", color: "MenuText" }}
+            >
+              <MenuItem
+                sx={{ minWidth: "250px", textDecoration: "none" }}
+                onClick={() => setAnchorEl(null)}
+              >
+                <Avatar /> Profile
+              </MenuItem>
+            </Link>
+            <Link
+              to={"/add-propertise"}
+              style={{ textDecoration: "none", color: "MenuText" }}
+            >
+              <MenuItem
+                onClick={() => setAnchorEl(null)}
+                sx={{ minWidth: "250px" }}
+              >
+                <ListItemIcon>
+                  <AddHome fontSize="small" />
+                </ListItemIcon>
+                Property listing
+              </MenuItem>
+            </Link>
+            <MenuItem sx={{ minWidth: "250px" }}>
+              <Avatar /> My account
+            </MenuItem>
+            <Divider />
+            <MenuItem sx={{ minWidth: "250px" }}>
+              <ListItemIcon>
+                <PersonAdd fontSize="small" />
+              </ListItemIcon>
+              Add another account
+            </MenuItem>
+            <MenuItem sx={{ minWidth: "250px" }}>
+              <ListItemIcon>
+                <Settings fontSize="small" />
+              </ListItemIcon>
+              Settings
+            </MenuItem>
+            <MenuItem onClick={handleLogout} sx={{ minWidth: "250px" }}>
+              <ListItemIcon>
+                <Logout fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </>
+        ) : (
+          // Menu items for non-authenticated user
+          <>
+            <Link
+              to="/login"
+              style={{ textDecoration: "none", color: "MenuText" }}
+            >
+              <MenuItem sx={{ minWidth: "250px" }}>
+                <ListItemIcon>
+                  <Logout fontSize="small" />
+                </ListItemIcon>
+                Login
+              </MenuItem>
+            </Link>
+            <Link
+              to="/register"
+              style={{ textDecoration: "none", color: "MenuText" }}
+            >
+              <MenuItem sx={{ minWidth: "250px" }}>
+                <ListItemIcon>
+                  <Logout fontSize="small" />
+                </ListItemIcon>
+                Register
+              </MenuItem>
+            </Link>
+          </>
+        )}
       </Menu>
     </>
   );
