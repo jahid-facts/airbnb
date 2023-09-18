@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import {
   Box,
   Button,
@@ -11,37 +11,17 @@ import {
   Paper,
   ClickAwayListener,
 } from "@mui/material";
-import { KeyboardArrowDown, Star } from "@mui/icons-material";
+import { Close, KeyboardArrowDown, Star } from "@mui/icons-material";
 import WhenDate from "../searchFilter/WhenDate";
+import Who from "../searchFilter/Who";
 import { Link } from "react-router-dom";
 
-const Reserve = (prop) => {
-  const [open, setOpen] = useState(false);
-  const anchorRef = useRef(null);
+const Reserve = () => {
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef(null);
 
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
-
-  const handleClose = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
-
-    setOpen(false);
-  };
-
-  function handleListKeyDown(event) {
-    if (event.key === "Tab") {
-      event.preventDefault();
-      setOpen(false);
-    } else if (event.key === "Escape") {
-      setOpen(false);
-    }
-  }
-
-  const prevOpen = useRef(open);
-  useEffect(() => {
+  const prevOpen = React.useRef(open);
+  React.useEffect(() => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
@@ -49,17 +29,46 @@ const Reserve = (prop) => {
     prevOpen.current = open;
   }, [open]);
 
-// Handle the selected range in your parent component
-    const [selectedRange, setSelectedRange] = useState({
-      startDate: null,
-      endDate: null,
-      key: 'selection',
-    });
+  const [openPopper, setOpenPopper] = React.useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  });
+  const handleTogglePopper = (boxValue) => {
+    setOpenPopper((prev) => ({ ...prev, [boxValue]: !prev[boxValue] }));
+  };
 
-    const handleDateSelect = (newRange) => {
-      setSelectedRange(newRange);
-    };
+  const box1Ref = useRef(null);
+  const box2Ref = useRef(null);
 
+  // Handle the selected range in your parent component
+  const [selectedRange, setSelectedRange] = useState({
+    startDate: null,
+    endDate: null,
+    key: "selection",
+  });
+
+  const handleDateSelect = (newRange) => {
+    setSelectedRange(newRange);
+  };
+
+  const disabledDates = [
+    new Date("2023-08-23"),
+    new Date("2023-08-24"),
+    new Date("2023-08-25"),
+  ];
+
+  // who
+  const [adultsCount, setAdultsCount] = useState(0);
+  const [childrenCount, setChildrenCount] = useState(0);
+  const [infantsCount, setInfantsCount] = useState(0);
+  const [petsCount, setPetsCount] = useState(0);
+  const allCountsTrue =
+    adultsCount === 0 &&
+    childrenCount === 0 &&
+    infantsCount === 0 &&
+    petsCount === 0;
 
   return (
     <div>
@@ -90,22 +99,22 @@ const Reserve = (prop) => {
           <div>
             <Grid
               container
-              ref={anchorRef}
-              id="composition-button"
-              aria-controls={open ? "composition-menu" : undefined}
-              aria-expanded={open ? "true" : undefined}
-              aria-haspopup="true"
-              onClick={handleToggle}
-              sx={{ cursor:'pointer' }}
+              value="1"
+              ref={box1Ref}
+              onClick={() => {
+                // handleBoxClick("1");
+                handleTogglePopper("1");
+              }}
+              sx={{ cursor: "pointer" }}
             >
               <Grid item xs={6} borderRight={"1px solid #06283D"} p={"15px"}>
                 <Typography variant="h4" fontSize={"13px"} fontWeight={"700"}>
                   Check in
                 </Typography>
-                <Typography variant="h4" fontSize={"14px"} mt={"5px"}> 
-                {selectedRange.startDate?.toLocaleDateString() == null
-                ? 'Add dates'
-                : selectedRange.startDate?.toLocaleDateString('en-GB')} 
+                <Typography variant="h4" fontSize={"14px"} mt={"5px"}>
+                  {selectedRange.startDate?.toLocaleDateString() == null
+                    ? "Add dates"
+                    : selectedRange.startDate?.toLocaleDateString("en-GB")}
                 </Typography>
               </Grid>
               <Grid item xs={6} p={"15px"}>
@@ -113,20 +122,21 @@ const Reserve = (prop) => {
                   Check out
                 </Typography>
                 <Typography variant="h4" fontSize={"14px"} mt={"5px"}>
-                {selectedRange.endDate?.toLocaleDateString() == null
-                ? 'Add dates'
-                : selectedRange.endDate?.toLocaleDateString('en-GB')}
+                  {selectedRange.endDate?.toLocaleDateString() == null
+                    ? "Add dates"
+                    : selectedRange.endDate?.toLocaleDateString("en-GB")}
                 </Typography>
               </Grid>
             </Grid>
+
             <Popper
-              open={open}
-              anchorEl={anchorRef.current}
+              open={openPopper[1]}
+              anchorEl={box1Ref.current}
               role={undefined}
               placement="bottom-start"
               transition
               disablePortal
-              sx={{ borderRadius:'20px', }}
+              sx={{ zIndex: 10 }}
             >
               {({ TransitionProps, placement }) => (
                 <Grow
@@ -136,10 +146,32 @@ const Reserve = (prop) => {
                       placement === "bottom-start" ? "left top" : "left bottom",
                   }}
                 >
-                  <Paper>
-                    <ClickAwayListener onClickAway={handleClose}>
-                      <Box p={'15px'} boxShadow={"0px 0px 18px 0px #6363633b"}> 
-                        <WhenDate onSelect={handleDateSelect} />
+                  <Paper
+                    sx={{
+                      borderRadius: "25px",
+                      boxShadow: "0px 0px 18px 0px #6363633b",
+                      marginTop: "15px",
+                      marginLeft: "-10px",
+                    }}
+                  >
+                    <ClickAwayListener
+                      onClickAway={() =>
+                        setOpenPopper((prev) => ({ ...prev, 1: false }))
+                      }
+                    >
+                      <Box p={"15px"}>
+                        <Button
+                          onClick={() =>
+                            setOpenPopper((prev) => ({ ...prev, 1: false }))
+                          }
+                          sx={{ textTransform: "capitalize", mb: 1 }}
+                        >
+                          <Close sx={{ color: "#ff0000", fontSize: "16px" }} />
+                        </Button>
+                        <WhenDate
+                          onSelect={handleDateSelect}
+                          disabledDates={disabledDates}
+                        />
                       </Box>
                     </ClickAwayListener>
                   </Paper>
@@ -147,7 +179,18 @@ const Reserve = (prop) => {
               )}
             </Popper>
           </div>
-          <Box borderTop={"1px solid #06283D"} p={"15px"}>
+
+          <Box
+            borderTop={"1px solid #06283D"}
+            p={"15px"}
+            sx={{ cursor: "pointer" }}
+            value="2"
+            ref={box2Ref}
+            onClick={() => {
+              // handleBoxClick("2");
+              handleTogglePopper("2");
+            }}
+          >
             <Box
               display={"flex"}
               justifyContent={"space-between"}
@@ -158,22 +201,85 @@ const Reserve = (prop) => {
                   Guests
                 </Typography>
                 <Typography variant="h4" fontSize={"13px"} mt={"5px"}>
-                  0 Pet
+                  {adultsCount > 0 && <span> {adultsCount} Adults </span>}
+                  {childrenCount > 0 && (
+                    <span>, {childrenCount} Children </span>
+                  )}
+                  {infantsCount > 0 && <span>, {infantsCount} Infants </span>}
+                  {petsCount > 0 && <span>, {petsCount} Pets</span>}
+                  {allCountsTrue ? <p>Add guests</p> : ""}
                 </Typography>
               </Box>
-              <IconButton sx={{ zIndex:-1, }} >
+              <IconButton>
                 <KeyboardArrowDown />
               </IconButton>
             </Box>
           </Box>
+          <Popper
+            open={openPopper[2]}
+            role={undefined}
+            anchorEl={box2Ref.current}
+            placement="bottom-start"
+            transition
+            disablePortal
+            sx={{ zIndex: 10 }}
+          >
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                style={{
+                  transformOrigin:
+                    placement === "bottom-start" ? "left top" : "left bottom",
+                }}
+              >
+                <Paper
+                  sx={{
+                    borderRadius: "25px",
+                    boxShadow: "0px 0px 18px 0px #6363633b",
+                    marginTop: "15px",
+                    marginLeft: "-10px",
+                    p: "20px",
+                  }}
+                >
+                  <ClickAwayListener
+                    onClickAway={() =>
+                      setOpenPopper((prev) => ({ ...prev, 2: false }))
+                    }
+                  >
+                    <Box>
+                      <Button
+                        onClick={() =>
+                          setOpenPopper((prev) => ({ ...prev, 2: false }))
+                        }
+                        sx={{ textTransform: "capitalize" }}
+                      >
+                        <Close sx={{ color: "#ff0000", fontSize: "16px" }} />
+                      </Button>
+                      <Who
+                        adultsCount={adultsCount}
+                        setAdultsCount={setAdultsCount}
+                        childrenCount={childrenCount}
+                        setChildrenCount={setChildrenCount}
+                        infantsCount={infantsCount}
+                        setInfantsCount={setInfantsCount}
+                        petsCount={petsCount}
+                        setPetsCount={setPetsCount}
+                      />
+                    </Box>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
         </Box>
-        <Link to={'/payment-details?id='}>
+
+        <Link to={"/payments"}>
           <Button
             variant="contained"
             fullWidth
             color="secondary"
             size="large"
-            sx={{ fontWeight: "600", zIndex:-1, }}
+            sx={{ fontWeight: "600", cursor: "pointer" }}
           >
             Reserve
           </Button>
@@ -201,7 +307,7 @@ const Reserve = (prop) => {
           my={2}
         >
           <Typography variant="h4" fontSize={"15px"}>
-            Airbnb service fee
+            UK-BD service fee
           </Typography>
           <Typography variant="h4" fontSize={"15px"}>
             $ 17

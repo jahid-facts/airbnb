@@ -9,11 +9,10 @@ import {
   Toolbar,
   styled,
 } from "@mui/material";
-import { FavoriteBorder } from "@mui/icons-material";
+import { EmailOutlined, NotificationsOutlined } from "@mui/icons-material";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import Category from "../category/Category";
-import assets from "../../assets";
 import { useLocation } from "react-router-dom";
 import SearchFilter from "../searchFilter";
 
@@ -22,6 +21,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import { Avater } from "../avater";
 import SearchMobile from "../searchFilter/SearchMobile";
+import Logo from "./Logo";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -65,9 +65,10 @@ export default function Navbar(props) {
     showSearchMobile = <SearchMobile />;
     containerWidth = "xl";
   } else {
-    containerWidth = "lg";
+    containerWidth = "xl";
+    // containerWidth = "lg";
   }
-
+ 
   return (
     <>
       <CssBaseline />
@@ -80,26 +81,8 @@ export default function Navbar(props) {
         >
           <Container maxWidth={containerWidth}>
             <StyledToolbar>
-              <Link to="/">
-                <Box
-                  sx={{
-                    display: {
-                      xs: "none",
-                      md: "block",
-                    },
-                  }}
-                >
-                  <img
-                    src={assets.images.logo}
-                    alt="Logo"
-                    style={{
-                      height: "40px",
-                      cursor: "pointer",
-                      border: "1px solid #f3f3f3",
-                    }}
-                  />
-                </Box>
-              </Link>
+
+            <Logo />
 
               <Box
                 sx={{
@@ -123,7 +106,7 @@ export default function Navbar(props) {
               </Box>
 
               <Stack direction={"row"} alignItems={"center"}>
-                <Link to={"/profile"}>
+                <Link to={"/hosting"}> 
                   <Button
                     variant="text"
                     size="small"
@@ -142,6 +125,8 @@ export default function Navbar(props) {
                     Switch to hosting
                   </Button>
                 </Link>
+                
+                {/* <Link to={"/notifications"}> */}
                 <Badge
                   max={9}
                   badgeContent={10}
@@ -154,8 +139,25 @@ export default function Navbar(props) {
                     },
                   }}
                 >
-                  <FavoriteBorder color="action" />
+                  <NotificationsOutlined color="action" /> 
                 </Badge>
+                {/* </Link> */}
+                <Link to={"/profile"}>
+                <Badge
+                  max={9}
+                  badgeContent={10}
+                  color="secondary"
+                  sx={{
+                    marginRight: "30px",
+                    display: {
+                      xs: "none",
+                      md: "block",
+                    },
+                  }}
+                >
+                  <EmailOutlined color="action" /> 
+                </Badge>
+                </Link>
 
                 <Avater />
               </Stack>

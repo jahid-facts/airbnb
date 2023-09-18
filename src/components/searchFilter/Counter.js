@@ -1,13 +1,8 @@
+import React from "react";
 import { IconButton, Typography } from "@mui/material";
-import React, { useState } from "react";
-import {
-  AddCircleOutlineOutlined,
-  RemoveCircleOutlineOutlined,
-} from "@mui/icons-material";
+import { AddCircleOutlineOutlined, RemoveCircleOutlineOutlined } from "@mui/icons-material";
 
-const Counter = () => {
-  const [count, setCount] = useState(0);
-
+const Counter = ({ count, setCount }) => {
   const handleIncrement = () => {
     setCount(count + 1);
   };
