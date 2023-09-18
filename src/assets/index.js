@@ -19,7 +19,6 @@ import hotel14 from './images/hotels/i1.jpg';
 import hotel15 from './images/hotels/i2.jpg';
 import hotel16 from './images/hotels/i3.jpg';
 import hotel17 from './images/hotels/i4.jpg';
-import location from './images/location.png';
 
 const assets = {
     images: {
@@ -27,7 +26,6 @@ const assets = {
         avatar,
         bdMap,
         ukMap,
-        location,
 
         hotelImage:{
             hotel1,

@@ -1,3 +1,4 @@
+// FaqTabs.js
 import React, { useState } from "react";
 import { Box, Tabs, Tab, Typography } from "@mui/material";
 import Who from "./Who";
@@ -12,21 +13,15 @@ const FaqTabs = () => {
   };
 
   // Handle the selected range in your parent component
-  const [selectedRange, setSelectedRange] = useState({
-    startDate: null,
-    endDate: null,
-    key: "selection",
-  });
+    const [selectedRange, setSelectedRange] = useState({
+      startDate: null,
+      endDate: null,
+      key: 'selection',
+    });
 
-  const handleDateSelect = (newRange) => {
-    setSelectedRange(newRange);
-  };
-
-  /// who
-  const [adultsCount, setAdultsCount] = useState(0);
-  const [childrenCount, setChildrenCount] = useState(0);
-  const [infantsCount, setInfantsCount] = useState(0);
-  const [petsCount, setPetsCount] = useState(0);
+    const handleDateSelect = (newRange) => {
+      setSelectedRange(newRange);
+    };
 
   return (
     <div style={{ padding: "20px" }}>
@@ -68,7 +63,7 @@ const FaqTabs = () => {
           <Typography variant="h6" pl={"20px"} fontWeight={"bold"}>
             Where to?
           </Typography>
-          <Box textAlign={"left"}>
+          <Box textAlign={'left'} >
             <Where />
           </Box>
         </div>
@@ -82,9 +77,9 @@ const FaqTabs = () => {
             marginTop: "25px",
           }}
         >
-          <Typography variant="h6" pl={"20px"} fontWeight={"bold"} mb={"20px"}>
+          <Typography variant="h6" pl={"20px"} fontWeight={"bold"} mb={'20px'}>
             Who's comming
-          </Typography>
+          </Typography> 
           <WhenDate onSelect={handleDateSelect} />
         </div>
       )}
@@ -100,16 +95,7 @@ const FaqTabs = () => {
           <Typography variant="h6" pl={"20px"} fontWeight={"bold"}>
             Who's comming
           </Typography>
-          <Who
-            adultsCount={adultsCount}
-            setAdultsCount={setAdultsCount}
-            childrenCount={childrenCount}
-            setChildrenCount={setChildrenCount}
-            infantsCount={infantsCount}
-            setInfantsCount={setInfantsCount}
-            petsCount={petsCount}
-            setPetsCount={setPetsCount}
-          />
+          <Who />
         </div>
       )}
     </div>

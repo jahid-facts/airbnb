@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
-import { Box, Divider, MenuItem, Stack, Typography } from "@mui/material";
+import { Box, Divider, MenuItem, Stack, Typography, IconButton, InputAdornment, TextField } from "@mui/material";
 import {
-  Search,
+  Search, Close
 } from "@mui/icons-material";
 
 import ClickAwayListener from "@mui/material/ClickAwayListener";
@@ -58,8 +58,8 @@ const SearchFilter = () => {
   const box3Ref = useRef(null);
   const box4Ref = useRef(null);
 
-   // Handle the selected range in your parent component
-   const [selectedRange, setSelectedRange] = useState({
+  // Handle the selected range in your parent component
+  const [selectedRange, setSelectedRange] = useState({
     startDate: null,
     endDate: null,
     key: 'selection',
@@ -69,13 +69,13 @@ const SearchFilter = () => {
     setSelectedRange(newRange);
   };
 
-
-  /// who
-  const [adultsCount, setAdultsCount] = useState(0);
-  const [childrenCount, setChildrenCount] = useState(0);
-  const [infantsCount, setInfantsCount] = useState(0);
-  const [petsCount, setPetsCount] = useState(0);
-
+  const [selectedRegion, setSelectedRegion] = useState("");
+  const handleRegionSelect = (region) => {
+    setSelectedRegion(region);
+  };
+  const handleClearClick = () => {
+    setSelectedRegion("");
+  }
 
 
   return (
@@ -118,13 +118,7 @@ const SearchFilter = () => {
             borderRadius: "50px",
             bgcolor: activeBox === "1" ? "activeColor" : "",
             boxShadow: activeBox === "1" ? "0px 0px 18px 0px #6363633b" : "",
-            transition: "background-color 0.3s, box-shadow 0.3s",
-            "&:hover": {
-              bgcolor: "activeColor",
-              boxShadow: "0px 0px 18px 0px #6363633b",
-            },
-            }
-          }
+          }}
         >
           <Box sx={{ px: "15px" }}>
             <Typography
@@ -135,13 +129,24 @@ const SearchFilter = () => {
             >
               Where
             </Typography>
-            <input
-              type="text"
+            <TextField
               placeholder="Search destinations"
               className="customInputControl"
+              variant="standard"
+              size="small"
+              fullWidth
+              value={selectedRegion}
+              InputProps={{
+                disableUnderline: true,
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton sx={{ visibility: selectedRegion ? "visible" : "hidden" }}
+                      onClick={handleClearClick}><Close />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
-
-            {/* <Typography sx={{ color: 'primary.main', }} variant='h6' fontSize={'12px'} fontWeight={'400'} >Search destinations</Typography> */}
           </Box>
         </Box>
         <Popper
@@ -179,7 +184,7 @@ const SearchFilter = () => {
                     onKeyDown={handleListKeyDown}
                   >
                     {/* onClick={() => setOpenPopper((prev) => ({ ...prev, 1: false }))} */}
-                    <Where />
+                    <Where onSelect={handleRegionSelect} />
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
@@ -202,11 +207,6 @@ const SearchFilter = () => {
             borderRadius: "50px",
             bgcolor: activeBox === "2" ? "activeColor" : "",
             boxShadow: activeBox === "2" ? "0px 0px 18px 0px #6363633b" : "",
-            transition: "background-color 0.3s, box-shadow 0.3s",
-            "&:hover": {
-              bgcolor: "activeColor",
-              boxShadow: "0px 0px 18px 0px #6363633b",
-            },
           }}
         >
           <Box sx={{ px: "15px" }}>
@@ -224,7 +224,7 @@ const SearchFilter = () => {
               fontSize={"12px"}
               fontWeight={"400"}
             >
-             {selectedRange.startDate?.toLocaleDateString() == null
+              {selectedRange.startDate?.toLocaleDateString() == null
                 ? 'Add dates'
                 : selectedRange.startDate?.toLocaleDateString('en-GB')}
             </Typography>
@@ -291,11 +291,6 @@ const SearchFilter = () => {
             borderRadius: "50px",
             bgcolor: activeBox === "2" ? "activeColor" : "",
             boxShadow: activeBox === "2" ? "0px 0px 18px 0px #6363633b" : "",
-            transition: "background-color 0.3s, box-shadow 0.3s",
-            "&:hover": {
-              bgcolor: "activeColor",
-              boxShadow: "0px 0px 18px 0px #6363633b",
-            },
           }}
         >
           <Box sx={{ px: "15px" }}>
@@ -372,7 +367,7 @@ const SearchFilter = () => {
                         setOpenPopper((prev) => ({ ...prev, 3: false }))
                       }
                     >
-                      Logout
+                      Logout-
                     </MenuItem>
                   </MenuList>
                 </ClickAwayListener>
@@ -399,11 +394,6 @@ const SearchFilter = () => {
             borderRadius: "50px",
             bgcolor: activeBox === "4" ? "activeColor" : "",
             boxShadow: activeBox === "4" ? "0px 0px 18px 0px #6363633b" : "",
-            transition: "background-color 0.3s, box-shadow 0.3s",
-            "&:hover": {
-              bgcolor: "activeColor",
-              boxShadow: "0px 0px 18px 0px #6363633b",
-            },
           }}
         >
           <Box sx={{ px: "15px" }}>
@@ -476,16 +466,7 @@ const SearchFilter = () => {
                     onKeyDown={handleListKeyDown}
                   >
                     {/* <MenuItem onClick={() => setOpenPopper((prev) => ({ ...prev, 4: false }))}>Profile</MenuItem> */}
-                    <Who
-                      adultsCount={adultsCount}
-                      setAdultsCount={setAdultsCount}
-                      childrenCount={childrenCount}
-                      setChildrenCount={setChildrenCount}
-                      infantsCount={infantsCount}
-                      setInfantsCount={setInfantsCount}
-                      petsCount={petsCount}
-                      setPetsCount={setPetsCount}
-                    />
+                    <Who />
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
