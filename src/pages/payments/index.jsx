@@ -244,7 +244,7 @@ const PaymentForm = (prop) => {
                             width: 150,
                             borderRadius: ".5rem",
                           }}
-                          alt="breackfast"
+                          alt="breakfast"
                           src="https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"
                         />
                       </Grid>
