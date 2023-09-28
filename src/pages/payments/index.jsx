@@ -1,16 +1,36 @@
 import * as React from "react";
 import { Apple, ArrowBackIos, Facebook, Google, Star } from "@mui/icons-material";
-import { Button, Container, Divider, Grid, Link, Stack, TextField, Typography } from "@mui/material";
+import { Input, Button, Container, Divider, Grid, Link, Stack, TextField, Typography } from "@mui/material";
 import DiamondIcon from '@mui/icons-material/Diamond'
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+
+// import MyDropdowns from "../../components/dropdown/Dropdowns";
+
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { AppLayout } from "../../layouts/appLayout";
 
+
+
+
+
+
+
+
+
 const PaymentForm = (prop) => {
+
   const { basePrice, totalNights, extra } = prop;
+
+  const countries = ['Bangladesh', 'Saudi Arab', 'Dubai'];
+
+// need to request the axios and get it in django
+
+
+
+
 
   return (
     <AppLayout>
@@ -19,7 +39,7 @@ const PaymentForm = (prop) => {
           <Grid item xs={12}>
             <Typography
               variant="h2"
-              fontSize={"32px"}
+              fontSize={"2rem"}
               color={"primary.main"}
               fontWeight={"500"}
             >
@@ -38,13 +58,13 @@ const PaymentForm = (prop) => {
                     p={4}
                     border={1}
                     borderColor={"grey.300"}
-                    borderRadius={"8px"}
+                    borderRadius={".5rem"}
                   >
                     <Grid container spacing={2}>
                       <Grid xs={7}>
                         <Typography
                           variant="h3"
-                          fontSize={"17px"}
+                          fontSize={"1.0625rem"}
                           color={"primary.main"}
                           fontWeight={"600"}
                         >
@@ -52,7 +72,7 @@ const PaymentForm = (prop) => {
                         </Typography>
                         <Typography
                           variant="text"
-                          fontSize={"14px"}
+                          fontSize={".875rem"}
                           color={"primary.main"}
                         >
                           Carmela's place is usually booked.
@@ -69,7 +89,7 @@ const PaymentForm = (prop) => {
                     </Box>
                     <Box my={2}>
                       <Box>
-                        <Typography variant="h6" fontSize={"17px"}>Dates</Typography>
+                        <Typography variant="h6" fontSize={"1.0625rem"}>Dates</Typography>
                       </Box>
                       <Box
                         display={"flex"}
@@ -79,14 +99,14 @@ const PaymentForm = (prop) => {
                         <Typography variant="subtitle1" >
                           Aug 19 – 24
                         </Typography>
-                        <Typography variant="h6" fontSize={"17px"}>
+                        <Typography variant="h6" fontSize={"1.0625rem"}>
                           Edit
                         </Typography>
                       </Box>
                     </Box>
                     <Box my={2}>
                       <Box>
-                        <Typography variant="h6" fontSize={"17px"}>Guests</Typography>
+                        <Typography variant="h6" fontSize={"1.0625rem"}>Guests</Typography>
                       </Box>
                       <Box
                         display={"flex"}
@@ -96,7 +116,7 @@ const PaymentForm = (prop) => {
                         <Typography variant="subtitle1" >
                           1 guest
                         </Typography>
-                        <Typography variant="h6" fontSize={"17px"}>
+                        <Typography variant="h6" fontSize={"1.0625rem"}>
                           Edit
                         </Typography>
                       </Box>
@@ -110,22 +130,55 @@ const PaymentForm = (prop) => {
                   <Box my={2}>
                     <Typography variant="h6">Log in or sign up to book</Typography>
                   </Box>
-                  <FormControl fullWidth>
-                    <InputLabel>Country/Region</InputLabel>
+                  <FormControl fullWidth >
+                    <InputLabel htmlFor="outlined-select" >
+                      Country/Region</InputLabel>
                     <Select
-                      id="demo-simple-select"
-                    >
-                      <MenuItem value={10}>Bangladesh</MenuItem>
-                      <MenuItem value={20}>Saudi Arab</MenuItem>
-                      <MenuItem value={30}>Dubai</MenuItem>
+                      id="outlined-select"
+                      label=" Country/Region">
+                      {countries.map((option, index) => (
+                        <MenuItem key={index} value={option}>
+                          {option}
+                        </MenuItem>
+                      ))}
                     </Select>
+                    <br />
                     <TextField
                       id="outlined-textarea"
                       label="Phone Number"
                       placeholder="+880"
                       multiline
+
                     />
-                    <Typography variant="caption" display="block" gutterBottom my={2} s>
+                    <br />
+                  </FormControl>
+
+
+
+
+                  <FormControl fullWidth >
+
+                    {/* <label htmlFor="raised-button-file"> 
+          Choose a file
+          <Button variant="raised" component="span"> Upload </Button> 
+          </label> */}
+                    <Box my={2}>
+                      <Typography variant="h6">Upload Your NID Card</Typography>
+                    </Box>
+
+                    <Input
+                      accept="image/*"
+                      //style={{ display: 'none' }}
+                      id="raised-button-file"
+                      type="file"
+                      variant="contained" />
+
+                  </FormControl>
+                  <br />
+
+
+                  <FormControl fullWidth >
+                    <Typography variant="caption" display="block" gutterBottom my={2} >
                       We’ll call or text you to confirm your number. Standard message and data rates apply. <Link href="#" underline="always" color="inherit">{'Privacy Policy'}</Link>
                     </Typography>
                     <Link to={'#'}>
@@ -172,9 +225,9 @@ const PaymentForm = (prop) => {
               {/* right sidebar start*/}
               <Grid item columns={{ xs: 12, md: 4 }} order={{ xs: 1, md: 2 }}>
                 <Box
-                  p={"20px"}
-                  boxShadow={"0px 0px 8px 0px #6363633b"}
-                  borderRadius={"16px"}
+                  p={"1.25rem"}
+                  boxShadow={"0rem 0rem .5rem 0rem #6363633b"}
+                  borderRadius={"1rem"}
                 >
                   <Box
                     my={2}
@@ -189,7 +242,7 @@ const PaymentForm = (prop) => {
                           sx={{
                             height: 130,
                             width: 150,
-                            borderRadius: "8px",
+                            borderRadius: ".5rem",
                           }}
                           alt="breackfast"
                           src="https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"
@@ -198,16 +251,16 @@ const PaymentForm = (prop) => {
                       <Grid item xs={12} sm container>
                         <Grid item xs container direction="column" spacing={5}>
                           <Grid item>
-                            <Typography variant="body2" fontSize={"12px"} sx={{ color: "#808283" }}>
+                            <Typography variant="body2" fontSize={".75rem"} sx={{ color: "#808283" }}>
                               Room in condo
                             </Typography>
-                            <Typography variant="subtitle1" component="div" fontSize={"14px"} >
+                            <Typography variant="subtitle1" component="div" fontSize={".875rem"} >
                               Noble room into the historical Torino
                             </Typography>
                           </Grid>
                           <Grid item>
-                            <Typography variant="body2" fontSize={"12px"}>
-                              <Star fontSize={"10px"} /><strong>4.80 </strong> (50 reviews)
+                            <Typography variant="body2" fontSize={".75rem"}>
+                              <Star fontSize={".625rem"} /><strong>4.80 </strong> (50 reviews)
                             </Typography>
                           </Grid>
                         </Grid>
@@ -224,10 +277,10 @@ const PaymentForm = (prop) => {
                     alignItems={"center"}
                     my={2}
                   >
-                    <Typography variant="h4" fontSize={"15px"}>
+                    <Typography variant="h4" fontSize={".9375rem"}>
                       $40 x 3 nights
                     </Typography>
-                    <Typography variant="h4" fontSize={"15px"}>
+                    <Typography variant="h4" fontSize={".9375rem"}>
                       $220.69
                     </Typography>
                   </Box>
@@ -237,11 +290,11 @@ const PaymentForm = (prop) => {
                     alignItems={"center"}
                     my={2}
                   >
-                    <Typography variant="h4" fontSize={"15px"}>
+                    <Typography variant="h4" fontSize={".9375rem"}>
                       Cleaning fee
 
                     </Typography>
-                    <Typography variant="h4" fontSize={"15px"}>
+                    <Typography variant="h4" fontSize={".9375rem"}>
                       $21.85
                     </Typography>
                   </Box>
@@ -251,10 +304,10 @@ const PaymentForm = (prop) => {
                     alignItems={"center"}
                     my={2}
                   >
-                    <Typography variant="h4" fontSize={"15px"}>
+                    <Typography variant="h4" fontSize={".9375rem"}>
                       Airbnb service fee
                     </Typography>
-                    <Typography variant="h4" fontSize={"15px"}>
+                    <Typography variant="h4" fontSize={".9375rem"}>
                       $34.24
                     </Typography>
                   </Box>
@@ -264,10 +317,10 @@ const PaymentForm = (prop) => {
                     alignItems={"center"}
                     my={2}
                   >
-                    <Typography variant="h4" fontSize={"15px"}>
+                    <Typography variant="h4" fontSize={".9375rem"}>
                       Taxes
                     </Typography>
-                    <Typography variant="h4" fontSize={"15px"}>
+                    <Typography variant="h4" fontSize={".9375rem"}>
                       $12.56
                     </Typography>
                   </Box>
@@ -278,10 +331,10 @@ const PaymentForm = (prop) => {
                     alignItems={"center"}
                     my={2}
                   >
-                    <Typography variant="h4" fontSize={"16px"} fontWeight={"700"}>
+                    <Typography variant="h4" fontSize={"1rem"} fontWeight={"700"}>
                       Total (USD)
                     </Typography>
-                    <Typography variant="h4" fontSize={"15px"} fontWeight={"700"}>
+                    <Typography variant="h4" fontSize={".9375rem"} fontWeight={"700"}>
                       $289.34
                     </Typography>
                   </Box>
