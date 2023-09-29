@@ -10,7 +10,7 @@ const sidebarContent = [
     icon: "clarity:building-line",
   },
   {
-    name: "Reservation checkin",
+    name: "Reservation check-in",
     path: "/e-check",
     icon: "clarity:building-line",
   },

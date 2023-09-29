@@ -2,27 +2,38 @@ import {
   Box,
   Grid,
   Input,
-  IconButton,
+  //IconButton,
   Button,
   Typography,
-  useMediaQuery,
+  //useMediaQuery,
 } from "@mui/material";
 import React from "react";
-import {
-  ApartmentOutlined,
-  AttachMoney,
-  BarChart,
-  MonetizationOnOutlined,
-} from "@mui/icons-material";
+// import {
+//   ApartmentOutlined,
+//   AttachMoney,
+//   BarChart,
+//   MonetizationOnOutlined,
+// } from "@mui/icons-material";
 import { theme } from "../../theme";
-import FormControl from '@mui/material/FormControl';
+//import FormControl from '@mui/material/FormControl';
+import {getApi, postApi} from '../../config/configAxios'
 import Layout from "../userDashboardLayout";
+
+
+
 
 const reservationCheck = () => {
 
   const verified = 'ok';
 
+const handleSubmit = (event)=>{
+  event.preventDefault();
 
+  const formData = new FormData(event.target);
+
+  postApi('/instant_check')
+
+}
 
 
 
@@ -90,7 +101,7 @@ const reservationCheck = () => {
 
             {/* action box */}
             <Box width={"40%"}>
-              <form>
+              <form onSubmit={handleSubmit}>
            
                 <Typography variant="" fontSize={"14px"} color={"#7f7f7f"}>
                   Instant Reservation

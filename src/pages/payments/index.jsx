@@ -156,12 +156,12 @@ const PaymentForm = (prop) => {
 
 
 
-                  <FormControl fullWidth >
+                  {/* <FormControl fullWidth >
 
-                    {/* <label htmlFor="raised-button-file"> 
+                     <label htmlFor="raised-button-file"> 
           Choose a file
           <Button variant="raised" component="span"> Upload </Button> 
-          </label> */}
+          </label> 
                     <Box my={2}>
                       <Typography variant="h6">Upload Your NID Card</Typography>
                     </Box>
@@ -173,7 +173,7 @@ const PaymentForm = (prop) => {
                       type="file"
                       variant="contained" />
 
-                  </FormControl>
+                  </FormControl> */}
                   <br />
 
 
