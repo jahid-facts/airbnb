@@ -52,7 +52,7 @@ import {
                 Md. Abul Bashar
                 </Typography>
                 <Typography variant="h5" fontWeight={"bold"}>
-                 NId: 135346532
+                 Invoice-Id: 135346532
                
                 </Typography>
                 <Typography variant="h5" fontWeight={"bold"}>
@@ -104,7 +104,7 @@ import {
                 Md. Abul Bashar
                 </Typography>
                 <Typography variant="h5" fontWeight={"bold"}>
-                 NId: 135346532
+                Invoice-Id: 135346532
                
                 </Typography>
                 <Typography variant="h5" fontWeight={"bold"}>
