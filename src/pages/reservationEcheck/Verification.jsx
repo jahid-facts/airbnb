@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Input } from "@mui/material";
-import { postApi } from '../../config/configAxios';
+//import { postApi } from '../../config/configAxios';
 
 function NIDVerificationForm() {
 
