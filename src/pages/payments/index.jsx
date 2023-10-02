@@ -181,7 +181,7 @@ const PaymentForm = (prop) => {
                     <Typography variant="caption" display="block" gutterBottom my={2} >
                       We’ll call or text you to confirm your number. Standard message and data rates apply. <Link href="#" underline="always" color="inherit">{'Privacy Policy'}</Link>
                     </Typography>
-                    <Link to={'#'}>
+                    {/* <Link to={'#'}> */}
                       <Button
                         variant="contained"
                         fullWidth
@@ -191,7 +191,7 @@ const PaymentForm = (prop) => {
                       >
                         Continue
                       </Button>
-                    </Link>
+                    {/* </Link> */}
                   </FormControl>
                   <Divider my={2}>or</Divider>
                   <Grid item xs={12}>

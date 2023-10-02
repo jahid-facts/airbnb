@@ -70,6 +70,7 @@ function NIDVerificationForm() {
                         type="submit"
                         variant="contained"
                         color="primary"
+                        style={{ 'marginInline': '0.5rem' }}
                         disabled={!file}
                     >
                         Verify
@@ -83,6 +84,11 @@ function NIDVerificationForm() {
 }
 
 export default NIDVerificationForm;
+
+
+
+
+
 
 
 
