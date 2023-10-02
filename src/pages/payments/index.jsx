@@ -31,6 +31,7 @@ const PaymentForm = (prop) => {
 
 
 const handleSubmit = async (event) => {
+  
   const formData = new FormData();
   
   try {
