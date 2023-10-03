@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { AppLayout } from "../../layouts/appLayout";
+import { postApi } from "../../config/configAxios";
 
 
 
@@ -29,8 +30,17 @@ const PaymentForm = (prop) => {
 // need to request the axios and get it in django
 
 
-
-
+const handleSubmit = async (event) => {
+  
+  const formData = new FormData();
+  
+  try {
+    const response = await postApi('/payment-gateway.com/checkout', {...formData});
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
   return (
     <AppLayout>
@@ -130,6 +140,7 @@ const PaymentForm = (prop) => {
                   <Box my={2}>
                     <Typography variant="h6">Log in or sign up to book</Typography>
                   </Box>
+                  <form onSubmit={handleSubmit} encType="">
                   <FormControl fullWidth >
                     <InputLabel htmlFor="outlined-select" >
                       Country/Region</InputLabel>
@@ -181,7 +192,7 @@ const PaymentForm = (prop) => {
                     <Typography variant="caption" display="block" gutterBottom my={2} >
                       We’ll call or text you to confirm your number. Standard message and data rates apply. <Link href="#" underline="always" color="inherit">{'Privacy Policy'}</Link>
                     </Typography>
-                    <Link to={'#'}>
+                    {/* <Link to={'#'}> */}
                       <Button
                         variant="contained"
                         fullWidth
@@ -191,8 +202,11 @@ const PaymentForm = (prop) => {
                       >
                         Continue
                       </Button>
-                    </Link>
+                    {/* </Link> */}
                   </FormControl>
+
+
+                  </form>
                   <Divider my={2}>or</Divider>
                   <Grid item xs={12}>
                     <Stack spacing={2} direction="row" my={2}>

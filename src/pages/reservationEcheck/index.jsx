@@ -1,9 +1,9 @@
 import {
   Box,
   Grid,
-  Input,
+  // Input,
   //IconButton,
-  Button,
+  // Button,
   Typography,
   //useMediaQuery,
 } from "@mui/material";
@@ -16,29 +16,13 @@ import React from "react";
 // } from "@mui/icons-material";
 import { theme } from "../../theme";
 //import FormControl from '@mui/material/FormControl';
-import {getApi, postApi} from '../../config/configAxios'
+// import {getApi, postApi} from '../../config/configAxios';
+import Varification from './Verification';
+//import Confirmation from './confirmation';
 import Layout from "../userDashboardLayout";
 
-
-
-
 const reservationCheck = () => {
-
-  const verified = 'ok';
-
-const handleSubmit = (event)=>{
-  event.preventDefault();
-
-  const formData = new FormData(event.target);
-
-  postApi('/instant_check')
-
-}
-
-
-
-
-
+  // const verified = 'ok';
 
   return (
     <Layout title={'Todays bookins'}>
@@ -101,7 +85,14 @@ const handleSubmit = (event)=>{
 
             {/* action box */}
             <Box width={"40%"}>
-              <form onSubmit={handleSubmit}>
+
+
+              <Varification />
+
+
+
+
+              {/* <form onSubmit={handleSubmit}>
            
                 <Typography variant="" fontSize={"14px"} color={"#7f7f7f"}>
                   Instant Reservation
@@ -120,17 +111,20 @@ const handleSubmit = (event)=>{
                   id="button-file"
                   type="file"
                   label="Upload NID"
-                  variant="contained" />
+                  variant="contained"
+                 /> 
 
-                <Button type="submit"
+                 {/* onChange={{handleSubmit}} */}
+
+              {/* <Button type="submit"
                   variant="contained">
                   Verify
                 </Button>
                 
-                {/* <Button>Time extend</Button> */}
-                <Button color="secondary" variant="contained" >Cancel </Button>
+                <Button>Time extend</Button> */}
+              {/* <Button color="secondary" variant="contained" >Cancel </Button>
             
-              </form>
+              </form> */} {/**/}
 
 
             </Box>
