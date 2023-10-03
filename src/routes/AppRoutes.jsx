@@ -10,6 +10,8 @@ import { useSelector } from "react-redux";
 import ProtectedRoute from "../helpers/ProtectedRoute";
 import Hosting from "../pages/hosting";
 import PropertyList from "../pages/propertyList";
+import Echeck from "../pages/reservationEcheck";
+
 
 export const AppRoutes = () => {
   const isAuthenticated = useSelector((state) => state.auth.isLoggedIn);
@@ -39,6 +41,10 @@ export const AppRoutes = () => {
         <Route
           path="/property/list"
           element={<ProtectedRoute children={<PropertyList />} />}
+        />
+                <Route
+          path="/e-check"
+          element={<ProtectedRoute children={<Echeck />} />}
         />
         <Route
           path="/profile"
