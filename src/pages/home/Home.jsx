@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";  //changed for chatbot/fahim
+//import React from "react";
 import { Box, Container, Grid } from "@mui/material";
 
 import images from "./Images";
@@ -6,6 +7,15 @@ import ReservationCard from "../../components/reservationCard";
 import { AppLayout } from "../../layouts/appLayout";
 
 export default function Home() {
+
+//added for chatbot/fahim SSSSSS
+const [isChatOpen, setIsChatOpen] = useState(false);
+
+const toggleChat = () => {
+  setIsChatOpen(!isChatOpen);
+};
+//added for chatbot/fahim EEEEEE
+
   return (
     <AppLayout>
       <Container maxWidth="xl">
@@ -27,7 +37,9 @@ export default function Home() {
             ))}
         </Grid>
         <Box sx={{ display: { md: "none" } }}></Box>
+        <ChatButton onClick={toggleChat} /> {/* Add the ChatButton component/fahim */}
       </Container>
+      {isChatOpen && <ChatWindow onClose={toggleChat} />} {/* Show the chat window when isChatOpen is true/fahim */}
     </AppLayout>
   );
 }
