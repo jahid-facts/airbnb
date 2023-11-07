@@ -5,6 +5,9 @@ import { Box, Container, Grid } from "@mui/material";
 import images from "./Images";
 import ReservationCard from "../../components/reservationCard";
 import { AppLayout } from "../../layouts/appLayout";
+import ChatButton from "../../components/chat_window/ChatButton"; //added for chatbot/fahim
+import ChatWindow from "../../components/chat_window/ChatWindow"; //added for chatbot/fahim
+
 
 export default function Home() {
 
