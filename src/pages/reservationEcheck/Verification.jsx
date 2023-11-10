@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Input } from "@mui/material";
 import WebCam from "../../components/webcam";
 import { useAuthInfo } from "../../helpers/AuthCheck";
-import axios from "axios";
+// import axios from "axios";
 
 function NIDVerificationForm({ propertyId, bookinStatus, mode }) {
   const api_url =
@@ -17,8 +17,7 @@ function NIDVerificationForm({ propertyId, bookinStatus, mode }) {
 
   useEffect(() => {
     setBookingStatus(bookinStatus);
-    
-  }, []);
+  }, [bookinStatus]);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
