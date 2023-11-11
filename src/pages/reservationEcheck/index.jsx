@@ -29,43 +29,40 @@ const ReservationCheck = () => {
   // const verified = 'ok';
   const UserInfo = useAuthInfo();
   const [bookingStatuses, setBookingStatuses] = useState([]);
-  const [properties, setProperties] = useState([]);
+  //const [properties, setProperties] = useState([]);
+
+  // useEffect(() => {
+  //   const fetchUserProperties = async () => {
+  //     try {
+  //       const response = await axios.get(`/user/properties/${UserInfo._id}`);
+  //       setProperties(response.data.properties);
+  //       //console.log(response.data.properties[0]._id);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchUserProperties();
+  // }, [UserInfo._id]);
+
+  // //console.log(UserInfo._id);
+  // console.log(properties);
 
   useEffect(() => {
-    const fetchUserProperties = async () => {
-      try {
-        const response = await axios.get(`/user/properties/${UserInfo._id}`);
-        setProperties(response.data.properties);
-      } catch (error) {
+    axios
+      .get("/api/booking-data", {
+        params: {
+          userId: UserInfo._id,
+        },
+      })
+      .then((response) => {
+        // const bookingStatuses = response.data.map((propertyData) => propertyData.status);
+        // setBookingStatuses(bookingStatuses);
+        setBookingStatuses(response.data);
+      })
+      .catch((error) => {
         console.error(error);
-      }
-    };
-    fetchUserProperties();
-  }, [UserInfo._id]);
-
-  console.log(UserInfo._id);
-  console.log(properties);
-
-  useEffect(() => {
-    if (properties.length) {
-      const propertyIds = properties.map((property) => property._id);
-      axios
-        .get("/api/booking-data", {
-          params: {
-            userId: UserInfo._id,
-            propertyId: propertyIds,
-          },
-        })
-        .then((response) => {
-          // const bookingStatuses = response.data.map((propertyData) => propertyData.status);
-          // setBookingStatuses(bookingStatuses);
-          setBookingStatuses(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  }, [UserInfo._id, properties]); //properties  or  UserInfo._id, properties
+      });
+  }, [UserInfo._id]); //properties  or  UserInfo._id, properties
 
   console.log(bookingStatuses);
   return (
@@ -73,9 +70,9 @@ const ReservationCheck = () => {
       <Grid container spacing={2}>
         <div>
           {bookingStatuses.map((propertyData, index) => {
-            const property = properties.find((p) => p._id === propertyData._id);
+            // const property = properties.find((p) => p._id === propertyData._id);
             return (
-              <Grid item xs={12} md={10} mx={10} key={property._id}>
+              <Grid item xs={12} md={10} mx={10} key={propertyData._id}>
                 <Box
                   display={"flex"}
                   alignItems={"center"}
@@ -132,8 +129,8 @@ const ReservationCheck = () => {
                   <Box width={"40%"}>
                     {propertyData ? (
                       <Varification
-                        propertyId={property._id}
-                        bookinStatus={propertyData}
+                        properties={propertyData._id}
+                        bookinStatus={propertyData.status}
                         mode={"check"}
                       />
                     ) : (

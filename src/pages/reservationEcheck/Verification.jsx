@@ -4,7 +4,7 @@ import WebCam from "../../components/webcam";
 import { useAuthInfo } from "../../helpers/AuthCheck";
 // import axios from "axios";
 
-function NIDVerificationForm({ propertyId, bookinStatus, mode }) {
+function NIDVerificationForm({ properties, bookinStatus, mode }) {
   const api_url =
     mode === "check"
       ? process.env.REACT_APP_CHECK_ENDPOINT
