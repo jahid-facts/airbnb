@@ -122,7 +122,7 @@ function NIDVerificationForm({ propertyId, bookinStatus, mode }) {
                 component="span"
                 style={{ marginInline: "0.5rem" }}
               >
-                NID Upload
+                Choose NID file
               </Button>
             </label>
 
@@ -130,7 +130,7 @@ function NIDVerificationForm({ propertyId, bookinStatus, mode }) {
               type="submit"
               variant="contained"
               color="primary"
-              style={{ marginInline: "0.5rem" }}
+              style={{ margin: "0.5rem" }}
               disabled={!file && !capturedFile}
             >
               {mode === "check" ? "Check NID" : "Upload NID"}

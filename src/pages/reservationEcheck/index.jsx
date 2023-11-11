@@ -43,7 +43,8 @@ const ReservationCheck = () => {
     fetchUserProperties();
   }, [UserInfo._id]);
 
-  // console.log(UserInfo._id);
+  console.log(UserInfo._id);
+  console.log(properties);
 
   useEffect(() => {
     if (properties.length) {
@@ -52,7 +53,7 @@ const ReservationCheck = () => {
         .get("/api/booking-data", {
           params: {
             userId: UserInfo._id,
-            propertyIds: propertyIds,
+            propertyId: propertyIds,
           },
         })
         .then((response) => {
@@ -66,6 +67,7 @@ const ReservationCheck = () => {
     }
   }, [UserInfo._id, properties]); //properties  or  UserInfo._id, properties
 
+  console.log(bookingStatuses);
   return (
     <Layout title={"Todays bookins"}>
       <Grid container spacing={2}>

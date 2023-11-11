@@ -72,7 +72,7 @@ const WebCam = ({ setWebCamFile }) => {
           <img
             src={URL.createObjectURL(file)}
             alt="Capture"
-            style={{ width: "300px", height: "auto" }}
+            style={{ width: "300px", height: "300px" }}
           />
           <Input
             type="file"
@@ -84,11 +84,18 @@ const WebCam = ({ setWebCamFile }) => {
       ) : (
         <>
           <Button
-            type="button"
-            variant="contained"
-            color="primary"
-            style={{ marginTop: "1rem", marginBottom: "1rem" }}
+            variant="outlined"
             onClick={startStream}
+            style={{
+              color: "black",
+              fontWeight: "bold",
+              border: "1px solid black",
+              borderRadius: "6px",
+              padding: "10px",
+              textTransform: "capitalize",
+              marginTop: "0.5rem",
+              marginBottom: "0.5rem",
+            }}
           >
             Open Camera
           </Button>

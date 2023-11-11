@@ -150,7 +150,7 @@ function ProfilePage() {
                     Before you book or Host on Airbnb, you’ll need to complete
                     this step.
                   </Typography>
-                  <Button
+                  {/* <Button
                     variant="outlined"
                     onClick={handleVerify()}
                     style={{
@@ -163,7 +163,7 @@ function ProfilePage() {
                     }}
                   >
                     Edit Profile
-                  </Button>
+                  </Button> */}
                   <NIDVerificationForm />
                 </Box> 
               </Paper>
