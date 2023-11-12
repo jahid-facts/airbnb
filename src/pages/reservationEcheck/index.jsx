@@ -24,6 +24,7 @@ import Layout from "../../layouts/userDashboard";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuthInfo } from "../../helpers/AuthCheck";
+import { Image } from "@mui/icons-material";
 
 const ReservationCheck = () => {
   // const verified = 'ok';
@@ -49,7 +50,7 @@ const ReservationCheck = () => {
 
   useEffect(() => {
     axios
-      .get("/api/booking-data", {
+      .get("/booking-data", {
         params: {
           userId: UserInfo._id,
         },
@@ -65,10 +66,10 @@ const ReservationCheck = () => {
   }, [UserInfo._id]); //properties  or  UserInfo._id, properties
 
   console.log(bookingStatuses);
+
   return (
     <Layout title={"Todays bookins"}>
       <Grid container spacing={2}>
-        <div>
           {bookingStatuses.map((propertyData, index) => {
             // const property = properties.find((p) => p._id === propertyData._id);
             return (
@@ -87,49 +88,108 @@ const ReservationCheck = () => {
                     mr={2}
                     width={"40px"}
                     height={"40px"}
-                    borderRadius={"50px"}
+                    borderRadius={"20px"}
                     bgcolor={"#e0eeff"}
                     display={"flex"}
                     textAlign={"center"}
                     alignItems={"center"}
                     justifyContent={"center"}
+                    alt="The house from the offer."
+                    src={propertyData.propertyId.images.url}
                   >
+                    {/* <Image content="img" src={propertyData.propertyId.images.url}></Image> */}
+                    
+                    
                     {/* <BarChart sx={{ fontSize: "30px", color: "#2980b9" }} /> */}
                   </Box>
 
                   {/* info box */}
                   <Box width={"40%"}>
                     {/* <Grid item xs={12} md={6} mx = {2}> 
-
           </Grid> */}
+
                     <Typography
                       variant="body1"
                       fontSize={"14px"}
                       color={"#7f7f7f"}
                     >
-                      Md. Abul Bashar
+                      {/* Md. Abul Bashar */}
+                      Property : {propertyData.propertyId.title}
+                    </Typography>
+
+                    <Typography
+                      variant="body1"
+                      fontSize={"14px"}
+                      color={"#7f7f7f"}
+                    >
+                      {/* Md. Abul Bashar */}
+                      Name : {propertyData.renterName}
                     </Typography>
                     <Typography variant="h5" fontWeight={"bold"}>
-                      Invoice-Id: 135346532
+                      Invoice-Id: {propertyData.invoiceId}
+                    </Typography>
+                    <Typography variant="h5" fontWeight={"bold"}>
+                      {propertyData.adults >= 1 && (
+                        <Typography variant="h5" fontWeight={"bold"}>
+                          Adults: {propertyData.adults}
+                        </Typography>
+                      )}
+
+                      {propertyData.children >= 1 && (
+                        <Typography variant="h5" fontWeight={"bold"}>
+                          Children: {propertyData.children}
+                        </Typography>
+                      )}
+
+                      {propertyData.infants >= 1 && (
+                        <Typography variant="h5" fontWeight={"bold"}>
+                          Infants: {propertyData.infants}
+                        </Typography>
+                      )}
+
+                      {propertyData.pets >= 1 && (
+                        <Typography variant="h5" fontWeight={"bold"}>
+                          Pets: {propertyData.pets}
+                        </Typography>
+                      )}
+
+                      {propertyData.propertyId.address.addressLine1 >= 1 && (
+                        <Typography variant="h5" fontWeight={"bold"}>
+                          Address:{propertyData.propertyId.address.addressLine1}
+                        </Typography>
+                      )}
+
+                      {propertyData.city >= 1 && (
+                        <Typography variant="h5" fontWeight={"bold"}>
+                          City: {propertyData.city}
+                        </Typography>
+                      )}
+                    </Typography>
+
+                    {/* <Typography variant="h5" fontWeight={"bold"}>
+                      Rev-id: 4534
                     </Typography>
                     <Typography variant="h5" fontWeight={"bold"}>
                       Rev-id: 4534
-                    </Typography>
+                    </Typography> */}
                     <Typography
                       variant="body1"
                       fontWeight={"600"}
                       fontSize={"14px"}
                       color={"#7f7f7f"}
+                      status
                     >
-                      Paid: 343$
+                      Transection: {propertyData.paymentId.status}
                     </Typography>
                   </Box>
+                  {propertyData.status}
+
 
                   {/* action box */}
                   <Box width={"40%"}>
                     {propertyData ? (
                       <Varification
-                        properties={propertyData._id}
+                        propertyId={propertyData._id}
                         bookinStatus={propertyData.status}
                         mode={"check"}
                       />
@@ -155,44 +215,58 @@ const ReservationCheck = () => {
               </Grid>
             );
           })}
-        </div>
+        
         );
       </Grid>
-      {/* <form onSubmit={handleSubmit}>
-           
-                <Typography variant="" fontSize={"14px"} color={"#7f7f7f"}>
-                  Instant Reservation
-                </Typography>
-                <Typography variant="h5" fontWeight={"bold"}>
-                  Activate status
-
-                </Typography>
-
-                <label for="button-file" fontSize={"4px"}> 
-                Upload NID </label>
-
-                <Input
-                  accept="image/*"
-                  style={{ display: 'flex' }}
-                  id="button-file"
-                  type="file"
-                  label="Upload NID"
-                  variant="contained"
-                 /> 
-
-                 {/* onChange={{handleSubmit}} */}
-      {/* <Button type="submit"
-                  variant="contained">
-                  Verify
-                </Button>
-                
-                <Button>Time extend</Button> */}
-      {/* <Button color="secondary" variant="contained" >Cancel </Button>
-            
-              </form> */}{" "}
-      {/**/}
     </Layout>
   );
 };
 
 export default ReservationCheck;
+
+// {propertyData.map((data, index) => {
+//   return (
+
+//       {data.city && (
+
+//           City: {data.city}
+
+//       )}
+//       {/* Render other property data here */}
+
+//   );
+// })}
+
+//  {/* <form onSubmit={handleSubmit}>
+
+// <Typography variant="" fontSize={"14px"} color={"#7f7f7f"}>
+// Instant Reservation
+// </Typography>
+// <Typography variant="h5" fontWeight={"bold"}>
+// Activate status
+
+// </Typography>
+
+// <label for="button-file" fontSize={"4px"}>
+// Upload NID </label>
+
+// <Input
+// accept="image/*"
+// style={{ display: 'flex' }}
+// id="button-file"
+// type="file"
+// label="Upload NID"
+// variant="contained"
+// />
+
+// {/* onChange={{handleSubmit}} */}
+// {/* <Button type="submit"
+// variant="contained">
+// Verify
+// </Button>
+
+// <Button>Time extend</Button> */}
+// {/* <Button color="secondary" variant="contained" >Cancel </Button>
+
+// </form> */}{" "}
+// {/**/}

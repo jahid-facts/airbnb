@@ -78,7 +78,8 @@ const WebCam = ({ setWebCamFile }) => {
             type="file"
             accept="image/*"
             onChange={handleFileChange}
-            style={{ margin: "1rem" }}
+            style={{ margin: "1rem", display: "none" }}
+            
           />
         </div>
       ) : (
