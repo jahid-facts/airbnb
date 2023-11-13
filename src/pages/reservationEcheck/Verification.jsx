@@ -23,21 +23,21 @@ function NIDVerificationForm({ propertyId, bookinStatus, mode }) {
   //console.log(propertyId);
 
 
-  const handleStatusUpdate = () =>{
-    axios
-    .post("http://localhost:5050/api/booking-status-update", {  //${process.env.REACT_APP_BASE_URL}
+  // const handleStatusUpdate = () =>{
+  //   axios
+  //   .post("http://localhost:5050/api/booking-status-update", {  //${process.env.REACT_APP_BASE_URL}
 
-        userId: UserInfo._id,
-        propertyId: propertyId,
+  //       userId: UserInfo._id,
+  //       propertyId: propertyId,
     
-    })
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  }
+  //   })
+  //   .then((response) => {
+  //     console.log(response.data);
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //   });
+  // }
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
