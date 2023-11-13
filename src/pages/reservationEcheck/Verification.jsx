@@ -154,7 +154,7 @@ function NIDVerificationForm({ bookingId,invoiceId, bookinStatus, mode }) {
               style={{ margin: "0.5rem" }}
               disabled={!file && !capturedFile}
             >
-              {mode === "check" ? "Check NID" : "Upload NID"}
+              {mode === "check" ? "Validate NID" : "Upload NID"}
             </Button>
           </div>
         </form>

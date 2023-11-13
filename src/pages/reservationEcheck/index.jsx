@@ -88,7 +88,7 @@ const ReservationCheck = () => {
                   p={1}
                   mr={2}
                   width={"100px"}
-                  height={"50px"}
+                  height={"100px"}
                   borderRadius={"20px"}
                   bgcolor={"#e0eeff"}
                   display={"flex"}
@@ -127,10 +127,10 @@ const ReservationCheck = () => {
                     color={"#7f7f7f"}
                   >
                     {/* Md. Abul Bashar */}
-                    Name : {propertyData.renterName}
+                    Name: {propertyData.renterName}
                   </Typography>
                   <Typography variant="h5" fontWeight={"bold"}>
-                    Invoice-Id: {propertyData.invoiceId}
+                    Invoice: {propertyData.invoiceId}
                   </Typography>
                   <Typography variant="h5" fontWeight={"bold"}>
                     {propertyData.adults >= 1 && (
@@ -190,6 +190,7 @@ const ReservationCheck = () => {
                 {/* action box */}
                 <Box width={"40%"}>
                   {propertyData ? (
+                    
                     <Varification
                       bookingId={propertyData._id}
                       InvoiceId={propertyData.invoiceId}
