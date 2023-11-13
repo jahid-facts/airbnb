@@ -9,6 +9,12 @@ function NIDVerificationForm({ bookingId,invoiceId, bookinStatus, mode }) {
     mode === "check"
       ? process.env.REACT_APP_CHECK_ENDPOINT
       : process.env.REACT_APP_UPDATE_ENDPOINT;
+    
+    const update_url = process.env.REACT_APP_STATUS_ENDPOINT;
+    const delete_url = process.env.REACT_APP_DELETE_ENDPOINT;
+
+
+
   const [file, setFile] = useState(null);
   const UserInfo = useAuthInfo();
   const [fileUploaded, setFileUploaded] = useState(false);
@@ -22,7 +28,7 @@ function NIDVerificationForm({ bookingId,invoiceId, bookinStatus, mode }) {
   //console.log(UserInfo._id);
   //console.log(propertyId);
 
-
+// booking status update
   const handleStatusUpdate = () =>{
     axios
     .post("http://localhost:5050/api/booking-status-update", {  //${process.env.REACT_APP_BASE_URL}
@@ -38,6 +44,25 @@ function NIDVerificationForm({ bookingId,invoiceId, bookinStatus, mode }) {
       console.error(error);
     });
   }
+
+
+
+//   /booking-delete
+const handleStatusDelete = () =>{
+  axios
+  .post("http://localhost:5050/api/booking-delete", {  //${process.env.REACT_APP_BASE_URL}
+
+      bookingId: bookingId,
+  
+  })
+  .then((response) => {
+    console.log(response.data);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+}
+
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -106,7 +131,16 @@ function NIDVerificationForm({ bookingId,invoiceId, bookinStatus, mode }) {
   return (
     <div>
       {fileUploaded || bookingStatus === "active" ? (
-        <div className="active-status" style={{ backgroundColor: "green" }}>
+        <div className="active-status" 
+        style={{
+          backgroundColor: "green",
+          textAlign: "center",
+          padding: "10px",
+          borderRadius:"15px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
           Active
         </div>
       ) : (
@@ -115,7 +149,7 @@ function NIDVerificationForm({ bookingId,invoiceId, bookinStatus, mode }) {
           onSubmit={handleSubmit}
           style={{
             display: "flex",
-            flexDirection: "column",
+            //flexDirection: "column",
             alignItems: "center",
           }}
         >
@@ -156,6 +190,20 @@ function NIDVerificationForm({ bookingId,invoiceId, bookinStatus, mode }) {
             >
               {mode === "check" ? "Validate NID" : "Upload NID"}
             </Button>
+
+
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onclick={handleStatusDelete}
+              style={{ margin: "0.5rem" }}
+              disabled={!file && !capturedFile}
+            >
+              Cancel Book-in
+            </Button>
+
+
           </div>
         </form>
       )}
