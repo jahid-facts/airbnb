@@ -4,7 +4,7 @@ import WebCam from "../../components/webcam";
 import { useAuthInfo } from "../../helpers/AuthCheck";
 import axios from "axios";
 
-function NIDVerificationForm({ propertyId, bookinStatus, mode }) {
+function NIDVerificationForm({ bookingId,invoiceId, bookinStatus, mode }) {
   const api_url =
     mode === "check"
       ? process.env.REACT_APP_CHECK_ENDPOINT
@@ -23,21 +23,21 @@ function NIDVerificationForm({ propertyId, bookinStatus, mode }) {
   //console.log(propertyId);
 
 
-  // const handleStatusUpdate = () =>{
-  //   axios
-  //   .post("http://localhost:5050/api/booking-status-update", {  //${process.env.REACT_APP_BASE_URL}
+  const handleStatusUpdate = () =>{
+    axios
+    .post("http://localhost:5050/api/booking-status-update", {  //${process.env.REACT_APP_BASE_URL}
 
-  //       userId: UserInfo._id,
-  //       propertyId: propertyId,
+        bookingId: bookingId,
+        invoiceId: invoiceId,
     
-  //   })
-  //   .then((response) => {
-  //     console.log(response.data);
-  //   })
-  //   .catch((error) => {
-  //     console.error(error);
-  //   });
-  // }
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -89,7 +89,7 @@ function NIDVerificationForm({ propertyId, bookinStatus, mode }) {
       if (data.success === "Id Found") {
         // bookings
         setBookingStatus("active");
-        //handleStatusUpdate();
+        handleStatusUpdate();
 
         setFileUploaded(true);
       } else if (data.success === "NID OCR is completed! and stored") {

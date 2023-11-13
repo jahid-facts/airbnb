@@ -189,7 +189,8 @@ const ReservationCheck = () => {
                   <Box width={"40%"}>
                     {propertyData ? (
                       <Varification
-                        propertyId={propertyData._id}
+                        bookingId={propertyData._id}
+                        InvoiceId ={propertyData.invoiceId}
                         bookinStatus={propertyData.status}
                         mode={"check"}
                       />
