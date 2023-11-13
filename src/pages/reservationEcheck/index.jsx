@@ -24,7 +24,7 @@ import Layout from "../../layouts/userDashboard";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuthInfo } from "../../helpers/AuthCheck";
-import { Image } from "@mui/icons-material";
+//import { Image } from "@mui/icons-material";
 
 const ReservationCheck = () => {
   // const verified = 'ok';
@@ -87,8 +87,8 @@ const ReservationCheck = () => {
                   component="img"
                   p={1}
                   mr={2}
-                  width={"40px"}
-                  height={"40px"}
+                  width={"100px"}
+                  height={"50px"}
                   borderRadius={"20px"}
                   bgcolor={"#e0eeff"}
                   display={"flex"}
@@ -197,7 +197,7 @@ const ReservationCheck = () => {
                       mode={"check"}
                     />
                   ) : (
-                    <form>
+                    <form> 
                       <Typography
                         variant="body1"
                         fontSize={"14px"}
