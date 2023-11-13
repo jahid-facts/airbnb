@@ -139,9 +139,10 @@ const handleStatusDelete = () =>{
           borderRadius:"15px",
           display: "flex",
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
+          margin: "10px"
         }}>
-          Active
+          Rented
         </div>
       ) : (
         <form
