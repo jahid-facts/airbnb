@@ -89,7 +89,7 @@ function NIDVerificationForm({ propertyId, bookinStatus, mode }) {
       if (data.success === "Id Found") {
         // bookings
         setBookingStatus("active");
-        handleStatusUpdate();
+        //handleStatusUpdate();
 
         setFileUploaded(true);
       } else if (data.success === "NID OCR is completed! and stored") {
