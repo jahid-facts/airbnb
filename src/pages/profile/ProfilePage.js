@@ -138,7 +138,7 @@ function ProfilePage() {
                     m: 2,
                   }}
                 />
-                <Box>
+                <Box> 
                   <Typography
                     variant="h6"
                     style={{ fontWeight: "bold" }}
