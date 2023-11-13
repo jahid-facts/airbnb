@@ -70,153 +70,154 @@ const ReservationCheck = () => {
   return (
     <Layout title={"Todays bookins"}>
       <Grid container spacing={2}>
-          {bookingStatuses.map((propertyData, index) => {
-            // const property = properties.find((p) => p._id === propertyData._id);
-            return (
-              <Grid item xs={12} md={10} mx={10} key={propertyData._id}>
+        {bookingStatuses.map((propertyData, index) => {
+          // const property = properties.find((p) => p._id === propertyData._id);
+          return (
+            <Grid item xs={12} md={10} mx={10} key={propertyData._id}>
+              <Box
+                display={"flex"}
+                alignItems={"center"}
+                p={3}
+                boxShadow={theme.palette.boxShadow}
+                bgcolor={"#ffffff"}
+                borderRadius={"20px"}
+              >
+                {/* icon img box */}
                 <Box
-                  display={"flex"}
-                  alignItems={"center"}
-                  p={3}
-                  boxShadow={theme.palette.boxShadow}
-                  bgcolor={"#ffffff"}
+                  component="img"
+                  p={1}
+                  mr={2}
+                  width={"40px"}
+                  height={"40px"}
                   borderRadius={"20px"}
+                  bgcolor={"#e0eeff"}
+                  display={"flex"}
+                  textAlign={"center"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                  alt="The house from the offer."
+                  src={propertyData.propertyId.images[0].url}
                 >
-                  {/* icon img box */}
-                  <Box
-                    p={1}
-                    mr={2}
-                    width={"40px"}
-                    height={"40px"}
-                    borderRadius={"20px"}
-                    bgcolor={"#e0eeff"}
-                    display={"flex"}
-                    textAlign={"center"}
-                    alignItems={"center"}
-                    justifyContent={"center"}
-                    alt="The house from the offer."
-                    src={propertyData.propertyId.images.url}
-                  >
-                    {/* <Image content="img" src={propertyData.propertyId.images.url}></Image> */}
-                    
-                    
-                    {/* <BarChart sx={{ fontSize: "30px", color: "#2980b9" }} /> */}
-                  </Box>
+                  {/* <BarChart sx={{ fontSize: "30px", color: "#2980b9" }} /> */}
+                </Box>
 
-                  {/* info box */}
-                  <Box width={"40%"}>
-                    {/* <Grid item xs={12} md={6} mx = {2}> 
+                {/* <Image
+                  alt="The house from the offer."
+                  src={propertyData.propertyId.images[0].url}
+                  /> */}
+                {/* <img src={propertyData.propertyId.images.url} alt=""/> */}
+
+                {/* info box */}
+                <Box width={"40%"}>
+                  {/* <Grid item xs={12} md={6} mx = {2}> 
           </Grid> */}
 
-                    <Typography
-                      variant="body1"
-                      fontSize={"14px"}
-                      color={"#7f7f7f"}
-                    >
-                      {/* Md. Abul Bashar */}
-                      Property : {propertyData.propertyId.title}
-                    </Typography>
+                  <Typography
+                    variant="body1"
+                    fontSize={"14px"}
+                    color={"#7f7f7f"}
+                  >
+                    {/* Md. Abul Bashar */}
+                    Property : {propertyData.propertyId.title}
+                  </Typography>
 
-                    <Typography
-                      variant="body1"
-                      fontSize={"14px"}
-                      color={"#7f7f7f"}
-                    >
-                      {/* Md. Abul Bashar */}
-                      Name : {propertyData.renterName}
-                    </Typography>
-                    <Typography variant="h5" fontWeight={"bold"}>
-                      Invoice-Id: {propertyData.invoiceId}
-                    </Typography>
-                    <Typography variant="h5" fontWeight={"bold"}>
-                      {propertyData.adults >= 1 && (
-                        <Typography variant="h5" fontWeight={"bold"}>
-                          Adults: {propertyData.adults}
-                        </Typography>
-                      )}
+                  <Typography
+                    variant="body1"
+                    fontSize={"14px"}
+                    color={"#7f7f7f"}
+                  >
+                    {/* Md. Abul Bashar */}
+                    Name : {propertyData.renterName}
+                  </Typography>
+                  <Typography variant="h5" fontWeight={"bold"}>
+                    Invoice-Id: {propertyData.invoiceId}
+                  </Typography>
+                  <Typography variant="h5" fontWeight={"bold"}>
+                    {propertyData.adults >= 1 && (
+                      <Typography variant="h5" fontWeight={"bold"}>
+                        Adults: {propertyData.adults}
+                      </Typography>
+                    )}
 
-                      {propertyData.children >= 1 && (
-                        <Typography variant="h5" fontWeight={"bold"}>
-                          Children: {propertyData.children}
-                        </Typography>
-                      )}
+                    {propertyData.children >= 1 && (
+                      <Typography variant="h5" fontWeight={"bold"}>
+                        Children: {propertyData.children}
+                      </Typography>
+                    )}
 
-                      {propertyData.infants >= 1 && (
-                        <Typography variant="h5" fontWeight={"bold"}>
-                          Infants: {propertyData.infants}
-                        </Typography>
-                      )}
+                    {propertyData.infants >= 1 && (
+                      <Typography variant="h5" fontWeight={"bold"}>
+                        Infants: {propertyData.infants}
+                      </Typography>
+                    )}
 
-                      {propertyData.pets >= 1 && (
-                        <Typography variant="h5" fontWeight={"bold"}>
-                          Pets: {propertyData.pets}
-                        </Typography>
-                      )}
+                    {propertyData.pets >= 1 && (
+                      <Typography variant="h5" fontWeight={"bold"}>
+                        Pets: {propertyData.pets}
+                      </Typography>
+                    )}
 
-                      {propertyData.propertyId.address.addressLine1 >= 1 && (
-                        <Typography variant="h5" fontWeight={"bold"}>
-                          Address:{propertyData.propertyId.address.addressLine1}
-                        </Typography>
-                      )}
+                    {propertyData.propertyId.address.addressLine1 >= 1 && (
+                      <Typography variant="h5" fontWeight={"bold"}>
+                        Address:{propertyData.propertyId.address.addressLine1}
+                      </Typography>
+                    )}
 
-                      {propertyData.city >= 1 && (
-                        <Typography variant="h5" fontWeight={"bold"}>
-                          City: {propertyData.city}
-                        </Typography>
-                      )}
-                    </Typography>
+                    {propertyData.city >= 1 && (
+                      <Typography variant="h5" fontWeight={"bold"}>
+                        City: {propertyData.city}
+                      </Typography>
+                    )}
+                  </Typography>
 
-                    {/* <Typography variant="h5" fontWeight={"bold"}>
+                  {/* <Typography variant="h5" fontWeight={"bold"}>
                       Rev-id: 4534
                     </Typography>
                     <Typography variant="h5" fontWeight={"bold"}>
                       Rev-id: 4534
                     </Typography> */}
-                    <Typography
-                      variant="body1"
-                      fontWeight={"600"}
-                      fontSize={"14px"}
-                      color={"#7f7f7f"}
-                      status
-                    >
-                      Transection: {propertyData.paymentId.status}
-                    </Typography>
-                  </Box>
-                  {propertyData.status}
-
-
-                  {/* action box */}
-                  <Box width={"40%"}>
-                    {propertyData ? (
-                      <Varification
-                        bookingId={propertyData._id}
-                        InvoiceId ={propertyData.invoiceId}
-                        bookinStatus={propertyData.status}
-                        mode={"check"}
-                      />
-                    ) : (
-                      <form>
-                        <Typography
-                          variant="body1"
-                          fontSize={"14px"}
-                          color={"#7f7f7f"}
-                        >
-                          Instant Reservation
-                        </Typography>
-                        <Typography variant="h5" fontWeight={"bold"}>
-                          Activate status
-                        </Typography>
-                        <button>Validate NID</button>
-                        <button>Time extend</button>
-                        <button>Cancel</button>
-                      </form>
-                    )}
-                  </Box>
+                  <Typography
+                    variant="body1"
+                    fontWeight={"600"}
+                    fontSize={"14px"}
+                    color={"#7f7f7f"}
+                    status
+                  >
+                    Transection: {propertyData.paymentId.status}
+                  </Typography>
                 </Box>
-              </Grid>
-            );
-          })}
-        
+
+                {/* action box */}
+                <Box width={"40%"}>
+                  {propertyData ? (
+                    <Varification
+                      bookingId={propertyData._id}
+                      InvoiceId={propertyData.invoiceId}
+                      bookinStatus={propertyData.status}
+                      mode={"check"}
+                    />
+                  ) : (
+                    <form>
+                      <Typography
+                        variant="body1"
+                        fontSize={"14px"}
+                        color={"#7f7f7f"}
+                      >
+                        Instant Reservation
+                      </Typography>
+                      <Typography variant="h5" fontWeight={"bold"}>
+                        Activate status
+                      </Typography>
+                      <button>Validate NID</button>
+                      <button>Time extend</button>
+                      <button>Cancel</button>
+                    </form>
+                  )}
+                </Box>
+              </Box>
+            </Grid>
+          );
+        })}
         );
       </Grid>
     </Layout>
@@ -225,49 +226,3 @@ const ReservationCheck = () => {
 
 export default ReservationCheck;
 
-// {propertyData.map((data, index) => {
-//   return (
-
-//       {data.city && (
-
-//           City: {data.city}
-
-//       )}
-//       {/* Render other property data here */}
-
-//   );
-// })}
-
-//  {/* <form onSubmit={handleSubmit}>
-
-// <Typography variant="" fontSize={"14px"} color={"#7f7f7f"}>
-// Instant Reservation
-// </Typography>
-// <Typography variant="h5" fontWeight={"bold"}>
-// Activate status
-
-// </Typography>
-
-// <label for="button-file" fontSize={"4px"}>
-// Upload NID </label>
-
-// <Input
-// accept="image/*"
-// style={{ display: 'flex' }}
-// id="button-file"
-// type="file"
-// label="Upload NID"
-// variant="contained"
-// />
-
-// {/* onChange={{handleSubmit}} */}
-// {/* <Button type="submit"
-// variant="contained">
-// Verify
-// </Button>
-
-// <Button>Time extend</Button> */}
-// {/* <Button color="secondary" variant="contained" >Cancel </Button>
-
-// </form> */}{" "}
-// {/**/}
