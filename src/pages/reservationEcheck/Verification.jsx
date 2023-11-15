@@ -34,7 +34,7 @@ function NIDVerificationForm({ bookingId,invoiceId, bookinStatus, mode }) {
     .post("http://localhost:5050/api/booking-status-update", {  //${process.env.REACT_APP_BASE_URL}
 
         bookingId: bookingId,
-        invoiceId: invoiceId,
+        // invoiceId: invoiceId,
     
     })
     .then((response) => {

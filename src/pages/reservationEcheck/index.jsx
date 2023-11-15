@@ -193,7 +193,7 @@ const ReservationCheck = () => {
                     
                     <Varification
                       bookingId={propertyData._id}
-                      InvoiceId={propertyData.invoiceId}
+                      // InvoiceId={propertyData.invoiceId}
                       bookinStatus={propertyData.status}
                       mode={"check"}
                     />
