@@ -430,6 +430,12 @@ export default function ReservationDetails() {
                       </Grid>
                     </Grid>
                     <Divider sx={{ my: 4 }} />
+
+
+
+
+
+                    
                     <Grid container spacing={3}>
                       <Grid item xs={12}>
                         <Typography
@@ -666,6 +672,11 @@ export default function ReservationDetails() {
                         </Box>
                       </Grid>
                     </Grid>
+
+
+
+
+
                     <Divider sx={{ my: 4 }} />
 
                     {/* <Box sx={{ my: "40px" }}>

@@ -20,6 +20,9 @@ import { AppLayout } from "../../layouts/appLayout";
 import { useAuthInfo } from "../../helpers/AuthCheck";
 // import ReservationCheck from "../reservationEcheck";
 import NIDVerificationForm from "../reservationEcheck/Verification";
+import ReviewForm from "../../components/review";
+// import ReviewPanel from "../../components/rating";
+
 
 function ProfilePage() {
   const [value, setValue] = useState(0);
@@ -36,7 +39,7 @@ function ProfilePage() {
     setUploadOpen(!isUploadOpen);
   };
 
-  const handleVerify = () => {};
+  //const handleVerify = () => {};
 
   return (
     <AppLayout>
@@ -138,7 +141,7 @@ function ProfilePage() {
                     m: 2,
                   }}
                 />
-                <Box> 
+                <Box>
                   <Typography
                     variant="h6"
                     style={{ fontWeight: "bold" }}
@@ -165,7 +168,7 @@ function ProfilePage() {
                     Edit Profile
                   </Button> */}
                   <NIDVerificationForm />
-                </Box> 
+                </Box>
               </Paper>
             </Grid>
             <Grid item xs={8}>
@@ -282,10 +285,20 @@ function Tab3Content() {
   );
 }
 
+// ----------------------------------------------------------------
+
 function Tab4Content() {
   return (
     <div>
       <h4>Past Renting</h4>
+
+      {/* <ReviewPanel /> */}
+      <ReviewForm/>
+
+
+
+
+
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
         doloremque dolore vitae cum quibusdam quaerat dicta, rem nostrum itaque
@@ -321,6 +334,8 @@ function Tab4Content() {
         quidem. Beatae, distinctio.
       </p>
     </div>
+
+    // ----------------------------------------------------------------------------
   );
 }
 
