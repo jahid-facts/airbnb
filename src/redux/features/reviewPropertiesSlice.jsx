@@ -1,19 +1,22 @@
 // //ReviewPropertiesSlice
 
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { getApi, postApi } from "../../config/configAxios";
 
-const review_url = process.env.REACT_APP_CREATE_REVIEW_ENDPOINT;
-console.log(review_url);
+
+// const review_url = process.env.REACT_APP_CREATE_REVIEW_ENDPOINT;
+// console.log(review_url);
 
 
 // Define the async thunk to fetch all properties for admin
-export const getAllProperties = createAsyncThunk(
+export const saveReviews = createAsyncThunk(
   "reviews/storeReviews",
-  async (_, { rejectWithValue }) => {
+  async (review, { rejectWithValue }) => {
     try {
-      const response = await getApi("/getAllProperties");
-      return response.data.properties;
+      const response = await postApi("/reviews", review);
+      console.log(response)
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data.error);
     }
@@ -21,21 +24,15 @@ export const getAllProperties = createAsyncThunk(
 );
 
 
-const addReview = () => async (dispatch, getState) => {
-  const review = {
-    // name: getState().reviewProperties.name,
-    propertyId: getState().reviewProperties.propertyId,
-    reviewMessage: getState().reviewProperties.reviewMessage,
-    rating: getState().reviewProperties.rating,
-  };
 
-  try {
-    const response = await axios.post(review_url, review);
-    dispatch({ type: 'ADD_REVIEW', payload: response.data }); //sending the propertyId to the database.
-  } catch (error) {
-    console.error('Error adding review:', error);
-  }
-};
+
+
+
+
+
+
+
+
 
 const initialState = {
   // name: '',

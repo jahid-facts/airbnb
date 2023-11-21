@@ -3,7 +3,7 @@ import ReviewRating from '../rating';
 import { Box } from '@mui/material';
 
 import { useState } from 'react';
-import  addReview , { selectReviewProperties, setPropertyId, setReview, resetReviewProperties } from '../../redux/features/reviewPropertiesSlice';
+import  addReview , { selectReviewProperties, setPropertyId, setReview, resetReviewProperties, saveReviews } from '../../redux/features/reviewPropertiesSlice';
 
 const ReviewForm = () => {
   const dispatch = useDispatch();
@@ -14,15 +14,17 @@ const ReviewForm = () => {
   const [rating, setRating] = useState(null);
 
   const handleSubmit = () => {
-    dispatch(setReview(message));
-    dispatch(setPropertyId(propertyId));
-    dispatch(setRating(rating));
-    dispatch(addReview());
+    // dispatch(setReview(message));
+    // dispatch(setPropertyId(propertyId));
+    // dispatch(setRating(rating));
+    // dispatch(addReview());
+    const review= {message:message , rating:rating}
+    dispatch(saveReviews(review));
+    // dispatch(resetReviewProperties());
 
-    dispatch(resetReviewProperties());
-
-    setMessage('');
-    setRating(null);
+    // setMessage('');
+    // setRating(null);
+    console.log(message , rating)
   };
 
   return (
