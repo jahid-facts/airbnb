@@ -6,9 +6,18 @@ import { useState } from "react";
 
 const ReviewForm = ({ propertyID }) => {
   const [reviewMessage, setReviewMessage] = useState("");
-  const [rating, setRating] = useState(null);
   const [propertyId, setPropertyId] = useState(null);
+  const [CommunicationRating, setCommunicationRating] = useState(null);
+  const [RecommendRating, setRecommendRating] = useState(null);
+  const [ServicesRating, setServicesRating] = useState(null);
+  const [LocationRating, setLocationRating] = useState(null);
+  
 
+  const ratingType =["CommunicationRating",
+    "RecommendRating",
+    "ServicesRating",
+    "LocationRating",
+    ]
   // const review_url = process.env.REACT_APP_CREATE_REVIEW_ENDPOINT;
   // console.log(review_url);
 
@@ -36,9 +45,13 @@ const ReviewForm = ({ propertyID }) => {
     setPropertyId(propertyID);
     //console.log(propertyId);
     const review = {
-      reviewMessage,
-      rating,
       propertyId: propertyId._id,
+      reviewMessage,
+      CommunicationRating,
+      RecommendRating,
+      ServicesRating,
+      LocationRating,
+      
     };
     console.log(review);
 
@@ -66,27 +79,26 @@ const ReviewForm = ({ propertyID }) => {
       // alignItems="flex-start"
     >
 
-{/* 
-Communication
-Recommend
-Services
-Cleanliness
-Location */}
 
 
+{ratingType.map((rentalRating)=>(
+      <Grid item xs={12} sm={6}>
+      <ReviewRating ratingType={rentalRating}  setRating={setCommunicationRating}  />
+    </Grid>
+))}
 
-      <Grid item xs={12} sm={6}>
-        <ReviewRating setRating={setRating} />
+      {/* <Grid item xs={12} sm={6}>
+        <ReviewRating setRating={setCommunicationRating}  />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <ReviewRating setRating={setRating} />
+        <ReviewRating setRating={setRecommendRating} />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <ReviewRating setRating={setRating} />
+        <ReviewRating setRating={setServicesRating} />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <ReviewRating setRating={setRating} />
-      </Grid>
+        <ReviewRating setRating={setLocationRating} />
+      </Grid> */}
 
       <Grid Items>
         <textarea

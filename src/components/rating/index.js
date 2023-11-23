@@ -17,8 +17,8 @@ import { useState } from 'react';
 import { Typography, Box } from '@mui/material';
 import Rating from '@mui/material/Rating';
 
-const ReviewRating = ({ value, setRating }) => {
-  const [newValue, setNewValue] = useState(value);
+const ReviewRating = ({ ratingType, setRating }) => {
+  const [newValue, setNewValue] = useState(null);
 
   const handleChange = (event, newValue) => {
     setNewValue(newValue);
@@ -35,7 +35,7 @@ const ReviewRating = ({ value, setRating }) => {
         //  marginBottom:"10px"
       }}
     >
-      <Typography component="legend">Controlled</Typography>
+      <Typography component="legend">{ratingType}</Typography>
       
       <Rating
         name="simple-controlled"
