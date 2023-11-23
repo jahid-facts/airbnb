@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Grid,
@@ -11,6 +11,8 @@ import {
   Button,
   Box,
   Divider,
+  ListItem,
+  ListItemText,
 } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
 import PersonalInfo from "./ProfileContent/PersonalInfo";
@@ -21,15 +23,13 @@ import { useAuthInfo } from "../../helpers/AuthCheck";
 // import ReservationCheck from "../reservationEcheck";
 import NIDVerificationForm from "../reservationEcheck/Verification";
 import ReviewForm from "../../components/review";
+// import { getApi } from "../../config/configAxios";
+import axios from "axios";
 // import ReviewPanel from "../../components/rating";
-
 
 function ProfilePage() {
   const [value, setValue] = useState(0);
   const [isUploadOpen, setUploadOpen] = useState(false);
-
-  const userInfo = useAuthInfo();
-  console.log(userInfo);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -288,54 +288,70 @@ function Tab3Content() {
 // ----------------------------------------------------------------
 
 function Tab4Content() {
+  const [rentingStatus, setRentingStatus] = useState([]);
+
+  const userInfo = useAuthInfo();
+  console.log(userInfo);
+
+  // const bookinData = getApi("/renter-bookins");
+
+  useEffect(() => {
+    axios
+      .get("/renter-bookins", {
+        params: {
+          userId: userInfo._id,
+        },
+      })
+      .then((response) => {
+        //console.log(response.data);
+        setRentingStatus(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [userInfo._id]); //properties  or  UserInfo._id, properties
+
   return (
-    <div>
-      <h4>Past Renting</h4>
+    <>
+      <Box><h3>Review The stay</h3></Box>
+      <br></br>
+      
+      <Grid container spacing={2}>
+        {rentingStatus.map((rental) => (
+          <Grid item >
+            <ListItem alignItems="flex-start">
+              <Box // image box icon design
+                component="img"
+                p={1}
+                mr={2}
+                width={"15.625rem"}
+                height={"15.625rem"}
+                borderRadius={"10px"}
+                bgcolor={"#e0eeff"}
+                display={"flex"}
+                textAlign={"center"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                alt="The house from the offer."
+                src={rental.propertyId.images[0].url}
+              >
+                {/* <BarChart sx={{ fontSize: "30px", color: "#2980b9" }} /> */}
+              </Box>
+              <ListItemText
+              primary={rental.propertyId.title}
+              secondary= {rental.propertyId.address.addressLine1}
+              />
+              <ListItem>
+              <ReviewForm propertyID={rental.propertyId} />
+              </ListItem>
+              
 
-      {/* <ReviewPanel /> */}
-      <ReviewForm/>
-
-
-
-
-
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
-        doloremque dolore vitae cum quibusdam quaerat dicta, rem nostrum itaque
-        obcaecati cumque corporis assumenda qui, tempora accusantium odit
-        nesciunt tenetur ea.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut dignissimos
-        aspernatur laboriosam, laborum mollitia natus consequatur voluptate,
-        neque alias molestiae magni quaerat, quis unde recusandae dolor.
-        Repellat inventore ad iure voluptatem libero! Exercitationem aspernatur
-        eum perferendis ullam, laborum alias? Delectus saepe temporibus
-        repellat. Eaque aut unde fugit veniam id voluptas officia quo explicabo
-        delectus illum velit totam saepe dolorum, cupiditate voluptatibus cumque
-        fuga, dolorem illo minus vel quisquam enim dolore? Possimus voluptatum
-        dolor tempore, officiis deleniti sunt numquam magni repudiandae iusto
-        cupiditate, aspernatur, deserunt voluptatem dolores placeat! Et nam
-        dolores veritatis numquam rem reiciendis facilis, atque dignissimos
-        quidem. Beatae, distinctio.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut dignissimos
-        aspernatur laboriosam, laborum mollitia natus consequatur voluptate,
-        neque alias molestiae magni quaerat, quis unde recusandae dolor.
-        Repellat inventore ad iure voluptatem libero! Exercitationem aspernatur
-        eum perferendis ullam, laborum alias? Delectus saepe temporibus
-        repellat. Eaque aut unde fugit veniam id voluptas officia quo explicabo
-        delectus illum velit totam saepe dolorum, cupiditate voluptatibus cumque
-        fuga, dolorem illo minus vel quisquam enim dolore? Possimus voluptatum
-        dolor tempore, officiis deleniti sunt numquam magni repudiandae iusto
-        cupiditate, aspernatur, deserunt voluptatem dolores placeat! Et nam
-        dolores veritatis numquam rem reiciendis facilis, atque dignissimos
-        quidem. Beatae, distinctio.
-      </p>
-    </div>
-
-    // ----------------------------------------------------------------------------
+            </ListItem>
+          </Grid>
+        ))}
+        ;
+      </Grid>
+    </>
   );
 }
 

@@ -9,17 +9,30 @@ import { getApi, postApi } from "../../config/configAxios";
 // console.log(review_url);
 
 
+
+
+
 // Define the async thunk to fetch all properties for admin
 export const saveReviews = createAsyncThunk(
   "reviews/storeReviews",
   async (review, { rejectWithValue }) => {
     try {
+      console.log(review);
       const response = await postApi("/reviews", review);
+      //updateReviewStatus(review)
       console.log(response)
+
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data.error);
     }
+
+
+
+
+
+
   }
 );
 
@@ -28,14 +41,8 @@ export const saveReviews = createAsyncThunk(
 
 
 
-
-
-
-
-
-
 const initialState = {
-  // name: '',
+  name: 'reviewProperties',
   propertyId: null,
   reviewMessage: '',
   rating: null,
@@ -54,7 +61,11 @@ const reviewPropertiesSlice = createSlice({
     setRating: (state, action) => {
       state.rating = action.payload;
     },
-    resetReviewProperties: () => initialState,
+    resetReviewProperties: () => ({
+      propertyId: null,
+      reviewMessage: '',
+      rating: null,
+    }),
   },
 });
 

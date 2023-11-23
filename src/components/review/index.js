@@ -1,70 +1,142 @@
-import { useSelector,useDispatch } from 'react-redux';
-import ReviewRating from '../rating';
-import { Box } from '@mui/material';
+import ReviewRating from "../rating";
+import { Box, Button, Grid } from "@mui/material";
+import axios from "axios";
 
-import { useState } from 'react';
-import  addReview , { selectReviewProperties, setPropertyId, setReview, resetReviewProperties, saveReviews } from '../../redux/features/reviewPropertiesSlice';
+import { useState } from "react";
 
-const ReviewForm = () => {
-  const dispatch = useDispatch();
-  const reviewProperties = useSelector(selectReviewProperties);
-  const { propertyId } = reviewProperties;
-
-  const [message, setMessage] = useState('');
+const ReviewForm = ({ propertyID }) => {
+  const [reviewMessage, setReviewMessage] = useState("");
   const [rating, setRating] = useState(null);
+  const [propertyId, setPropertyId] = useState(null);
+
+  // const review_url = process.env.REACT_APP_CREATE_REVIEW_ENDPOINT;
+  // console.log(review_url);
+
+  // const handleSubmit = () => {
+  //   try {
+  //     console.log(review);
+  //     const response = postApi("/reviews", review);
+  //     //updateReviewStatus(review)
+  //     console.log(response);
+
+  //     return response.data;
+  //   } catch (error) {
+  //     return error.response.data.error;
+  //   }
+
+  //   try {
+  //     const response = postApi("/reviewStatusUpdate", review.propertyId);
+  //     return response;
+  //   } catch (error) {
+  //     console.error("Error adding review:", error);
+  //   }
+  // };
 
   const handleSubmit = () => {
-    // dispatch(setReview(message));
-    // dispatch(setPropertyId(propertyId));
-    // dispatch(setRating(rating));
-    // dispatch(addReview());
-    const review= {message:message , rating:rating}
-    dispatch(saveReviews(review));
-    // dispatch(resetReviewProperties());
+    setPropertyId(propertyID);
+    //console.log(propertyId);
+    const review = {
+      reviewMessage,
+      rating,
+      propertyId: propertyId._id,
+    };
+    console.log(review);
 
-    // setMessage('');
-    // setRating(null);
-    console.log(message , rating)
+    axios
+      .post("/reviews", review)
+      .then((response) => {
+        console.log(response.data);
+
+        axios
+          .post("/reviewStatusUpdate", { propertyId: propertyId._id })
+          .catch((error) => {
+            console.error("Error updating reviewStatus:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error adding review:", error.response.data.error);
+      });
   };
 
   return (
-    <Box
-      sx={{
-        '& > label': { display: 'block', marginBottom: '10px' },
-      }}
+    <Grid
+      container
+      columnSpacing={1}
+      justifyContent="space-around"
+      // alignItems="flex-start"
     >
-      <label htmlFor="propertyId">Property ID:</label>
-    
-      <label htmlFor="review">Review:</label>
-      <textarea id="review" value={message} onChange={(e) => setMessage(e.target.value)} />
-      <ReviewRating setRating={setRating} />
-      <button onClick={handleSubmit}>Submit</button>
-    </Box>
+
+{/* 
+Communication
+Recommend
+Services
+Cleanliness
+Location */}
+
+
+
+      <Grid item xs={12} sm={6}>
+        <ReviewRating setRating={setRating} />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <ReviewRating setRating={setRating} />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <ReviewRating setRating={setRating} />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <ReviewRating setRating={setRating} />
+      </Grid>
+
+      <Grid Items>
+        <textarea
+          rows={3}
+          sx={{ display: "block" }}
+          id="review"
+          value={reviewMessage}
+          onChange={(e) => setReviewMessage(e.target.value)}
+        />
+      </Grid>
+      <Grid Items>
+        <Button variant="contained" onClick={handleSubmit}>
+          {" "}
+          Feedback{" "}
+        </Button>
+      </Grid>
+    </Grid>
   );
 };
 
 export default ReviewForm;
 
+// const handleSubmit = () => {
+//   // dispatch(setReview(message));
+//   // dispatch(setPropertyId(propertyId));
+//   // dispatch(setRating(rating));
+//   // dispatch(addReview());
+//   setProperty(propertyID);
+//   console.log(property.propertyId)
 
+//   const review = {
+//     propertyId: property.propertyId,
+//     reviewMessage: message,
+//     rating: rating,
+//   };
+//   //console.log(review);
+//   dispatch(saveReviews(review))
+//   .unwrap()
+//   .catch((error) => {
+//     console.error(error);
+//   });
 
+//   // Reset the review properties
+//   dispatch(resetReviewProperties());
+//   // setMessage("");
+//   // setRating(null);
+//   // setPropertyId(null);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//   //console.log(propertyID._id, message, rating);
+// };
 
 // const ReviewForm = () => {
 //   const dispatch = useDispatch();
@@ -92,7 +164,7 @@ export default ReviewForm;
 //       }}
 //     >
 //       <label htmlFor="propertyId">Property ID:</label>
-    
+
 //       <label htmlFor="review">Review:</label>
 //       <textarea id="review" value={message} onChange={(e) => setMessage(e.target.value)} />
 //       <ReviewRating setRating={setRating} />

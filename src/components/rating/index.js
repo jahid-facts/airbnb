@@ -10,6 +10,9 @@
 // Here's an updated version of the `ReviewRating` component that uses the `setRating` action:
 
 // ```javascript
+
+
+
 import { useState } from 'react';
 import { Typography, Box } from '@mui/material';
 import Rating from '@mui/material/Rating';
@@ -25,10 +28,15 @@ const ReviewRating = ({ value, setRating }) => {
   return (
     <Box
       sx={{
-        '& > legend': { mt: 2 },
+        '& > legend': { m: 2 },
+        display:"inline-block",
+        marginLeft: "7px",
+        marginRight:"10px",
+        //  marginBottom:"10px"
       }}
     >
       <Typography component="legend">Controlled</Typography>
+      
       <Rating
         name="simple-controlled"
         value={newValue}
