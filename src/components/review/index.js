@@ -13,10 +13,10 @@ const ReviewForm = ({ propertyID }) => {
   const [LocationRating, setLocationRating] = useState(null);
   
 
-  const ratingType =["CommunicationRating",
-    "RecommendRating",
-    "ServicesRating",
-    "LocationRating",
+  const ratingType =["Communication",
+    "Recommend",
+    "Services",
+    "Location",
     ]
   // const review_url = process.env.REACT_APP_CREATE_REVIEW_ENDPOINT;
   // console.log(review_url);
@@ -79,26 +79,24 @@ const ReviewForm = ({ propertyID }) => {
       // alignItems="flex-start"
     >
 
-
-
-{ratingType.map((rentalRating)=>(
+{/* {ratingType.map((rentalRating)=>(
       <Grid item xs={12} sm={6}>
       <ReviewRating ratingType={rentalRating}  setRating={setCommunicationRating}  />
     </Grid>
-))}
+))} */}
 
-      {/* <Grid item xs={12} sm={6}>
-        <ReviewRating setRating={setCommunicationRating}  />
+      <Grid item xs={12} sm={6}>
+        <ReviewRating ratingType={"Communication"} setRating={setCommunicationRating}  />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <ReviewRating setRating={setRecommendRating} />
+        <ReviewRating ratingType={"Recommend"} setRating={setRecommendRating} />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <ReviewRating setRating={setServicesRating} />
+        <ReviewRating ratingType={"Services"} setRating={setServicesRating} />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <ReviewRating setRating={setLocationRating} />
-      </Grid> */}
+        <ReviewRating ratingType={"Location"} setRating={setLocationRating} />
+      </Grid>
 
       <Grid Items>
         <textarea

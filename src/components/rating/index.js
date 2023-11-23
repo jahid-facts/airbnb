@@ -32,6 +32,7 @@ const ReviewRating = ({ ratingType, setRating }) => {
         display:"inline-block",
         marginLeft: "7px",
         marginRight:"10px",
+        textAlign:"center"
         //  marginBottom:"10px"
       }}
     >
