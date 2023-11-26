@@ -31,6 +31,12 @@ import "./imageOverlay.css";
 import CustomHashLoader from "../../components/customLoader/CustomHashLoader";
 import { Icon } from "@iconify/react";
 import OpenAmenitiseList from "./AmenitiseList";
+import axios from "axios";
+// import LocalizationProvider from '@mui/lab/LocalizationProvider';
+// import DatePicker from '@mui/lab/DatePicker';
+
+// import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+// import { format } from 'date-fns';
 
 export default function ReservationDetails() {
   const [selectPosition, setSelectPosition] = React.useState(null);
@@ -41,6 +47,18 @@ export default function ReservationDetails() {
   const [itemDataImages, setItemDataImages] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const { propertyId } = useParams();
+  const [responsedData, setResponsedData] = React.useState([]);
+
+  const [overAllAverage, setOverAllAverage] = React.useState(null);
+  const [communicationAverage, setCommunicationAverage] = React.useState(null);
+
+  const [recommendAverage, setRecommendAverage] = React.useState(null);
+
+  const [servicesAverage, setServicesAverage] = React.useState(null);
+
+  const [locationAverage, setLocationAverage] = React.useState(null);
+
+  const [reviewDate, setReviewDate] = React.useState("");
 
   React.useEffect(() => {
     const fetchDataServer = async () => {
@@ -61,8 +79,67 @@ export default function ReservationDetails() {
         setItemDataImages(newItems);
         setAmenitiseItem(response.data.property?.amenitiesIds);
         setLoading(false); // Set loading to false after data is fetched
+
+        console.log(propertyId);
+
+        function calculateAverage(array) {
+          let sum = 0;
+          const length = array.length;
+
+          for (let i = 0; i < length; i++) {
+            sum += array[i];
+          }
+
+          const average = sum / length;
+          return average;
+        }
+
+        // getting response from mongodb
+        const reviewResponse = await axios.get(
+          `/getReviews?propertyId=${propertyId}`
+        );
+
+        const responData = reviewResponse.data.reviws;
+        setResponsedData(responData);
+
+        for (const Data of responsedData) {
+          console.log(Data.reviewMessage);
+          console.log(Data.CommunicationRating);
+          console.log(Data.RecommendRating);
+          console.log(Data.ServicesRating);
+          console.log(Data.LocationRating);
+          console.log(Data.overAllRating);
+          console.log(Data.createdAt);
+        }
+
+        const communicationRatings = reviewResponse.data.reviws.map(
+          (data) => data.CommunicationRating
+        );
+
+        const recommendRatings = reviewResponse.data.reviws.map(
+          (data) => data.RecommendRating
+        );
+        const servicesRatings = reviewResponse.data.reviws.map(
+          (data) => data.ServicesRating
+        );
+        const locationRatings = reviewResponse.data.reviws.map(
+          (data) => data.LocationRating
+        );
+
+        const overAllRating = reviewResponse.data.reviws.map(
+          (data) => data.overAllRating
+        );
+
+        setCommunicationAverage(calculateAverage(communicationRatings));
+        setRecommendAverage(calculateAverage(recommendRatings));
+        setServicesAverage(calculateAverage(servicesRatings));
+        setLocationAverage(calculateAverage(locationRatings));
+        setOverAllAverage(calculateAverage(overAllRating));
+
+        //console.log(communicationAverage, recommendAverage);
       } catch (error) {
         console.error("Internal server error:", error);
+
         // You can add error handling here, such as displaying an error message
         setLoading(false); // Ensure to set loading to false even in case of an error
       }
@@ -99,6 +176,7 @@ export default function ReservationDetails() {
 
   // date
   const joinedDate = new Date(propertyValues?.userId?.createdAt);
+
   const year = joinedDate.getFullYear();
   const month = joinedDate.getMonth();
 
@@ -117,6 +195,22 @@ export default function ReservationDetails() {
     "November",
     "December",
   ];
+
+  const dateFormatting = (reviewDate) => {
+    const date = new Date(reviewDate); // December 25, 2023
+    const formattedDate = new Intl.DateTimeFormat("en-GB", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+      .formatToParts(date)
+      .map((part) => part.value)
+      .join(" ");
+    // const formattedDate = date.toISOString().substring(0, 10);
+    // "2023-12-25"
+    //console.log(formattedDate);dateFormatting
+    return formattedDate;
+  };
 
   return (
     <AppLayout>
@@ -431,11 +525,7 @@ export default function ReservationDetails() {
                     </Grid>
                     <Divider sx={{ my: 4 }} />
 
-
-
-
-
-                    
+                    {/* Review section */}
                     <Grid container spacing={3}>
                       <Grid item xs={12}>
                         <Typography
@@ -453,17 +543,19 @@ export default function ReservationDetails() {
                             alignItems: "center",
                           }}
                         >
-                          824 reviews for this property
+                          {responsedData.length} reviews for this property
                           <Rating
                             name="half-rating-read"
-                            value={3.5}
+                            value={overAllAverage}
                             precision={0.5}
                             readOnly
                             sx={{ mx: 1 }}
                           />
-                          4.5
+                          {/* {parseFloat(overAllAverage.toFixed("0.02"))} */}
+                          {Number(overAllAverage).toFixed(2)}
                         </Typography>
                       </Grid>
+
                       <Grid item xs={12}>
                         <Typography
                           variant="h6"
@@ -475,6 +567,7 @@ export default function ReservationDetails() {
                           Rating Breakdown
                         </Typography>
                       </Grid>
+
                       <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
                         <Typography
                           variant="text"
@@ -486,9 +579,14 @@ export default function ReservationDetails() {
                           }}
                         >
                           Communication
-                          <Rating name="read-only" value={4} readOnly />
+                          <Rating
+                            name="read-only"
+                            value={communicationAverage}
+                            readOnly
+                          />
                         </Typography>
                       </Grid>
+
                       <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
                         <Typography
                           variant="text"
@@ -500,7 +598,11 @@ export default function ReservationDetails() {
                           }}
                         >
                           Recommend
-                          <Rating name="read-only" value={5} readOnly />
+                          <Rating
+                            name="read-only"
+                            value={recommendAverage}
+                            readOnly
+                          />
                         </Typography>
                       </Grid>
                       <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
@@ -514,23 +616,14 @@ export default function ReservationDetails() {
                           }}
                         >
                           Services
-                          <Rating name="read-only" value={2} readOnly />
+                          <Rating
+                            name="read-only"
+                            value={servicesAverage}
+                            readOnly
+                          />
                         </Typography>
                       </Grid>
-                      <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
-                        <Typography
-                          variant="text"
-                          fontSize={"14px"}
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          Cleanliness
-                          <Rating name="read-only" value={3} readOnly />
-                        </Typography>
-                      </Grid>
+
                       <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
                         <Typography
                           variant="text"
@@ -542,9 +635,14 @@ export default function ReservationDetails() {
                           }}
                         >
                           Location
-                          <Rating name="read-only" value={5} readOnly />
+                          <Rating
+                            name="read-only"
+                            value={locationAverage}
+                            readOnly
+                          />
                         </Typography>
                       </Grid>
+
                       <Grid item xs={12} my={1}>
                         <Box display={"flex"} alignItems={"start"}>
                           <Avatar
@@ -573,7 +671,8 @@ export default function ReservationDetails() {
                                   variant="fullWidth"
                                   flexItem
                                 />{" "}
-                                14th December 2022
+                                {/* 14th December 2022 */}
+                                {/* {responsedData} */}
                               </Typography>
                               <Box mt={1}>
                                 <Typography variant="text" fontSize={"14px"}>
@@ -587,6 +686,51 @@ export default function ReservationDetails() {
                           </Box>
                         </Box>
                       </Grid>
+
+                      {responsedData.map((review) => (
+                        <Grid item xs={12} my={1}>
+                          <Box display={"flex"} alignItems={"start"}>
+                            <Avatar
+                              alt={review.name}
+                              sx={{ width: 40, height: 40, mr: 3 }}
+                            />
+                            <Box>
+                              <Typography fontWeight={"bold"}>
+                                {review.name}
+                              </Typography>
+                              <Box>
+                                <Typography
+                                  variant="text"
+                                  fontSize={"14px"}
+                                  sx={{ display: "flex", alignItems: "center" }}
+                                >
+                                  <Rating
+                                    name={review.name}
+                                    sx={{ fontSize: "18px" }}
+                                    value={review.overAllRating}
+                                    precision={0.5}
+                                    readOnly
+                                  />{" "}
+                                  {review.overAllRating}
+                                  <Divider
+                                    sx={{ mx: 1 }}
+                                    orientation="vertical"
+                                    variant="fullWidth"
+                                    flexItem
+                                  />{" "}
+                                  {dateFormatting(review.createdAt)}
+                                </Typography>
+                                <Box mt={1}>
+                                  <Typography variant="text" fontSize={"14px"}>
+                                    {review.reviewMessage}
+                                  </Typography>
+                                </Box>
+                              </Box>
+                            </Box>
+                          </Box>
+                        </Grid>
+                      ))}
+
                       <Grid item xs={12} my={1}>
                         <Box display={"flex"} alignItems={"start"}>
                           <Avatar
@@ -673,41 +817,12 @@ export default function ReservationDetails() {
                       </Grid>
                     </Grid>
 
-
-
-
-
                     <Divider sx={{ my: 4 }} />
-
-                    {/* <Box sx={{ my: "40px" }}>
-                <Typography
-                  variant="h6"
-                  fontSize={"18px"}
-                  fontWeight={"600"}
-                  color={"primary.main"}
-                  mb={1}
-                >
-                  8 night
-                </Typography>
-                <Typography
-                  variant="text"
-                  fontSize={"14px"}
-                  color={"primary.main"}
-                  mb={3}
-                >
-                  Aug 10, 2023 - Aug 18, 2023
-                </Typography>
-                <Box  mt={3}> 
-                  <WhenDate />
-                </Box>
-              </Box> */}
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={12} md={4}>
                     <Box
                       sx={{
                         display: {
-                          xs: "none",
-                          md: "block",
                           position: "sticky",
                           top: "110px",
                         },

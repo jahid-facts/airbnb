@@ -3,6 +3,7 @@ import { Box, Button, Grid } from "@mui/material";
 import axios from "axios";
 
 import { useState } from "react";
+import { useAuthInfo } from "../../helpers/AuthCheck";
 
 const ReviewForm = ({ propertyID }) => {
   const [reviewMessage, setReviewMessage] = useState("");
@@ -11,41 +12,27 @@ const ReviewForm = ({ propertyID }) => {
   const [RecommendRating, setRecommendRating] = useState(null);
   const [ServicesRating, setServicesRating] = useState(null);
   const [LocationRating, setLocationRating] = useState(null);
-  
 
-  const ratingType =["Communication",
+  const userInfo = useAuthInfo();
+  const reviewedBy = userInfo.name;
+  console.log(reviewedBy);
+
+  const ratingType =[
+    "Communication",
     "Recommend",
     "Services",
     "Location",
     ]
-  // const review_url = process.env.REACT_APP_CREATE_REVIEW_ENDPOINT;
-  // console.log(review_url);
 
-  // const handleSubmit = () => {
-  //   try {
-  //     console.log(review);
-  //     const response = postApi("/reviews", review);
-  //     //updateReviewStatus(review)
-  //     console.log(response);
 
-  //     return response.data;
-  //   } catch (error) {
-  //     return error.response.data.error;
-  //   }
 
-  //   try {
-  //     const response = postApi("/reviewStatusUpdate", review.propertyId);
-  //     return response;
-  //   } catch (error) {
-  //     console.error("Error adding review:", error);
-  //   }
-  // };
 
   const handleSubmit = () => {
     setPropertyId(propertyID);
     //console.log(propertyId);
     const review = {
       propertyId: propertyId._id,
+      reviewedBy,
       reviewMessage,
       CommunicationRating,
       RecommendRating,

@@ -30,6 +30,7 @@ import axios from "axios";
 function ProfilePage() {
   const [value, setValue] = useState(0);
   const [isUploadOpen, setUploadOpen] = useState(false);
+  // const userInfo = useAuthInfo();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -153,21 +154,11 @@ function ProfilePage() {
                     Before you book or Host on Airbnb, you’ll need to complete
                     this step.
                   </Typography>
-                  {/* <Button
-                    variant="outlined"
-                    onClick={handleVerify()}
-                    style={{
-                      color: "black",
-                      fontWeight: "bold",
-                      border: "1px solid black",
-                      borderRadius: "6px",
-                      padding: "10px",
-                      textTransform: "capitalize",
-                    }}
-                  >
-                    Edit Profile
-                  </Button> */}
-                  <NIDVerificationForm />
+
+                  <NIDVerificationForm /> 
+                  
+                  {/* userId={ userInfo._id } */}
+
                 </Box>
               </Paper>
             </Grid>

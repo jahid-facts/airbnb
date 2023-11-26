@@ -3,27 +3,39 @@ import { Button, Input } from "@mui/material";
 import WebCam from "../../components/webcam";
 import { useAuthInfo } from "../../helpers/AuthCheck";
 import axios from "axios";
+import { useLocation, useParams } from "react-router-dom";
+import { getApi, getApiById } from "../../config/configAxios";
 
-function NIDVerificationForm({ bookingId,invoiceId, bookinStatus, mode }) {
-  const api_url =
-    mode === "check"
-      ? process.env.REACT_APP_CHECK_ENDPOINT
-      : process.env.REACT_APP_UPDATE_ENDPOINT;
+function NIDVerificationForm({ bookingId, bookinStatus, mode }) {
+  
+  const api_url = mode === "check" ? "http://127.0.0.1:7050/api/idVerification/check" : "http://127.0.0.1:7050/api/idVerification/update";
     
-    const update_url = process.env.REACT_APP_STATUS_ENDPOINT;
-    const delete_url = process.env.REACT_APP_DELETE_ENDPOINT;
+  // const update_url = process.env.REACT_APP_STATUS_ENDPOINT;
+  // const delete_url = process.env.REACT_APP_DELETE_ENDPOINT;
 
 
-
+  const location = useLocation();
   const [file, setFile] = useState(null);
   const UserInfo = useAuthInfo();
+  //console.log(UserInfo);
   const [fileUploaded, setFileUploaded] = useState(false);
   const [capturedFile, setCapturedFile] = useState(null);
+
   const [bookingStatus, setBookingStatus] = useState(null);
+  const [idStatus, setIdStatus] = useState(null); 
 
   useEffect(() => {
+    
     setBookingStatus(bookinStatus);
+    console.log(bookinStatus);
   }, [bookinStatus]);
+
+
+
+  useEffect(() => {
+    setIdStatus(UserInfo.status)
+  }, [idStatus]);
+
 
   //console.log(UserInfo._id);
   //console.log(propertyId);
@@ -81,16 +93,18 @@ const handleStatusDelete = () =>{
     if (file) {
       if (!mode === "check") {
         formData.append("file", file);
-        formData.append("userId", UserInfo._id);
+        
       } else {
         formData.append("file", file);
+        formData.append("userId", UserInfo._id);
       }
     } else if (capturedFile) {
       if (!mode === "check") {
         formData.append("file", capturedFile);
-        formData.append("userId", UserInfo._id);
+        
       } else {
         formData.append("file", capturedFile);
+        formData.append("userId", UserInfo._id);
       }
     } else {
       console.error("Please upload a file or capture an image.");
@@ -112,10 +126,10 @@ const handleStatusDelete = () =>{
 
       const data = await response.json();
       if (data.success === "Id Found") {
+        console.log(data.success)
         // bookings
         setBookingStatus("active");
         handleStatusUpdate();
-
         setFileUploaded(true);
       } else if (data.success === "NID OCR is completed! and stored") {
         //
@@ -127,10 +141,11 @@ const handleStatusDelete = () =>{
       console.error(error);
     }
   };
-
+console.log("book",bookingStatus, "id ",idStatus)
   return (
     <div>
-      {fileUploaded || bookingStatus === "active" ? (
+      {/* {fileUploaded ||( bookingStatus & idStatus ) === "active" ? ( */}
+      { fileUploaded|| idStatus  === "active" ? (
         <div className="active-status" 
         style={{
           backgroundColor: "green",
@@ -142,7 +157,7 @@ const handleStatusDelete = () =>{
           alignItems: "center",
           margin: "10px"
         }}>
-          Rented
+          {location.pathname==="/profile" ? "VERIFIED" : bookingStatus && "RENTED"}
         </div>
       ) : (
         <form
@@ -197,7 +212,7 @@ const handleStatusDelete = () =>{
               type="submit"
               variant="contained"
               color="primary"
-              onclick={handleStatusDelete}
+              onClick={handleStatusDelete}
               style={{ margin: "0.5rem" }}
               disabled={!file && !capturedFile}
             >

@@ -30,23 +30,7 @@ const ReservationCheck = () => {
   // const verified = 'ok';
   const UserInfo = useAuthInfo();
   const [bookingStatuses, setBookingStatuses] = useState([]);
-  //const [properties, setProperties] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchUserProperties = async () => {
-  //     try {
-  //       const response = await axios.get(`/user/properties/${UserInfo._id}`);
-  //       setProperties(response.data.properties);
-  //       //console.log(response.data.properties[0]._id);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchUserProperties();
-  // }, [UserInfo._id]);
-
-  // //console.log(UserInfo._id);
-  // console.log(properties);
 
   useEffect(() => {
     axios
@@ -227,3 +211,20 @@ const ReservationCheck = () => {
 
 export default ReservationCheck;
 
+  //const [properties, setProperties] = useState([]);
+
+  // useEffect(() => {
+  //   const fetchUserProperties = async () => {
+  //     try {
+  //       const response = await axios.get(`/user/properties/${UserInfo._id}`);
+  //       setProperties(response.data.properties);
+  //       //console.log(response.data.properties[0]._id);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchUserProperties();
+  // }, [UserInfo._id]);
+
+  // //console.log(UserInfo._id);
+  // console.log(properties);
