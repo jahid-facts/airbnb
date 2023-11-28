@@ -1,80 +1,60 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLocation } from "react";
 import { Button, Input } from "@mui/material";
 import WebCam from "../../components/webcam";
 import { useAuthInfo } from "../../helpers/AuthCheck";
 import axios from "axios";
-import { useLocation, useParams } from "react-router-dom";
+
 import { getApi, getApiById } from "../../config/configAxios";
 
-function NIDVerificationForm({ bookingId, bookinStatus, mode }) {
-  
-  const api_url = mode === "check" ? "http://127.0.0.1:7050/api/idVerification/check" : "http://127.0.0.1:7050/api/idVerification/update";
-    
+function NIDVerificationForm({ bookingId, mode }) {
+
   // const update_url = process.env.REACT_APP_STATUS_ENDPOINT;
   // const delete_url = process.env.REACT_APP_DELETE_ENDPOINT;
+  const api_url =
+    mode === "check"
+      ? "http://127.0.0.1:7050/api/idVerification/upload"
+      : "http://127.0.0.1:7050/api/idVerification/update";
 
 
-  const location = useLocation();
+
+  //const location = useLocation();
   const [file, setFile] = useState(null);
   const UserInfo = useAuthInfo();
   //console.log(UserInfo);
   const [fileUploaded, setFileUploaded] = useState(false);
   const [capturedFile, setCapturedFile] = useState(null);
 
-  const [bookingStatus, setBookingStatus] = useState(null);
-  const [idStatus, setIdStatus] = useState(null); 
 
-  useEffect(() => {
-    
-    setBookingStatus(bookinStatus);
-    console.log(bookinStatus);
-  }, [bookinStatus]);
-
-
-
-  useEffect(() => {
-    setIdStatus(UserInfo.status)
-  }, [idStatus]);
-
-
-  //console.log(UserInfo._id);
-  //console.log(propertyId);
-
-// booking status update
-  const handleStatusUpdate = () =>{
+  // booking status update
+  const handleStatusUpdate = () => {
     axios
-    .post("http://localhost:5050/api/booking-status-update", {  //${process.env.REACT_APP_BASE_URL}
-
+      .post("http://localhost:5050/api/booking-status-update", {
+        //${process.env.REACT_APP_BASE_URL}
         bookingId: bookingId,
         // invoiceId: invoiceId,
-    
-    })
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  }
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
-
-
-//   /booking-delete
-const handleStatusDelete = () =>{
-  axios
-  .post("http://localhost:5050/api/booking-delete", {  //${process.env.REACT_APP_BASE_URL}
-
-      bookingId: bookingId,
-  
-  })
-  .then((response) => {
-    console.log(response.data);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-}
-
+  //   /booking-delete
+  const handleStatusDelete = () => {
+    axios
+      .post("http://localhost:5050/api/booking-delete", {
+        //${process.env.REACT_APP_BASE_URL}
+        bookingId: bookingId,
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -91,9 +71,8 @@ const handleStatusDelete = () =>{
     const formData = new FormData();
 
     if (file) {
-      if (!mode === "check") {
+      if (!mode === "upload") {
         formData.append("file", file);
-        
       } else {
         formData.append("file", file);
         formData.append("userId", UserInfo._id);
@@ -101,7 +80,6 @@ const handleStatusDelete = () =>{
     } else if (capturedFile) {
       if (!mode === "check") {
         formData.append("file", capturedFile);
-        
       } else {
         formData.append("file", capturedFile);
         formData.append("userId", UserInfo._id);
@@ -126,9 +104,9 @@ const handleStatusDelete = () =>{
 
       const data = await response.json();
       if (data.success === "Id Found") {
-        console.log(data.success)
+        console.log(data.success);
         // bookings
-        setBookingStatus("active");
+        //setBookingStatus("active");
         handleStatusUpdate();
         setFileUploaded(true);
       } else if (data.success === "NID OCR is completed! and stored") {
@@ -141,88 +119,68 @@ const handleStatusDelete = () =>{
       console.error(error);
     }
   };
-console.log("book",bookingStatus, "id ",idStatus)
+ 
   return (
     <div>
-      {/* {fileUploaded ||( bookingStatus & idStatus ) === "active" ? ( */}
-      { fileUploaded|| idStatus  === "active" ? (
-        <div className="active-status" 
+      <form
+        encType="multipart/form-data"
+        onSubmit={handleSubmit}
         style={{
-          backgroundColor: "green",
-          textAlign: "center",
-          padding: "10px",
-          borderRadius:"15px",
           display: "flex",
-          justifyContent: "center",
+          //flexDirection: "column",
           alignItems: "center",
-          margin: "10px"
-        }}>
-          {location.pathname==="/profile" ? "VERIFIED" : bookingStatus && "RENTED"}
-        </div>
-      ) : (
-        <form
-          encType="multipart/form-data"
-          onSubmit={handleSubmit}
+        }}
+      >
+        <div
           style={{
             display: "flex",
-            //flexDirection: "column",
+            flexDirection: "column",
             alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
+          <WebCam setWebCamFile={handleWebCamFile} />
+
+          <label htmlFor="file-upload">
+            <Input
+              type="file"
+              id="file-upload"
+              accept="image/*"
+              onChange={handleFileChange}
+              sx={{ display: "none" }}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              component="span"
+              style={{ marginInline: "0.5rem" }}
+            >
+              Choose NID file
+            </Button>
+          </label>
+
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            style={{ margin: "0.5rem" }}
+            disabled={!file && !capturedFile}
           >
-            <WebCam setWebCamFile={handleWebCamFile} />
+            {mode === "check" ? "Validate NID" : "Upload NID"}
+          </Button>
 
-            <label htmlFor="file-upload">
-              <Input
-                type="file"
-                id="file-upload"
-                accept="image/*"
-                onChange={handleFileChange}
-                sx={{ display: "none" }}
-              />
-              <Button
-                variant="contained"
-                color="primary"
-                component="span"
-                style={{ marginInline: "0.5rem" }}
-              >
-                Choose NID file
-              </Button>
-            </label>
-
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              style={{ margin: "0.5rem" }}
-              disabled={!file && !capturedFile}
-            >
-              {mode === "check" ? "Validate NID" : "Upload NID"}
-            </Button>
-
-
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              onClick={handleStatusDelete}
-              style={{ margin: "0.5rem" }}
-              disabled={!file && !capturedFile}
-            >
-              Cancel Book-in
-            </Button>
-
-
-          </div>
-        </form>
-      )}
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            onClick={handleStatusDelete}
+            style={{ margin: "0.5rem" }}
+            disabled={!file && !capturedFile}
+          >
+            Cancel Book-in
+          </Button>
+        </div>
+      </form>
     </div>
   );
 }

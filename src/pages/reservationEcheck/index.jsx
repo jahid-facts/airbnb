@@ -7,7 +7,6 @@ import {
   Typography,
   //useMediaQuery,
 } from "@mui/material";
-// import React, { useEffect, useState } from "react";
 // import {
 //   ApartmentOutlined,
 //   AttachMoney,
@@ -17,13 +16,15 @@ import {
 import { theme } from "../../theme";
 //import FormControl from '@mui/material/FormControl';
 // import {getApi, postApi} from '../../config/configAxios';
-import Varification from "./Verification";
+// import Varification from "./Verification";
+
 
 //import Confirmation from './confirmation';
 import Layout from "../../layouts/userDashboard";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuthInfo } from "../../helpers/AuthCheck";
+import  Confirmation  from "./confirmation";
 //import { Image } from "@mui/icons-material";
 
 const ReservationCheck = () => {
@@ -41,7 +42,7 @@ const ReservationCheck = () => {
       })
       .then((response) => {
         // const bookingStatuses = response.data.map((propertyData) => propertyData.status);
-        // setBookingStatuses(bookingStatuses);
+
         setBookingStatuses(response.data);
       })
       .catch((error) => {
@@ -106,58 +107,58 @@ const ReservationCheck = () => {
                   </Typography>
 
                   <Typography
-                    variant="body1"
+                    variant="h6"
                     fontSize={"14px"}
                     color={"#7f7f7f"}
                   >
                     {/* Md. Abul Bashar */}
-                    Name: {propertyData.renterName}
+                     Renter Name: {propertyData.renterName}
                   </Typography>
                   <Typography variant="h5" fontWeight={"bold"}>
                     Invoice: {propertyData.invoiceId}
                   </Typography>
-                  <Typography variant="h5" fontWeight={"bold"}>
+                  <Typography variant="body1" fontWeight={"bold"}>
                     {propertyData.adults >= 1 && (
-                      <Typography variant="h5" fontWeight={"bold"}>
+                      <Typography variant="subtitle1" fontWeight={"bold"}>
                         Adults: {propertyData.adults}
                       </Typography>
                     )}
 
                     {propertyData.children >= 1 && (
-                      <Typography variant="h5" fontWeight={"bold"}>
+                      <Typography variant="subtitle1" fontWeight={"bold"}>
                         Children: {propertyData.children}
                       </Typography>
                     )}
 
                     {propertyData.infants >= 1 && (
-                      <Typography variant="h5" fontWeight={"bold"}>
+                      <Typography variant="subtitle1" fontWeight={"bold"}>
                         Infants: {propertyData.infants}
                       </Typography>
                     )}
 
                     {propertyData.pets >= 1 && (
-                      <Typography variant="h5" fontWeight={"bold"}>
+                      <Typography variant="subtitle1" fontWeight={"bold"}>
                         Pets: {propertyData.pets}
                       </Typography>
                     )}
 
                     {propertyData.propertyId.address.addressLine1 >= 1 && (
-                      <Typography variant="h5" fontWeight={"bold"}>
+                      <Typography variant="caption" fontWeight={"bold"}>
                         Address:{propertyData.propertyId.address.addressLine1}
                       </Typography>
                     )}
 
                     {propertyData.city >= 1 && (
-                      <Typography variant="h5" fontWeight={"bold"}>
+                      <Typography variant="caption" fontWeight={"bold"}>
                         City: {propertyData.city}
                       </Typography>
                     )}
                   </Typography>
 
-                  {/* <Typography variant="h5" fontWeight={"bold"}>
+                  {/* <Typography variant="caption" fontWeight={"bold"}>
                       Rev-id: 4534
                     </Typography>
-                    <Typography variant="h5" fontWeight={"bold"}>
+                    <Typography variant="caption" fontWeight={"bold"}>
                       Rev-id: 4534
                     </Typography> */}
                   <Typography
@@ -175,14 +176,14 @@ const ReservationCheck = () => {
                 <Box width={"40%"}>
                   {propertyData ? (
                     
-                    <Varification
+                    <Confirmation
                       bookingId={propertyData._id}
                       // InvoiceId={propertyData.invoiceId}
                       bookinStatus={propertyData.status}
-                      mode={"check"}
+                      mode={"upload"}
                     />
                   ) : (
-                    <form> 
+                    <table> 
                       <Typography
                         variant="body1"
                         fontSize={"14px"}
@@ -190,20 +191,19 @@ const ReservationCheck = () => {
                       >
                         Instant Reservation
                       </Typography>
-                      <Typography variant="h5" fontWeight={"bold"}>
+                      <Typography variant="caption" fontWeight={"bold"}>
                         Activate status
                       </Typography>
                       <button>Validate NID</button>
                       <button>Time extend</button>
                       <button>Cancel</button>
-                    </form>
+                    </table>
                   )}
                 </Box>
               </Box>
             </Grid>
           );
-        })}
-        );
+        })};
       </Grid>
     </Layout>
   );

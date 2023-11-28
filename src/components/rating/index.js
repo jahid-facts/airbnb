@@ -53,3 +53,31 @@ export default ReviewRating;
 // In this updated example, we're using the `useState` hook to create a `newValue` state that's initially set to the `value` prop. We're also creating a `handleChange` function that updates both the `newValue` state and the `setRating` function passed as a prop.
 
 // You'll need to adjust the import statements and action calls to match the structure of your Redux store.
+
+
+
+// const handleReviewedUser = (reviewedBy) => {
+//   // const response = axios.get(`http://localhost:5050/api/user/${reviewedBy}`)
+//   // console.log(response)
+//   console.log(reviewedBy)
+//   axios.get(`http://localhost:5050/api/user/${reviewedBy}`)
+//   .then(response => {
+//     console.log(response.data.user.name);
+//   })
+//   .catch(error => {
+//     if (error.response) {
+//       // The server responded with a status code other than 2xx
+//       console.log('Server returned error:', error.response.data);
+//     } else if (error.request) {
+//       // The request was made but no response was received
+//       // `error.request` is an XMLHttpRequest instance (the request itself)
+//       console.log('Request made but no response received');
+//     } else {
+//       // Something else went wrong - maybe setup/env issues
+//       console.log('Error', error.message);
+//     }
+//     console.log(error.config);
+//   });
+
+
+// }

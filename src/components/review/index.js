@@ -2,33 +2,31 @@ import ReviewRating from "../rating";
 import { Box, Button, Grid } from "@mui/material";
 import axios from "axios";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthInfo } from "../../helpers/AuthCheck";
 
-const ReviewForm = ({ propertyID }) => {
+const ReviewForm = ({ propertyID, bookingID}) => {
   const [reviewMessage, setReviewMessage] = useState("");
-  const [propertyId, setPropertyId] = useState(null);
+  const [propertyId, setPropertyId] = useState("");
+  const [bookingId, setBookingId] = useState("");
   const [CommunicationRating, setCommunicationRating] = useState(null);
   const [RecommendRating, setRecommendRating] = useState(null);
   const [ServicesRating, setServicesRating] = useState(null);
   const [LocationRating, setLocationRating] = useState(null);
 
   const userInfo = useAuthInfo();
-  const reviewedBy = userInfo.name;
-  console.log(reviewedBy);
+  const reviewedBy = userInfo._id;
+  //console.log(reviewedBy);
 
-  const ratingType =[
-    "Communication",
-    "Recommend",
-    "Services",
-    "Location",
-    ]
+  //const ratingType = ["Communication", "Recommend", "Services", "Location"];
 
-
-
+  useEffect(() => {
+    setPropertyId(propertyID);
+    setBookingId(bookingID);
+    //console.log(propertyId._id);
+  }, [propertyId]);
 
   const handleSubmit = () => {
-    setPropertyId(propertyID);
     //console.log(propertyId);
     const review = {
       propertyId: propertyId._id,
@@ -38,23 +36,24 @@ const ReviewForm = ({ propertyID }) => {
       RecommendRating,
       ServicesRating,
       LocationRating,
-      
     };
-    console.log(review);
+    //console.log(bookingId);
 
     axios
       .post("/reviews", review)
       .then((response) => {
         console.log(response.data);
-
-        axios
-          .post("/reviewStatusUpdate", { propertyId: propertyId._id })
-          .catch((error) => {
-            console.error("Error updating reviewStatus:", error);
-          });
       })
       .catch((error) => {
         console.error("Error adding review:", error.response.data.error);
+      });
+
+      axios.post("/reviewStatusUpdate", { bookingId: bookingId })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error updating reviewStatus:", error);
       });
   };
 
@@ -65,15 +64,17 @@ const ReviewForm = ({ propertyID }) => {
       justifyContent="space-around"
       // alignItems="flex-start"
     >
-
-{/* {ratingType.map((rentalRating)=>(
+      {/* {ratingType.map((rentalRating)=>(
       <Grid item xs={12} sm={6}>
       <ReviewRating ratingType={rentalRating}  setRating={setCommunicationRating}  />
     </Grid>
 ))} */}
 
       <Grid item xs={12} sm={6}>
-        <ReviewRating ratingType={"Communication"} setRating={setCommunicationRating}  />
+        <ReviewRating
+          ratingType={"Communication"}
+          setRating={setCommunicationRating}
+        />
       </Grid>
       <Grid item xs={12} sm={6}>
         <ReviewRating ratingType={"Recommend"} setRating={setRecommendRating} />

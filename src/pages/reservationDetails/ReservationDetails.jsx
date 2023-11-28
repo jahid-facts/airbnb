@@ -59,6 +59,7 @@ export default function ReservationDetails() {
   const [locationAverage, setLocationAverage] = React.useState(null);
 
   const [reviewDate, setReviewDate] = React.useState("");
+  const [reviewUserName ,setReviewUserName] =React.useState("");
 
   React.useEffect(() => {
     const fetchDataServer = async () => {
@@ -80,7 +81,7 @@ export default function ReservationDetails() {
         setAmenitiseItem(response.data.property?.amenitiesIds);
         setLoading(false); // Set loading to false after data is fetched
 
-        console.log(propertyId);
+        //console.log(propertyId);
 
         function calculateAverage(array) {
           let sum = 0;
@@ -102,15 +103,15 @@ export default function ReservationDetails() {
         const responData = reviewResponse.data.reviws;
         setResponsedData(responData);
 
-        for (const Data of responsedData) {
-          console.log(Data.reviewMessage);
-          console.log(Data.CommunicationRating);
-          console.log(Data.RecommendRating);
-          console.log(Data.ServicesRating);
-          console.log(Data.LocationRating);
-          console.log(Data.overAllRating);
-          console.log(Data.createdAt);
-        }
+        // for (const Data of responsedData) {
+        //   console.log(Data.reviewMessage);
+        //   console.log(Data.CommunicationRating);
+        //   console.log(Data.RecommendRating);
+        //   console.log(Data.ServicesRating);
+        //   console.log(Data.LocationRating);
+        //   console.log(Data.overAllRating);
+        //   console.log(Data.createdAt);
+        // }
 
         const communicationRatings = reviewResponse.data.reviws.map(
           (data) => data.CommunicationRating
@@ -211,6 +212,21 @@ export default function ReservationDetails() {
     //console.log(formattedDate);dateFormatting
     return formattedDate;
   };
+
+
+  const handleReviewedUser = (reviewedBy) => {
+    axios.get(`http://localhost:5050/api/user/${reviewedBy}`)
+    .then(response => {
+      setReviewUserName(response.data.user.name);
+    })
+    .catch(error => {
+      if (error.response) {
+        console.log('Server returned error:', error.response.data);
+      } 
+    });
+    return reviewUserName;
+  }
+
 
   return (
     <AppLayout>
@@ -643,49 +659,6 @@ export default function ReservationDetails() {
                         </Typography>
                       </Grid>
 
-                      <Grid item xs={12} my={1}>
-                        <Box display={"flex"} alignItems={"start"}>
-                          <Avatar
-                            alt="Remy Sharp"
-                            sx={{ width: 40, height: 40, mr: 3 }}
-                          />
-                          <Box>
-                            <Typography fontWeight={"bold"}>Taylor</Typography>
-                            <Box>
-                              <Typography
-                                variant="text"
-                                fontSize={"14px"}
-                                sx={{ display: "flex", alignItems: "center" }}
-                              >
-                                <Rating
-                                  name="Taylor"
-                                  sx={{ fontSize: "18px" }}
-                                  value={5}
-                                  precision={0.5}
-                                  readOnly
-                                />{" "}
-                                5
-                                <Divider
-                                  sx={{ mx: 1 }}
-                                  orientation="vertical"
-                                  variant="fullWidth"
-                                  flexItem
-                                />{" "}
-                                {/* 14th December 2022 */}
-                                {/* {responsedData} */}
-                              </Typography>
-                              <Box mt={1}>
-                                <Typography variant="text" fontSize={"14px"}>
-                                  Absolutely highly recommend! It’s the total
-                                  experience from the beginning all the way
-                                  through. The hosts are the professional,
-                                  engaging and the kindest I’ve ever encountered
-                                </Typography>
-                              </Box>
-                            </Box>
-                          </Box>
-                        </Box>
-                      </Grid>
 
                       {responsedData.map((review) => (
                         <Grid item xs={12} my={1}>
@@ -696,7 +669,7 @@ export default function ReservationDetails() {
                             />
                             <Box>
                               <Typography fontWeight={"bold"}>
-                                {review.name}
+                                {handleReviewedUser(review.reviewedBy)}
                               </Typography>
                               <Box>
                                 <Typography
@@ -731,90 +704,7 @@ export default function ReservationDetails() {
                         </Grid>
                       ))}
 
-                      <Grid item xs={12} my={1}>
-                        <Box display={"flex"} alignItems={"start"}>
-                          <Avatar
-                            alt="Remy Sharp"
-                            sx={{ width: 40, height: 40, mr: 3 }}
-                          />
-                          <Box>
-                            <Typography fontWeight={"bold"}>Miller</Typography>
-                            <Box>
-                              <Typography
-                                variant="text"
-                                fontSize={"14px"}
-                                sx={{ display: "flex", alignItems: "center" }}
-                              >
-                                <Rating
-                                  name="half-rating-read"
-                                  sx={{ fontSize: "18px" }}
-                                  value={3.5}
-                                  precision={0.5}
-                                  readOnly
-                                />{" "}
-                                3.5
-                                <Divider
-                                  sx={{ mx: 1 }}
-                                  orientation="vertical"
-                                  variant="fullWidth"
-                                  flexItem
-                                />{" "}
-                                14th December 2022
-                              </Typography>
-                              <Box mt={1}>
-                                <Typography variant="text" fontSize={"14px"}>
-                                  Absolutely highly recommend! It’s the total
-                                  experience from the beginning all the way
-                                  through. The hosts are the professional,
-                                  engaging and the kindest I’ve ever encountered
-                                </Typography>
-                              </Box>
-                            </Box>
-                          </Box>
-                        </Box>
-                      </Grid>
-                      <Grid item xs={12} my={1}>
-                        <Box display={"flex"} alignItems={"start"}>
-                          <Avatar
-                            alt="Remy Sharp"
-                            sx={{ width: 40, height: 40, mr: 3 }}
-                          />
-                          <Box>
-                            <Typography fontWeight={"bold"}>Devid</Typography>
-                            <Box>
-                              <Typography
-                                variant="text"
-                                fontSize={"14px"}
-                                sx={{ display: "flex", alignItems: "center" }}
-                              >
-                                <Rating
-                                  name="half-rating-read"
-                                  sx={{ fontSize: "18px" }}
-                                  value={4}
-                                  precision={0.5}
-                                  readOnly
-                                />{" "}
-                                4
-                                <Divider
-                                  sx={{ mx: 1 }}
-                                  orientation="vertical"
-                                  variant="fullWidth"
-                                  flexItem
-                                />{" "}
-                                14th December 2022
-                              </Typography>
-                              <Box mt={1}>
-                                <Typography variant="text" fontSize={"14px"}>
-                                  Absolutely highly recommend! It’s the total
-                                  experience from the beginning all the way
-                                  through. The hosts are the professional,
-                                  engaging and the kindest I’ve ever encountered
-                                </Typography>
-                              </Box>
-                            </Box>
-                          </Box>
-                        </Box>
-                      </Grid>
+
                     </Grid>
 
                     <Divider sx={{ my: 4 }} />

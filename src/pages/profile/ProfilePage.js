@@ -25,6 +25,7 @@ import NIDVerificationForm from "../reservationEcheck/Verification";
 import ReviewForm from "../../components/review";
 // import { getApi } from "../../config/configAxios";
 import axios from "axios";
+import Confirmation from "../reservationEcheck/confirmation";
 // import ReviewPanel from "../../components/rating";
 
 function ProfilePage() {
@@ -155,9 +156,24 @@ function ProfilePage() {
                     this step.
                   </Typography>
 
-                  <NIDVerificationForm /> 
+
+
+
+
+
+
+
+
+                  <Confirmation /> 
                   
+
                   {/* userId={ userInfo._id } */}
+
+
+
+
+
+
 
                 </Box>
               </Paper>
@@ -280,6 +296,7 @@ function Tab3Content() {
 
 function Tab4Content() {
   const [rentingStatus, setRentingStatus] = useState([]);
+  const [reviewStatus, setReviewStatus] = useState('');
 
   const userInfo = useAuthInfo();
   console.log(userInfo);
@@ -294,7 +311,7 @@ function Tab4Content() {
         },
       })
       .then((response) => {
-        //console.log(response.data);
+        console.log(response.data);
         setRentingStatus(response.data);
       })
       .catch((error) => {
@@ -333,7 +350,7 @@ function Tab4Content() {
               secondary= {rental.propertyId.address.addressLine1}
               />
               <ListItem>
-              <ReviewForm propertyID={rental.propertyId} />
+              <ReviewForm propertyID={rental.propertyId} bookingID ={rental._id}/>
               </ListItem>
               
 
