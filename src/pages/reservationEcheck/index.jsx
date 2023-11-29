@@ -32,7 +32,6 @@ const ReservationCheck = () => {
   const UserInfo = useAuthInfo();
   const [bookingStatuses, setBookingStatuses] = useState([]);
 
-
   useEffect(() => {
     axios
       .get("/booking-data", {
