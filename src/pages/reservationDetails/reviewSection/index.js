@@ -14,9 +14,8 @@ import {
 import { useParams } from "react-router-dom";
 import OpenReviewList from "./OpenReviewList";
 
-function ReviewSection(propertyID) {
+function ReviewSection() {
   const { propertyId } = useParams();
-
   const [openReviewLists, setOpenReviewLists] = React.useState(false);
 
   const [reviewResponsedData, setreviewResponsedData] = React.useState([]);
@@ -27,6 +26,9 @@ function ReviewSection(propertyID) {
   const [locationAverage, setLocationAverage] = React.useState(null);
   const [reviewDate, setReviewDate] = React.useState("");
   const [reviewUserName, setReviewUserName] = React.useState("");
+  const [reviewUserImage, setReviewUserImage] = React.useState("");
+
+
 
   function calculateAverage(array) {
     let sum = 0;
@@ -98,20 +100,24 @@ function ReviewSection(propertyID) {
   }, [propertyId]);
 
   const dateFormatting = (reviewDate) => {
-    const date = new Date(reviewDate);
-    // December 25, 2023
-    const formattedDate = new Intl.DateTimeFormat("en-GB", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    })
-      .formatToParts(date)
-      .map((part) => part.value)
-      .join(" ");
-    // const formattedDate = date.toISOString().substring(0, 10);
-    // "2023-12-25"
-    //console.log(formattedDate);dateFormatting
-    return formattedDate;
+    try {
+      const date = new Date(reviewDate);
+      const formattedDate = new Intl.DateTimeFormat("en-GB", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+        .formatToParts(date)
+        .map((part) => part.value)
+        .join(" ");
+      // const formattedDate = date.toISOString().substring(0, 10);
+      // "2023-12-25"
+      //console.log(formattedDate);
+      return formattedDate;
+    } catch (error) {
+      // Handle invalid date formats here (e.g., display a default format or an error message)
+      console.error(error); 
+  };
   };
 
   const handleReviewedUser = (reviewedBy) => {
@@ -119,6 +125,8 @@ function ReviewSection(propertyID) {
       .get(`http://localhost:5050/api/user/${reviewedBy}`)
       .then((response) => {
         setReviewUserName(response.data.user.name);
+        setReviewUserImage(response.data.user.avatar);
+        
       })
       .catch((error) => {
         if (error.response) {
@@ -127,6 +135,9 @@ function ReviewSection(propertyID) {
       });
     return reviewUserName;
   };
+
+
+
 
   const handleReviewLists = () => {
     setOpenReviewLists(!openReviewLists);
@@ -236,7 +247,7 @@ function ReviewSection(propertyID) {
         {reviewResponsedData.slice(0, 3).map((review) => (
           <Grid item xs={12} my={1}>
             <Box display={"flex"} alignItems={"start"}>
-              <Avatar alt={review.name} sx={{ width: 40, height: 40, mr: 3 }} />
+              <Avatar src={reviewUserImage} alt={review.name} sx={{ width: 40, height: 40, mr: 3 }} />
               <Box>
                 <Typography fontWeight={"bold"}>
                   {handleReviewedUser(review.reviewedBy)}
@@ -274,7 +285,7 @@ function ReviewSection(propertyID) {
           </Grid>
         ))}
 
-        {reviewResponsedData?.length > 4 && (
+        {reviewResponsedData.length > 4 && (
           <Grid item xs={12}>
             <Button
               sx={{ mt: "20px", textTransform: "capitalize" }}
@@ -290,7 +301,7 @@ function ReviewSection(propertyID) {
 
 {/* modal  */}
       <OpenReviewList
-        reviewItem={reviewResponsedData}
+        //propertyId={propertyId}
         open={openReviewLists}
         onClose={() => setOpenReviewLists(false)}
       />
