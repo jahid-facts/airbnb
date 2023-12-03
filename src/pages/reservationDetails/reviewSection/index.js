@@ -12,21 +12,23 @@ import {
   Typography,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
-import OpenReviewList from "./OpenReviewList";
+import OpenReviewList from "./ItemList";
 
 function ReviewSection() {
   const { propertyId } = useParams();
   const [openReviewLists, setOpenReviewLists] = React.useState(false);
 
   const [reviewResponsedData, setreviewResponsedData] = React.useState([]);
+  const [totalResults, setTotalResults] = React.useState([]);
+  
   const [overAllAverage, setOverAllAverage] = React.useState(null);
   const [communicationAverage, setCommunicationAverage] = React.useState(null);
   const [recommendAverage, setRecommendAverage] = React.useState(null);
   const [servicesAverage, setServicesAverage] = React.useState(null);
   const [locationAverage, setLocationAverage] = React.useState(null);
-  const [reviewDate, setReviewDate] = React.useState("");
-  const [reviewUserName, setReviewUserName] = React.useState("");
-  const [reviewUserImage, setReviewUserImage] = React.useState("");
+  // const [reviewDate, setReviewDate] = React.useState("");
+  // const [reviewUserName, setReviewUserName] = React.useState("");
+  // const [reviewUserImage, setReviewUserImage] = React.useState("");
 
 
 
@@ -47,11 +49,13 @@ function ReviewSection() {
       try {
         // getting review response from mongodb
         const reviewResponse = await axios.get(
-          `/getReviews?propertyId=${propertyId}`
+          `/getReviews?propertyId=${propertyId}&limit=${5}`
         );
+
 
         const responData = reviewResponse.data.reviws;
         setreviewResponsedData(responData);
+        setTotalResults(reviewResponse.data.totalResults);
 
         // for (const Data of reviewResponsedData) {
         //   console.log(Data.reviewMessage);
@@ -120,24 +124,7 @@ function ReviewSection() {
   };
   };
 
-  const handleReviewedUser = (reviewedBy) => {
-    axios
-      .get(`http://localhost:5050/api/user/${reviewedBy}`)
-      .then((response) => {
-        setReviewUserName(response.data.user.name);
-        setReviewUserImage(response.data.user.avatar);
-        
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log("Server returned error:", error.response.data);
-        }
-      });
-    return reviewUserName;
-  };
-
-
-
+ 
 
   const handleReviewLists = () => {
     setOpenReviewLists(!openReviewLists);
@@ -145,7 +132,6 @@ function ReviewSection() {
 
   return (
     <>
-      ReviewSection
       {/* Review section */}
 
         <Grid item xs={12}>
@@ -160,7 +146,7 @@ function ReviewSection() {
               alignItems: "center",
             }}
           >
-            {reviewResponsedData.length} reviews for this property
+            {totalResults} reviews for this property
             <Rating
               name="half-rating-read"
               value={overAllAverage}
@@ -244,13 +230,17 @@ function ReviewSection() {
           </Typography>
         </Grid>
 
-        {reviewResponsedData.slice(0, 3).map((review) => (
-          <Grid item xs={12} my={1}>
+        {reviewResponsedData.slice(0, 3).map(( review) => (
+          <Grid item xs={12} my={1} >
             <Box display={"flex"} alignItems={"start"}>
-              <Avatar src={reviewUserImage} alt={review.name} sx={{ width: 40, height: 40, mr: 3 }} />
+            {/* src={review.reviewedBy.avatar.url} */}
+              <Avatar  
+              src={review.reviewedBy.avatar}
+              alt={review.reviewedBy.avatar} 
+              sx={{ width: 40, height: 40, mr: 3 }} />
               <Box>
                 <Typography fontWeight={"bold"}>
-                  {handleReviewedUser(review.reviewedBy)}
+                  {review.reviewedBy.name}
                 </Typography>
                 <Box>
                   <Typography
@@ -259,7 +249,7 @@ function ReviewSection() {
                     sx={{ display: "flex", alignItems: "center" }}
                   >
                     <Rating
-                      name={review.name}
+                      name={review.reviewedBy.name}
                       sx={{ fontSize: "18px" }}
                       value={review.overAllRating}
                       precision={0.5}
@@ -310,3 +300,24 @@ function ReviewSection() {
 }
 
 export default ReviewSection;
+
+
+
+
+ // const handleReviewedUser = (reviewedBy) => {
+  //   axios
+  //     .get(`http://localhost:5050/api/user/${reviewedBy}`)
+  //     .then((response) => {
+  //       setReviewUserName(response.data.user.name);
+  //       setReviewUserImage(response.data.user.avatar);
+        
+  //     })
+  //     .catch((error) => {
+  //       if (error.response) {
+  //         console.log("Server returned error:", error.response.data);
+  //       }
+  //     });
+  //   return reviewUserName;
+  // };
+
+
