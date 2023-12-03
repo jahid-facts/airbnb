@@ -26,6 +26,8 @@ import {
   verifyOTP,
 } from "../../redux/features/AuthSlice";
 
+import { BeatLoader } from 'react-spinners';
+
 const LoginScreen = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
@@ -68,6 +70,7 @@ const LoginScreen = () => {
         const loginData = { email: values.email, password: values.password };
         // Dispatch the loginUser action
         await dispatch(loginUser(loginData));
+        
         setSubmitting(false);
       } catch {
         setSubmitting(false);
@@ -227,7 +230,7 @@ const LoginScreen = () => {
                     color="primary"
                     sx={{ textTransform: "capitalize" }}
                   >
-                    Login
+                    {isSubmitting ? <BeatLoader color="#ff0000" /> : "Login"}
                   </Button>
                 </Box>
               </form>

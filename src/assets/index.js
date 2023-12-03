@@ -4,9 +4,9 @@ import bdMap from './images/bd.png';
 import ukMap from './images/uk.webp';
 import hotel1 from './images/hotels/h1.jpeg';
 import hotel2 from './images/hotels/h2.jpeg';
-import hotel3 from './images/hotels/h3.jpeg';
-import hotel4 from './images/hotels/h4.jpeg';
-import hotel5 from './images/hotels/h5.jpg';
+import hotel3 from './images/hotels/h3.jpeg'; 
+import hotel4 from './images/hotels/h3.jpeg'; 
+import hotel5 from './images/hotels/h3.jpeg'; 
 import hotel6 from './images/hotels/h6.jpg';
 import hotel7 from './images/hotels/h7.webp';
 import hotel8 from './images/hotels/h8.jpeg';
@@ -20,6 +20,7 @@ import hotel15 from './images/hotels/i2.jpg';
 import hotel16 from './images/hotels/i3.jpg';
 import hotel17 from './images/hotels/i4.jpg';
 import location from './images/location.png';
+import noRecord from './images/no-record.png';
 
 const assets = {
     images: {
@@ -28,6 +29,7 @@ const assets = {
         bdMap,
         ukMap,
         location,
+        noRecord,
 
         hotelImage:{
             hotel1,

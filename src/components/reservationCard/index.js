@@ -5,7 +5,7 @@ import SlideImage from "../slide";
 import { Link } from "react-router-dom";
 
 export default function ReservationCard(props) {
-  const { image1, image2, image3, title, subtitle, price, review } = props;
+  const { image1, image2, image3, title, subtitle, price, review , propertyId} = props;
 
   return (
     <Card
@@ -31,7 +31,7 @@ export default function ReservationCard(props) {
         />
       </Box>
 
-      <Link to={"/reservation-details"}>
+      <Link to={`/reservation-details/${propertyId}`}>
         <Box
           display={"flex"}
           justifyContent={"space-between"}

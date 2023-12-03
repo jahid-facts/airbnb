@@ -1,8 +1,3 @@
-# RACI CHART 
-
-https://docs.google.com/spreadsheets/d/1SmXy8HjEh1gHyqjq8kVyeBY8sLlOvtVRV8pdF-09hRQ/edit?usp=sharing
-
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

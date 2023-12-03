@@ -1,17 +1,16 @@
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Home from "../pages/home/Home";
-import Profile from "../pages/profile/Profile";
 import { PageNotFound } from "../pages/404";
 import ReservationDetails from "../pages/reservationDetails/ReservationDetails";
-import AddPropertise from "../pages/addPropertise";
+import AddProperties from "../pages/addProperties";
 import PaymentForm from "../pages/payments";
 import { useSelector } from "react-redux";
 import ProtectedRoute from "../helpers/ProtectedRoute";
 import Hosting from "../pages/hosting";
 import PropertyList from "../pages/propertyList";
-import Echeck from "../pages/reservationEcheck";
-
+import EditProperty from "../pages/editProperty";
+import ProfilePage from "../pages/profile/ProfilePage";
 
 export const AppRoutes = () => {
   const isAuthenticated = useSelector((state) => state.auth.isLoggedIn);
@@ -42,16 +41,13 @@ export const AppRoutes = () => {
           path="/property/list"
           element={<ProtectedRoute children={<PropertyList />} />}
         />
-                <Route
-          path="/e-check"
-          element={<ProtectedRoute children={<Echeck />} />}
-        />
+        <Route path="/edit/property/:propertyId" element={<EditProperty />} />
         <Route
           path="/profile"
-          element={<ProtectedRoute children={<Profile />} />}
+          element={<ProtectedRoute children={<ProfilePage />} />}
         />
         <Route
-          path="/reservation-details"
+          path="/reservation-details/:propertyId"
           element={<ProtectedRoute children={<ReservationDetails />} />}
         />
         <Route
@@ -59,8 +55,8 @@ export const AppRoutes = () => {
           element={<ProtectedRoute children={<PaymentForm />} />}
         />
         <Route
-          path="/add-propertise"
-          element={<ProtectedRoute children={<AddPropertise />} />}
+          path="/add-properties"
+          element={<ProtectedRoute children={<AddProperties />} />}
         />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>

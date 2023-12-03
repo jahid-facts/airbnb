@@ -1,52 +1,38 @@
-// import React from 'react';
-// import { useSelector } from 'react-redux';
-// import { Navigate, Outlet } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import jwtDecode from "jwt-decode";
 
-// const AuthCheck = ({ children }) => {
-//   const isAuthenticatedRedux = useSelector((state) => state.auth.isLoggedIn);
-//   const isEmailVerifiedRedux = useSelector((state) => state.auth.isEmailVerified);
-//   const isEmailVerifiedLocalStorage = localStorage.getItem("isEmailVerified");
-//   const isAuthenticatedLocalStorage = localStorage.getItem('authToken');
-  
-//   const isEmailVerified = isEmailVerifiedRedux || isEmailVerifiedLocalStorage;
+// Utility function to check if the user is authenticated
+export const useIsAuthenticated = () => {
+  const isLoggedInRedux = useSelector((state) => state.auth.isLoggedIn);
+  const authToken = localStorage.getItem("authToken");
+  const isLoggedInLocalStorage = !!authToken;
 
-
-//   if (!isEmailVerified) {
-//     return <Navigate to="/otp-verify" />;
-//   }
-//   if (isAuthenticatedRedux || isAuthenticatedLocalStorage) {
-//     return <Outlet />;
-//   } else {
-//     return <Navigate to="/login" />;
-//   }
-// };
-
-// export default AuthCheck;
-
-// auth.js
-
-// Function to log in and set authentication status
-export const isEmailVerified = () => {
-  const storedValue = localStorage.getItem('isEmailVerified');
-  
-  // Check if storedValue is null or undefined
-  if (storedValue === null || typeof storedValue === 'undefined') {
-    return false; // Return a default value (e.g., false) when not found
-  }
-  
-  // Compare the stored value as a string with 'true'
-  return storedValue === 'true';
+  return isLoggedInRedux || isLoggedInLocalStorage;
 };
 
+export const useIsEmailVerified = () => {
+  const isEmailVerifiedRedux = useSelector(
+    (state) => state.auth.isEmailVerified
+  );
+  const isEmailVerified = localStorage.getItem("isEmailVerified");
+  const isEmailVerifiedStorage = !!isEmailVerified;
 
-export const isAuthenticated = () => {
-  const storedValue = localStorage.getItem('isLoggedIn');
-  
-  // Check if storedValue is null or undefined
-  if (storedValue === null || typeof storedValue === 'undefined') {
-    return false; // Return a default value (e.g., false) when not found
-  }
-  
-  // Compare the stored value as a string with 'true'
-  return storedValue === 'true';
+  return isEmailVerifiedRedux || isEmailVerifiedStorage;
+};
+
+// auth info export const useAuthInfo = () => {
+export const useAuthInfo = () => {
+  const authUserInfo = localStorage.getItem("user");
+  const user = authUserInfo ? JSON.parse(authUserInfo) : null;
+
+  // Ensure that user is not null before accessing the token
+  const token = user ? user.token : null;
+
+  // Check if token is not null before decoding it
+  const decodedToken = token ? jwtDecode(token) : null;
+
+  // Ensure that decodedToken is not null before accessing userInfo
+  const userInfo = decodedToken ? decodedToken.userInfo : null;
+
+  return userInfo;
 };
