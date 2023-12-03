@@ -29,6 +29,11 @@ const sidebarContent = [
     path: "/payments/coupons",
     icon: "streamline:computer-logo-paypal-payment-paypal",
   },
+  {
+    name: "Reservation check-in",
+    path: "/e-check",
+    icon: "clarity:building-line",
+  },
 ];
 
 export default sidebarContent;

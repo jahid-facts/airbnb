@@ -4,6 +4,7 @@ import AllPropertyForAdminSlice from "./features/AllPropertyForAdminSlice";
 import PropertySlice from "./features/PropertySlice";
 import AuthSlice from "./features/AuthSlice";
 import UsersSlice from "./features/UsersSlice";
+import ReviewPropertiesSlice from "./features/reviewPropertiesSlice";
 // import AuthSlice from "./features/AuthSlice";
 // import PropertySlice from "./features/PropertySlice";
 // import AllPropertyForAdminSlice from "./features/AllPropertyForAdminSlice"; 
@@ -17,6 +18,7 @@ const store = configureStore({
     properties: PropertySlice,
     allPropertyForAdmin: AllPropertyForAdminSlice,
     userProperties: UserPropertiesSlice,
+    reviewProperties: ReviewPropertiesSlice,
   },
 });
 

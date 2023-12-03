@@ -1,0 +1,5 @@
+.review-list {
+    max-height : calc(100vh - 173px); /* Subtract the height of the header and footer */
+    overflow-y : auto; /* Add scrollbar if content exceeds max-height */
+    padding-bottom: 50px; /* Add some space for lazy loading items */
+  }

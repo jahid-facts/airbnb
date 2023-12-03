@@ -10,7 +10,10 @@ import ProtectedRoute from "../helpers/ProtectedRoute";
 import Hosting from "../pages/hosting";
 import PropertyList from "../pages/propertyList";
 import EditProperty from "../pages/editProperty";
+import ReservationDetailsCopy from "../pages/reservationDetails/ReservationDetails copy";
 import ProfilePage from "../pages/profile/ProfilePage";
+import Echeck from "../pages/reservationEcheck";
+import HostProfileInfo from "../pages/profile/HostInfo";
 
 export const AppRoutes = () => {
   const isAuthenticated = useSelector((state) => state.auth.isLoggedIn);
@@ -37,10 +40,16 @@ export const AppRoutes = () => {
           path="/hosting"
           element={<ProtectedRoute children={<Hosting />} />}
         />
+
         <Route
           path="/property/list"
           element={<ProtectedRoute children={<PropertyList />} />}
         />
+        <Route
+          path="/personal/info"
+          element={<ProtectedRoute children={<HostProfileInfo />} />}
+        />
+
         <Route path="/edit/property/:propertyId" element={<EditProperty />} />
         <Route
           path="/profile"
@@ -51,6 +60,10 @@ export const AppRoutes = () => {
           element={<ProtectedRoute children={<ReservationDetails />} />}
         />
         <Route
+          path="/reservation-details"
+          element={<ProtectedRoute children={<ReservationDetailsCopy />} />}
+        />
+        <Route
           path="/payments"
           element={<ProtectedRoute children={<PaymentForm />} />}
         />
@@ -58,6 +71,11 @@ export const AppRoutes = () => {
           path="/add-properties"
           element={<ProtectedRoute children={<AddProperties />} />}
         />
+        <Route
+          path="/e-check"
+          element={<ProtectedRoute children={<Echeck />} />}
+        />
+
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </>

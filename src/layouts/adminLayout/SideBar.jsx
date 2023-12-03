@@ -74,7 +74,7 @@ const SideBar = ({ setOpen, open }) => {
         ))}
       <Drawer
         sx={{
-          zIndex: 1000,
+          zIndex:1000,
           position: "absolute",
           width: "270px",
           flexShrink: 0,
@@ -86,19 +86,19 @@ const SideBar = ({ setOpen, open }) => {
             boxShadow: theme.palette.boxShadow,
           },
           "& .MuiDrawer-paper::-webkit-scrollbar": {
-            width: "0px",
+            width: "0px", // Width of the scrollbar
           },
           "& .MuiDrawer-paper::-webkit-scrollbar-track": {
-            background: "#f1f1f1",
+            background: "#f1f1f1", // Track color
           },
           "& .MuiDrawer-paper::-webkit-scrollbar-thumb": {
-            background: "#888",
+            background: "#888", // Thumb color
           },
-          display: isMdScreen ? "block" : open ? "block" : "none",
+          display: isMdScreen ? "block" : open ? "block" : "none", // Show on md and larger screens, hide on xs screens unless open
         }}
         variant="persistent"
         anchor="left"
-        open={isMdScreen || open}
+        open={isMdScreen || open} // Open on md and larger screens and when the open state is true
       >
         <Box sx={{ p: "20px" }}>
           <Box sx={{ p: "20px", textAlign: "center" }}>
@@ -116,6 +116,7 @@ const SideBar = ({ setOpen, open }) => {
                   sx={{
                     backgroundColor:
                       activeItem === data ? "#f4f9ff" : "transparent",
+                    borderRadius: "10px",
                     "&:hover": {
                       borderRadius: "10px",
                     },
