@@ -27,23 +27,22 @@ const ItemListComponent = ({ open, onClose }) => {
     try {
       setIsLoading(true);
       const response = await axios.get(
-        `http://localhost:5050/api/getReviews?propertyId=${propertyId}&limit=${5}&offset=${
-          items.length
-        }`
+        `http://localhost:5050/api/getReviews?propertyId=${propertyId}&limit=${5}&offset=${items.length}`
       );
       console.log(response.data);
-      //console.log(response.data.reviws);
-      //console.log(response.data.totalResults);
+      //console.log(response.data.reviews);
       //console.log(response.data.totalResults);
       // Set new items and update last fetched property ID and total results if necessary:
-      if (response?.data?.reviws?.length > 0) {
+      if (response?.data?.reviews?.length > 0) {
         // If there are new reviews... Set new items:
         const newItems = [...items, ...response?.data?.reviws];
         setItems(newItems);
-        //setLastFetchedPropertyId(propertyId);
         // If there are still more reviews left to fetch... Set isDone flag to false:
         if (items?.length < response?.data?.totalResults) {
           setIsDone(false);
+        } else {
+          // If there are no more reviews left to fetch... Set isDone flag to true:
+          setIsDone(true);
         }
       } else {
         // If there are no more reviews left to fetch... Set isDone flag to true:
@@ -51,13 +50,12 @@ const ItemListComponent = ({ open, onClose }) => {
       }
       setIsLoading(false);
     } catch (error) {
-
-
       console.error("Error fetching items:", error);
       setIsLoading(false);
     }
   };
 
+  
   const dateFormatting = (reviewDate) => {
     try {
       const date = new Date(reviewDate);
