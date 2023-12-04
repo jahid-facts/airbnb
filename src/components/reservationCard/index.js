@@ -23,12 +23,21 @@ export default function ReservationCard(props) {
         <SlideImage image1={image1} image2={image2} image3={image3} />
       </CardMedia>
       <Box position={"absolute"} top={"10px"} right={"10px"}> 
+
+
+
+
         <Checkbox
           icon={<FavoriteTwoTone sx={{ fontSize: "29px", color: "#fff" }} />}
           checkedIcon={
             <Favorite sx={{ fontSize: "29px", color: "secondary.main" }} />
           }
         />
+
+
+
+
+        
       </Box>
 
       <Link to={`/reservation-details/${propertyId}`}>

@@ -11,9 +11,14 @@ import Hosting from "../pages/hosting";
 import PropertyList from "../pages/propertyList";
 import EditProperty from "../pages/editProperty";
 import ReservationDetailsCopy from "../pages/reservationDetails/ReservationDetails copy";
+
+// Vai Bashar added
 import ProfilePage from "../pages/profile/ProfilePage";
 import Echeck from "../pages/reservationEcheck";
-import HostProfileInfo from "../pages/profile/HostInfo";
+import MyTrips from "../pages/profile/ProfileContent/MyTrips"
+// import HostProfileInfo from "../pages/profile/HostInfo";
+
+
 
 export const AppRoutes = () => {
   const isAuthenticated = useSelector((state) => state.auth.isLoggedIn);
@@ -45,10 +50,10 @@ export const AppRoutes = () => {
           path="/property/list"
           element={<ProtectedRoute children={<PropertyList />} />}
         />
-        <Route
+        {/* <Route
           path="/personal/info"
           element={<ProtectedRoute children={<HostProfileInfo />} />}
-        />
+        /> */}
 
         <Route path="/edit/property/:propertyId" element={<EditProperty />} />
         <Route
@@ -74,6 +79,11 @@ export const AppRoutes = () => {
         <Route
           path="/e-check"
           element={<ProtectedRoute children={<Echeck />} />}
+        />
+        {/* "/my-trips" */}
+        <Route
+          path="/my-trips"
+          element={<ProtectedRoute children={<MyTrips />} />}
         />
 
         <Route path="/*" element={<PageNotFound />} />
