@@ -3,9 +3,33 @@ import { Card, CardMedia, Typography, Box, Checkbox } from "@mui/material";
 import { Star, Favorite, FavoriteTwoTone } from "@mui/icons-material";
 import SlideImage from "../slide";
 import { Link } from "react-router-dom";
+import { useAuthInfo } from "../../helpers/AuthCheck";
+import axios from "axios";
 
 export default function ReservationCard(props) {
   const { image1, image2, image3, title, subtitle, price, review , propertyId} = props;
+  
+  const userInfo = useAuthInfo();
+
+
+  const [isFavorite, setIsFavorite] = React.useState(false);
+
+  const handleFavoriteChange = () => {
+    setIsFavorite(!isFavorite);
+    const userId = userInfo._id;
+
+    axios.post("http:localhost:5050/api/wishlists", { propertyId, userId })
+      .then(response => {
+        console.log("Wishlist created successfully:", response.data);
+      })
+      .catch(error => {
+        console.error("Error creating wishlist:", error);
+      });
+
+
+  };
+
+  
 
   return (
     <Card
@@ -31,13 +55,15 @@ export default function ReservationCard(props) {
           icon={<FavoriteTwoTone sx={{ fontSize: "29px", color: "#fff" }} />}
           checkedIcon={
             <Favorite sx={{ fontSize: "29px", color: "secondary.main" }} />
+  
           }
+          onChange={handleFavoriteChange}
         />
 
 
 
 
-        
+
       </Box>
 
       <Link to={`/reservation-details/${propertyId}`}>
