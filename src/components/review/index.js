@@ -5,8 +5,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuthInfo } from "../../helpers/AuthCheck";
 
-const ReviewForm = ({ propertyID, bookingID}) => {
+const ReviewForm = ({ propertyID, bookingID,setReviewStatus}) => {
   const [reviewMessage, setReviewMessage] = useState("");
+  //const [reviewed, setReviewed] = useState("");
   const [propertyId, setPropertyId] = useState("");
   const [bookingId, setBookingId] = useState("");
   const [CommunicationRating, setCommunicationRating] = useState(null);
@@ -23,8 +24,9 @@ const ReviewForm = ({ propertyID, bookingID}) => {
   useEffect(() => {
     setPropertyId(propertyID);
     setBookingId(bookingID);
+    //setReviewStatus(reviewStatus);
     //console.log(propertyId._id);
-  }, [propertyId]);
+  }, [bookingID, propertyID, propertyId]);
 
   const handleSubmit = () => {
     //console.log(propertyId);
@@ -37,7 +39,7 @@ const ReviewForm = ({ propertyID, bookingID}) => {
       ServicesRating,
       LocationRating,
     };
-    //console.log(bookingId);
+    //console.log(bookingId); 
 
     axios
       .post("/reviews", review)
