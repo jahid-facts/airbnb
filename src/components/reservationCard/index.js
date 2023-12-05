@@ -5,11 +5,13 @@ import SlideImage from "../slide";
 import { Link } from "react-router-dom";
 import { useAuthInfo } from "../../helpers/AuthCheck";
 import axios from "axios";
+// import { useEffect } from "react";
 
 export default function ReservationCard(props) {
-  const { image1, image2, image3, title, subtitle, price, review , propertyId} = props;
+  const { image1, image2, image3, title, subtitle, price, review , propertyId, matchedProperties} = props;
   
   const userInfo = useAuthInfo();
+
 
 
   const [isFavorite, setIsFavorite] = React.useState(false);
@@ -18,7 +20,9 @@ export default function ReservationCard(props) {
     setIsFavorite(!isFavorite);
     const userId = userInfo._id;
 
-    axios.post("http:localhost:5050/api/wishlists", { propertyId, userId })
+    
+
+    axios.post("/wishlists", { propertyId, userId })
       .then(response => {
         console.log("Wishlist created successfully:", response.data);
       })
@@ -28,6 +32,26 @@ export default function ReservationCard(props) {
 
 
   };
+
+  // useEffect(() => {
+  //   matchedProperties
+  
+  //   return () => {
+  //     second
+  //   }
+  // }, [third])
+  
+
+const checkBox = () =>
+{
+  //console.log( matchedProperties )
+  if (propertyId in matchedProperties){
+    setIsFavorite(true);
+  }
+}
+
+
+
 
   
 
@@ -57,6 +81,7 @@ export default function ReservationCard(props) {
             <Favorite sx={{ fontSize: "29px", color: "secondary.main" }} />
   
           }
+          value={checkBox()}
           onChange={handleFavoriteChange}
         />
 
