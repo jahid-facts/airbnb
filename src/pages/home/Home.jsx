@@ -27,15 +27,15 @@ export default function Home() {
       },
     })
       .then(response => {
-        setMatchedProperties(response.data);
-        console.log(response.data)
+        setMatchedProperties(response.data.property);
+        //console.log(response.data)
       })
       .catch(error => {
         console.error("Error fetching properties:", error);
       });
   };
   
-  
+
   useEffect(() => {
 
       if (useAuthInfo){

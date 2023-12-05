@@ -5,56 +5,62 @@ import SlideImage from "../slide";
 import { Link } from "react-router-dom";
 import { useAuthInfo } from "../../helpers/AuthCheck";
 import axios from "axios";
+//import { isArray } from "@apollo/client/utilities";
 // import { useEffect } from "react";
 
 export default function ReservationCard(props) {
-  const { image1, image2, image3, title, subtitle, price, review , propertyId, matchedProperties} = props;
-  
+  const {
+    image1,
+    image2,
+    image3,
+    title,
+    subtitle,
+    price,
+    review,
+    propertyId,
+    matchedProperties,
+  } = props;
+
   const userInfo = useAuthInfo();
 
-
-
-  const [isFavorite, setIsFavorite] = React.useState(false);
+  const [isFavorite, setIsFavorite] = React.useState("");
 
   const handleFavoriteChange = () => {
     setIsFavorite(!isFavorite);
     const userId = userInfo._id;
 
-    
-
-    axios.post("/wishlists", { propertyId, userId })
-      .then(response => {
+    axios
+      .post("/wishlists", { propertyId, userId })
+      .then((response) => {
         console.log("Wishlist created successfully:", response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error creating wishlist:", error);
       });
-
-
   };
 
-  // useEffect(() => {
-  //   matchedProperties
-  
-  //   return () => {
-  //     second
-  //   }
-  // }, [third])
-  
-
-const checkBox = () =>
-{
-  //console.log( matchedProperties )
-  if (propertyId in matchedProperties){
-    setIsFavorite(true);
-  }
-}
+  const checkFavoriteStatus = () => {
+    let isFavor= "";
+    if(Array.isArray(matchedProperties) && matchedProperties.length > 0)
+    {
+      matchedProperties?.forEach((property) => {
+        if (property.propertyId === propertyId) {
+          isFavor = "checked"; // found the property ID, set favorite flag to true
+          return; // exit the loop as we've found what we're looking for
+        }
+      });
+    }
+    setIsFavorite(isFavor); // update the component state with the favorite status found in matchedProperties array
+  };
 
 
+  React.useEffect(() => {
+      checkFavoriteStatus(); 
+  }, []); 
+  // add props.matchedProperties as a dependency to re-run this effect when matchedProperties changes (avoid infinite loops)
 
 
-  
-
+console.log(isFavorite);
   return (
     <Card
       sx={{
@@ -64,31 +70,22 @@ const checkBox = () =>
           background: "transparent",
         },
         position: "relative",
-       maxWidth: 345, 
+        maxWidth: 345,
       }}
     >
       <CardMedia>
         <SlideImage image1={image1} image2={image2} image3={image3} />
       </CardMedia>
-      <Box position={"absolute"} top={"10px"} right={"10px"}> 
-
-
-
-
+      <Box position={"absolute"} top={"10px"} right={"10px"}>
         <Checkbox
           icon={<FavoriteTwoTone sx={{ fontSize: "29px", color: "#fff" }} />}
           checkedIcon={
             <Favorite sx={{ fontSize: "29px", color: "secondary.main" }} />
-  
           }
-          value={checkBox()}
+          checked={isFavorite}
+
           onChange={handleFavoriteChange}
         />
-
-
-
-
-
       </Box>
 
       <Link to={`/reservation-details/${propertyId}`}>
