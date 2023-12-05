@@ -15,10 +15,9 @@ import ReservationDetailsCopy from "../pages/reservationDetails/ReservationDetai
 // Vai Bashar added
 import ProfilePage from "../pages/profile/ProfilePage";
 import Echeck from "../pages/reservationEcheck";
-import MyTrips from "../pages/profile/ProfileContent/MyTrips"
+import MyTrips from "../pages/profile/ProfileContent/MyTrips";
+import Wishlist from "../pages/profile/ProfileContent/Wishlist";
 // import HostProfileInfo from "../pages/profile/HostInfo";
-
-
 
 export const AppRoutes = () => {
   const isAuthenticated = useSelector((state) => state.auth.isLoggedIn);
@@ -85,7 +84,11 @@ export const AppRoutes = () => {
           path="/my-trips"
           element={<ProtectedRoute children={<MyTrips />} />}
         />
-
+        {/* /wishlist */}
+        <Route
+          path="/wishlist"
+          element={<ProtectedRoute children={<Wishlist />} />}
+        />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </>
