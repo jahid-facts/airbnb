@@ -49,7 +49,7 @@ const Wishlist = () => {
   return (
     <div>
       Wishlist
-      <Grid container spacing={4}>
+      {/* <Grid container spacing={4}>
         {loading ? (
           <CustomHashLoader />
         ) : (
@@ -81,7 +81,7 @@ const Wishlist = () => {
             )}
           </>
         )}
-      </Grid>
+      </Grid> */}
     </div>
   );
 };
