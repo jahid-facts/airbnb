@@ -21,8 +21,13 @@ import UpcomingRenting from "./ProfileContent/UpcomingRenting";
 import { AppLayout } from "../../layouts/appLayout";
 import { useAuthInfo } from "../../helpers/AuthCheck";
 // import ReservationCheck from "../reservationEcheck";
-import NIDVerificationForm from "../reservationEcheck/Verification";
-import ReviewForm from "../../components/review";
+//import NIDVerificationForm from "../reservationEcheck/Verification";
+//import ReviewForm from "../../components/review";
+
+
+import MyTrips from "../profile/ProfileContent/MyTrips";
+
+
 // import { getApi } from "../../config/configAxios";
 import axios from "axios";
 import Confirmation from "../reservationEcheck/confirmation";
@@ -156,25 +161,9 @@ function ProfilePage() {
                     this step.
                   </Typography>
 
-
-
-
-
-
-
-
-
-                  <Confirmation /> 
-                  
+                  <Confirmation />
 
                   {/* userId={ userInfo._id } */}
-
-
-
-
-
-
-
                 </Box>
               </Paper>
             </Grid>
@@ -225,7 +214,7 @@ function ProfilePage() {
                     }}
                   />
                   <Tab
-                    label="Past Renting"
+                    label="My trips"
                     sx={{
                       fontWeight: "bold",
                       "&:hover, &:focus": {
@@ -295,71 +284,11 @@ function Tab3Content() {
 // ----------------------------------------------------------------
 
 function Tab4Content() {
-  const [rentingStatus, setRentingStatus] = useState([]);
-  const [reviewStatus, setReviewStatus] = useState('');
-
-  const userInfo = useAuthInfo();
-  console.log(userInfo);
-
-  // const bookinData = getApi("/renter-bookins");
-
-  useEffect(() => {
-    axios
-      .get("/renter-bookins", {
-        params: {
-          userId: userInfo._id,
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        setRentingStatus(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [userInfo._id]); //properties  or  UserInfo._id, properties
-
   return (
-    <>
-      <Box><h3>Review The stay</h3></Box>
-      <br></br>
-      
-      <Grid container spacing={2}>
-        {rentingStatus.map((rental) => (
-          <Grid item >
-            <ListItem alignItems="flex-start">
-              <Box // image box icon design
-                component="img"
-                p={1}
-                mr={2}
-                width={"15.625rem"}
-                height={"15.625rem"}
-                borderRadius={"10px"}
-                bgcolor={"#e0eeff"}
-                display={"flex"}
-                textAlign={"center"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                alt="The house from the offer."
-                src={rental.propertyId.images[0].url}
-              >
-                {/* <BarChart sx={{ fontSize: "30px", color: "#2980b9" }} /> */}
-              </Box>
-              <ListItemText
-              primary={rental.propertyId.title}
-              secondary= {rental.propertyId.address.addressLine1}
-              />
-              <ListItem>
-              <ReviewForm propertyID={rental.propertyId} bookingID ={rental._id}/>
-              </ListItem>
-              
-
-            </ListItem>
-          </Grid>
-        ))}
-        ;
-      </Grid>
-    </>
+    <div>
+       <h4>MyTrips</h4>
+      <MyTrips />
+    </div>
   );
 }
 

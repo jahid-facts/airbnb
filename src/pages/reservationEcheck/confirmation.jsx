@@ -28,7 +28,7 @@ function Confirmation(bookinStatus, mode) {
     }
   };
 
-  console.log("bookin Status", bookingStatus, "id Status", idStatus);
+  //console.log("bookin Status", bookingStatus, "id Status", idStatus);
 
 
   return (
