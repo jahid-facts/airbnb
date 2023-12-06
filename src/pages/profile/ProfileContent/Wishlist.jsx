@@ -47,6 +47,7 @@ const Wishlist = () => {
       fontWeight:"600",
       fontSize: "1.5rem",
       marginBlock:"1rem",
+      position: "sticky",
      }}>
      Wishlist
      </Box>
