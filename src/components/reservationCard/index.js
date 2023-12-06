@@ -64,8 +64,8 @@ export default function ReservationCard(props) {
     const checkFavoriteStatus = () => {
       let isFavor = "";
       if (Array.isArray(matchedProperties) && matchedProperties.length > 0) {
-        matchedProperties?.forEach((property) => {
-          if (property.propertyId === propertyId) {
+        matchedProperties?.forEach((properties) => {
+          if (properties.propertyId._id === propertyId) {
             isFavor = "checked";
             // found the property ID, set favorite flag to true
             return;

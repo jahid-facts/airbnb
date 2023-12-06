@@ -3,9 +3,9 @@ import axios from "axios";
 import {
   Avatar,
   Box,
-  Drawer,
+ //Drawer,
   Button,
-  Container,
+  //Container,
   Divider,
   Grid,
   Rating,
@@ -16,6 +16,8 @@ import OpenReviewList from "./ItemList";
 
 function ReviewSection() {
   const { propertyId } = useParams();
+  
+
   const [openReviewLists, setOpenReviewLists] = React.useState(false);
 
   const [reviewResponsedData, setreviewResponsedData] = React.useState([]);
