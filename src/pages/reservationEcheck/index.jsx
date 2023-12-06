@@ -16,20 +16,22 @@ import {
 import { theme } from "../../theme";
 //import FormControl from '@mui/material/FormControl';
 // import {getApi, postApi} from '../../config/configAxios';
-// import Varification from "./Verification";
+import Verification from "./Verification";
 
 
-//import Confirmation from './confirmation';
 import Layout from "../../layouts/userDashboard";
 import { useEffect, useState } from "react";
+
 import axios from "axios";
 import { useAuthInfo } from "../../helpers/AuthCheck";
-import  Confirmation  from "./confirmation";
+// import  Confirmation  from "./confirmation";
+import { useLocation } from "react-router";
 //import { Image } from "@mui/icons-material";
 
 const ReservationCheck = () => {
   // const verified = 'ok';
   const UserInfo = useAuthInfo();
+  const location = useLocation();
   const [bookingStatuses, setBookingStatuses] = useState([]);
 
   useEffect(() => {
@@ -49,15 +51,30 @@ const ReservationCheck = () => {
       });
   }, [UserInfo._id]); //properties  or  UserInfo._id, properties
 
-  console.log(bookingStatuses);
+  //console.log(bookingStatuses);
+
+  const displayStatus = (bookingId,bookingStatus, mode) => {
+   
+    //const bookingStatus = bookinStatu;
+    if (location.pathname === "/profile" && UserInfo.status === "active") {
+      return "VERIFIED";
+    } else if (bookingStatus === "active" && location.pathname === "/e-check" ) {
+      return "RENTED";
+    } else {
+      return <Verification bookingId={bookingId} mode={mode} />; // or display your verification form here
+    }
+  };
+
+
+
 
   return (
     <Layout title={"Todays bookins"}>
       <Grid container spacing={2}>
-        {bookingStatuses.map((propertyData, index) => {
+        {bookingStatuses.map((propertyData) => {
           // const property = properties.find((p) => p._id === propertyData._id);
           return (
-            <Grid item xs={12} md={10} mx={10} key={propertyData._id}>
+            <Grid item xs={12} md={10} mx={10} >
               <Box
                 display={"flex"}
                 alignItems={"center"}
@@ -175,12 +192,36 @@ const ReservationCheck = () => {
                 <Box width={"40%"}>
                   {propertyData ? (
                     
-                    <Confirmation
-                      bookingId={propertyData._id}
-                      // InvoiceId={propertyData.invoiceId}
-                      bookinStatus={propertyData.status}
-                      mode={"upload"}
-                    />
+                
+                      <Box
+                      className="active-status"
+                      style={{
+                        backgroundColor: location.pathname !== '/profile' ? "#FFA500" : "#4CAF50",
+                        color: location.pathname !== '/profile' ? '#fff': '#000',
+                        textAlign: "center",
+                        padding: "10px",
+                        borderRadius: "15px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        margin: "10px",
+                      }}
+                    > {displayStatus(propertyData._id, propertyData.status,"upload")}  
+                    </Box>
+
+                
+
+
+
+                    
+                    // <Confirmation
+                    //   //bookingId={propertyData._id}
+                    //   // InvoiceId={propertyData.invoiceId}
+                    //   bookinStatu={propertyData.status}
+                    //   mode={"upload"}
+                    // />
+
+
                   ) : (
                     <table> 
                       <Typography
@@ -207,6 +248,12 @@ const ReservationCheck = () => {
     </Layout>
   );
 };
+
+
+
+
+
+
 
 export default ReservationCheck;
 

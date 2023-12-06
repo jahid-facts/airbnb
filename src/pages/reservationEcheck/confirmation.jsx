@@ -3,35 +3,53 @@ import Verification from "./Verification";
 import { useLocation } from "react-router-dom";
 import { useAuthInfo } from "../../helpers/AuthCheck";
 
-function Confirmation(bookinStatus, mode) {
+function Confirmation(bookinStatu, mode) {
   const location = useLocation();
   const UserInfo = useAuthInfo();
-  const [bookingStatus, setBookingStatus] = useState(null);
+  const [bookingStatus, setBookingStatus] = useState("");
   const [idStatus, setIdStatus] = useState(null);
 
-  useEffect(() => {
-    setBookingStatus(bookinStatus);
-    console.log(bookinStatus);
-  }, [bookinStatus]);
+
 
   useEffect(() => {
-    setIdStatus(UserInfo.status);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idStatus]);
+    setBookingStatus(bookinStatu);
+   
+    //console.log("idStatus" , idStatus);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps 
+  }, []);
+
+
+  // useEffect(() => {
+  //   setIdStatus(UserInfo.status);
+    
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [idStatus]);
+  console.log("bookinStatus",bookinStatu);
 
   const displayStatus = () => {
-    if (location.pathname === "/profile") {
+   
+    //const bookingStatus = bookinStatu;
+    if (location.pathname === "/profile" && UserInfo.status === "active") {
       return "VERIFIED";
-    } else if (idStatus === "active" && bookingStatus === "active") {
+    } else if (bookingStatus === "active" && location.pathname === "/e-check" ) {
       return "RENTED";
     } else {
       return <Verification mode={mode} />; // or display your verification form here
     }
   };
 
+
+// useEffect(() => {
+
+//   displayStatus();
+//   setBookingStatus(null);
+// }, [])
+
+
   //console.log("bookin Status", bookingStatus, "id Status", idStatus);
 
-
+// console.log("bookingId",bookingId)
   return (
     <div
       className="active-status"
@@ -46,6 +64,7 @@ function Confirmation(bookinStatus, mode) {
         alignItems: "center",
         margin: "10px",
       }}
+     //value ={bookingId}
     >
       {displayStatus()}
     </div>

@@ -18,8 +18,14 @@ export default function Home() {
   const [matchedProperties, setMatchedProperties] = useState("");
   const [loading, setLoading] = useState(false);
   const userInfo = useAuthInfo();
+
   //const { overAllAverage } = useParams();
   //console.log(overAllAverage)
+
+
+
+
+
 
   const getPropertiesFromWishlist = () => {
 
@@ -40,9 +46,9 @@ export default function Home() {
 
   useEffect(() => {
 
-      if (useAuthInfo){
+      if (userInfo._id){
         getPropertiesFromWishlist();
-      }   
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

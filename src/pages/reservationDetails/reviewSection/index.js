@@ -56,6 +56,8 @@ function ReviewSection() {
 
 
         const responData = reviewResponse.data.reviws;
+        console.log(reviewResponse.data)
+        console.log(responData.reviws);
         setreviewResponsedData(responData);
         setTotalResults(reviewResponse.data.totalResults);
 

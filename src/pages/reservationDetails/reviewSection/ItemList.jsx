@@ -38,7 +38,7 @@ const ItemListComponent = ({ open, onClose }) => {
 
       
       // Set new items and update last fetched property ID and total results if necessary:
-      if (response?.data?.reviews?.length > 0) {
+      if (response?.data?.reviws?.length > 0) {
         // If there are new reviews... Set new items:
         const newItems = [...items, ...response?.data?.reviws];
         setItems(newItems);
@@ -153,6 +153,7 @@ const ItemListComponent = ({ open, onClose }) => {
             </Grid>
           ))}
           {isLoading && <div>Loading...</div>}
+          {" "}
           {isDone && <div>Done</div>}
         </Grid>
 
