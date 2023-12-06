@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import {
   Container,
   Grid,
@@ -11,27 +11,17 @@ import {
   Button,
   Box,
   Divider,
-  ListItem,
-  ListItemText,
+  // ListItem,
+  // ListItemText,
 } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
 import PersonalInfo from "./ProfileContent/PersonalInfo";
 import ActiveRenting from "./ProfileContent/ActiveRenting";
 import UpcomingRenting from "./ProfileContent/UpcomingRenting";
 import { AppLayout } from "../../layouts/appLayout";
-import { useAuthInfo } from "../../helpers/AuthCheck";
-// import ReservationCheck from "../reservationEcheck";
-//import NIDVerificationForm from "../reservationEcheck/Verification";
-//import ReviewForm from "../../components/review";
-
-
 import MyTrips from "../profile/ProfileContent/MyTrips";
-
-
-// import { getApi } from "../../config/configAxios";
-import axios from "axios";
 import Confirmation from "../reservationEcheck/confirmation";
-// import ReviewPanel from "../../components/rating";
+
 
 function ProfilePage() {
   const [value, setValue] = useState(0);

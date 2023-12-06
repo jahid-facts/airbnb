@@ -8,7 +8,7 @@ import {
   Container,
   Divider,
   Grid,
-  Rating,
+  //Rating,
   Typography,
 } from "@mui/material";
 import {
@@ -32,7 +32,7 @@ import CustomHashLoader from "../../components/customLoader/CustomHashLoader";
 import { Icon } from "@iconify/react";
 import OpenAmenitiseList from "./AmenitiseList";
 
-import axios from "axios";
+// import axios from "axios";
 import ReviewSection from "./reviewSection";
 
 export default function ReservationDetails() {
@@ -42,19 +42,11 @@ export default function ReservationDetails() {
   const [openImageList, setOpenImageList] = React.useState(false);
 
   const [openAmenitiseList, setOpenAmenitiseList] = React.useState(false);
-  const [openReviewLists, setOpenReviewLists] = React.useState(false);
+ 
 
   const [itemDataImages, setItemDataImages] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const { propertyId } = useParams();
-  const [reviewResponsedData, setreviewResponsedData] = React.useState([]);
-  const [overAllAverage, setOverAllAverage] = React.useState(null);
-  const [communicationAverage, setCommunicationAverage] = React.useState(null);
-  const [recommendAverage, setRecommendAverage] = React.useState(null);
-  const [servicesAverage, setServicesAverage] = React.useState(null);
-  const [locationAverage, setLocationAverage] = React.useState(null);
-  const [reviewDate, setReviewDate] = React.useState("");
-  const [reviewUserName, setReviewUserName] = React.useState("");
 
   React.useEffect(() => {
     const fetchDataServer = async () => {
@@ -77,62 +69,6 @@ export default function ReservationDetails() {
         setLoading(false); // Set loading to false after data is fetched
 
         //console.log(propertyId);
-
-        function calculateAverage(array) {
-          let sum = 0;
-          const length = array.length;
-
-          for (let i = 0; i < length; i++) {
-            sum += array[i];
-          }
-
-          const average = sum / length;
-          return average;
-        }
-
-        // getting review response from mongodb
-        const reviewResponse = await axios.get(
-          `/getReviews?propertyId=${propertyId}`
-        );
-
-        const responData = reviewResponse.data.reviws;
-        setreviewResponsedData(responData);
-
-        // for (const Data of reviewResponsedData) {
-        //   console.log(Data.reviewMessage);
-        //   console.log(Data.CommunicationRating);
-        //   console.log(Data.RecommendRating);
-        //   console.log(Data.ServicesRating);
-        //   console.log(Data.LocationRating);
-        //   console.log(Data.overAllRating);
-        //   console.log(Data.createdAt);
-        // }
-
-        const communicationRatings = reviewResponse.data.reviws.map(
-          (data) => data.CommunicationRating
-        );
-
-        const recommendRatings = reviewResponse.data.reviws.map(
-          (data) => data.RecommendRating
-        );
-        const servicesRatings = reviewResponse.data.reviws.map(
-          (data) => data.ServicesRating
-        );
-        const locationRatings = reviewResponse.data.reviws.map(
-          (data) => data.LocationRating
-        );
-
-        const overAllRating = reviewResponse.data.reviws.map(
-          (data) => data.overAllRating
-        );
-
-        setCommunicationAverage(calculateAverage(communicationRatings));
-        setRecommendAverage(calculateAverage(recommendRatings));
-        setServicesAverage(calculateAverage(servicesRatings));
-        setLocationAverage(calculateAverage(locationRatings));
-        setOverAllAverage(calculateAverage(overAllRating));
-
-        //console.log(communicationAverage, recommendAverage);
       } catch (error) {
         console.error("Internal server error:", error);
 
@@ -191,37 +127,6 @@ export default function ReservationDetails() {
     "November",
     "December",
   ];
-
-  const dateFormatting = (reviewDate) => {
-    const date = new Date(reviewDate);
-    // December 25, 2023
-    const formattedDate = new Intl.DateTimeFormat("en-GB", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    })
-      .formatToParts(date)
-      .map((part) => part.value)
-      .join(" ");
-    // const formattedDate = date.toISOString().substring(0, 10);
-    // "2023-12-25"
-    //console.log(formattedDate);dateFormatting
-    return formattedDate;
-  };
-
-  const handleReviewedUser = (reviewedBy) => {
-    axios
-      .get(`http://localhost:5050/api/user/${reviewedBy}`)
-      .then((response) => {
-        setReviewUserName(response.data.user.name);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log("Server returned error:", error.response.data);
-        }
-      });
-    return reviewUserName;
-  };
 
   return (
     <AppLayout>
@@ -542,22 +447,21 @@ export default function ReservationDetails() {
                       <ReviewSection propertyID={propertyId} />
                       <Divider sx={{ my: 4 }} />
                     </Grid>
-
-
                   </Grid>
+                  {/* Review section end*/}
 
                   <Grid item xs={12} md={4}>
-                      <Box
-                        sx={{
-                          display: {
-                            position: "sticky",
-                            top: "110px",
-                          },
-                        }}
-                      >
-                        <Reserve propertyValues={propertyValues} />
-                      </Box>
-                    </Grid>
+                    <Box
+                      sx={{
+                        display: {
+                          position: "sticky",
+                          top: "110px",
+                        },
+                      }}
+                    >
+                      <Reserve propertyValues={propertyValues} />
+                    </Box>
+                  </Grid>
                 </Grid>
               </Grid>
             </>
@@ -579,3 +483,100 @@ export default function ReservationDetails() {
     </AppLayout>
   );
 }
+
+// const [reviewResponsedData, setreviewResponsedData] = React.useState([]);
+// const [overAllAverage, setOverAllAverage] = React.useState(null);
+// const [communicationAverage, setCommunicationAverage] = React.useState(null);
+//const [openReviewLists, setOpenReviewLists] = React.useState(false);
+// const [recommendAverage, setRecommendAverage] = React.useState(null);
+// const [servicesAverage, setServicesAverage] = React.useState(null);
+// const [locationAverage, setLocationAverage] = React.useState(null);
+// const [reviewDate, setReviewDate] = React.useState("");
+//const [reviewUserName, setReviewUserName] = React.useState("");
+
+// function calculateAverage(array) {
+//   let sum = 0;
+//   const length = array.length;
+
+//   for (let i = 0; i < length; i++) {
+//     sum += array[i];
+//   }
+
+//   const average = sum / length;
+//   return average;
+// }
+
+// // getting review response from mongodb
+// const reviewResponse = await axios.get(
+//   `/getReviews?propertyId=${propertyId}`
+// );
+
+// const responData = reviewResponse.data.reviws;
+// setreviewResponsedData(responData);
+
+// // for (const Data of reviewResponsedData) {
+// //   console.log(Data.reviewMessage);
+// //   console.log(Data.CommunicationRating);
+// //   console.log(Data.RecommendRating);
+// //   console.log(Data.ServicesRating);
+// //   console.log(Data.LocationRating);
+// //   console.log(Data.overAllRating);
+// //   console.log(Data.createdAt);
+// // }
+
+// const communicationRatings = reviewResponse.data.reviws.map(
+//   (data) => data.CommunicationRating
+// );
+
+// const recommendRatings = reviewResponse.data.reviws.map(
+//   (data) => data.RecommendRating
+// );
+// const servicesRatings = reviewResponse.data.reviws.map(
+//   (data) => data.ServicesRating
+// );
+// const locationRatings = reviewResponse.data.reviws.map(
+//   (data) => data.LocationRating
+// );
+
+// const overAllRating = reviewResponse.data.reviws.map(
+//   (data) => data.overAllRating
+// );
+
+// setCommunicationAverage(calculateAverage(communicationRatings));
+// setRecommendAverage(calculateAverage(recommendRatings));
+// setServicesAverage(calculateAverage(servicesRatings));
+// setLocationAverage(calculateAverage(locationRatings));
+// setOverAllAverage(calculateAverage(overAllRating));
+
+//console.log(communicationAverage, recommendAverage);
+
+// const handleReviewedUser = (reviewedBy) => {
+//   axios
+//     .get(`http://localhost:5050/api/user/${reviewedBy}`)
+//     .then((response) => {
+//       setReviewUserName(response.data.user.name);
+//     })
+//     .catch((error) => {
+//       if (error.response) {
+//         console.log("Server returned error:", error.response.data);
+//       }
+//     });
+//   return reviewUserName;
+// };
+
+// const dateFormatting = (reviewDate) => {
+//   const date = new Date(reviewDate);
+//   // December 25, 2023
+//   const formattedDate = new Intl.DateTimeFormat("en-GB", {
+//     year: "numeric",
+//     month: "long",
+//     day: "numeric",
+//   })
+//     .formatToParts(date)
+//     .map((part) => part.value)
+//     .join(" ");
+//   // const formattedDate = date.toISOString().substring(0, 10);
+//   // "2023-12-25"
+//   //console.log(formattedDate);dateFormatting
+//   return formattedDate;
+// };

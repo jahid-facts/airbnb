@@ -1,8 +1,8 @@
 // //ReviewPropertiesSlice
 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { getApi, postApi } from "../../config/configAxios";
+// import axios from 'axios';
+import { postApi } from "../../config/configAxios";
 
 
 // const review_url = process.env.REACT_APP_CREATE_REVIEW_ENDPOINT;

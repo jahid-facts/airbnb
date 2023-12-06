@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "../../../components/dataTable/DataTable";
 import AdminLayout from "../../../layouts/adminLayout";
-import { Box, Button, Chip, Grid, IconButton } from "@mui/material";
+import { Box, Chip, Grid, IconButton } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { Icon } from "@iconify/react";
+// import { Icon } from "@iconify/react";
 import CustomHashLoader from "../../../components/customLoader/CustomHashLoader";
-import { Link, useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Capitalize from "../../../components/capitalize/Capitalize";
 import { getAllProperties } from "../../../redux/features/AllPropertyForAdminSlice";
 import { MoreHoriz } from "@mui/icons-material";
 import { DropdownMenu } from "../../../components/dropdown";
-import Swal from "sweetalert2";
-import { putApi } from "../../../config/configAxios";
-import { toast } from "react-toastify";
+// import Swal from "sweetalert2";
+// import { putApi } from "../../../config/configAxios";
+// import { toast } from "react-toastify";
 
 const Properties = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const Properties = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   useEffect(() => {
     // if (properties.length > 0) {
@@ -63,22 +63,22 @@ const Properties = () => {
     setAnchorEl(null);
   };
 
-  const updatedStatus = async (propertyId, data) => {
-    try {
-      setLoading(true);
-      await putApi(`/properties/${propertyId}`, data).then((res) => {
-        if (res.status === 200) {
-          dispatch(getAllProperties()).then(() => {
-            setLoading(false);
-            toast.success("Successfully status updated");
-          });
-        }
-      });
-    } catch (error) {
-      console.error("Error submitting data:", error);
-      toast.error(error.data.message);
-    }
-  };
+  // const updatedStatus = async (propertyId, data) => {
+  //   try {
+  //     setLoading(true);
+  //     await putApi(`/properties/${propertyId}`, data).then((res) => {
+  //       if (res.status === 200) {
+  //         dispatch(getAllProperties()).then(() => {
+  //           setLoading(false);
+  //           toast.success("Successfully status updated");
+  //         });
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.error("Error submitting data:", error);
+  //     toast.error(error.data.message);
+  //   }
+  // };
 
   const handleAction = (itemId, actionType) => {
     console.log(itemId);

@@ -27,11 +27,16 @@ const ItemListComponent = ({ open, onClose }) => {
     try {
       setIsLoading(true);
       const response = await axios.get(
-        `http://localhost:5050/api/getReviews?propertyId=${propertyId}&limit=${5}&offset=${items.length}`
+        `/getReviews?propertyId=${propertyId}&limit=${5}&offset=${items.length}`
       );
+      // const response = await axios.get(
+      //   `http://localhost:5050/api/getReviews?propertyId=${propertyId}&limit=${5}&offset=${items.length}`
+      // );
       console.log(response.data);
       //console.log(response.data.reviews);
       //console.log(response.data.totalResults);
+
+      
       // Set new items and update last fetched property ID and total results if necessary:
       if (response?.data?.reviews?.length > 0) {
         // If there are new reviews... Set new items:
@@ -85,6 +90,7 @@ const ItemListComponent = ({ open, onClose }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleScroll = () => {

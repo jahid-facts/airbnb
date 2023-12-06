@@ -16,6 +16,7 @@ function Confirmation(bookinStatus, mode) {
 
   useEffect(() => {
     setIdStatus(UserInfo.status);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idStatus]);
 
   const displayStatus = () => {
@@ -101,9 +102,9 @@ export default Confirmation;
 
 // export default FileUpload;
 
-{
-  /* <form onSubmit={handleSubmit}>
-    <input type="file" onChange={handleFileChange} />
-    <input type="submit" value="Upload" />
-</form> */
-}
+// {
+//   /* <form onSubmit={handleSubmit}>
+//     <input type="file" onChange={handleFileChange} />
+//     <input type="submit" value="Upload" />
+// </form> */
+// }

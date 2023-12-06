@@ -1,7 +1,7 @@
 import {
   Favorite,
   MessageSharp,
-  Person,
+  // Person,
   Notifications,
   Home,
 } from "@mui/icons-material";

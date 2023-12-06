@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useLocation } from "react";
+import React, { useState } from "react";
 import { Button, Input } from "@mui/material";
 import WebCam from "../../components/webcam";
 import { useAuthInfo } from "../../helpers/AuthCheck";
 import axios from "axios";
 
-import { getApi, getApiById } from "../../config/configAxios";
+//import { getApi, getApiById } from "../../config/configAxios";
 
 function NIDVerificationForm({ bookingId, mode }) {
 
@@ -121,7 +121,7 @@ function NIDVerificationForm({ bookingId, mode }) {
   };
  
   return (
-    <div>
+    <div  >
       <form
         encType="multipart/form-data"
         onSubmit={handleSubmit}
@@ -138,6 +138,7 @@ function NIDVerificationForm({ bookingId, mode }) {
             alignItems: "center",
             justifyContent: "center",
           }}
+          
         >
           <WebCam setWebCamFile={handleWebCamFile} />
 
@@ -181,6 +182,7 @@ function NIDVerificationForm({ bookingId, mode }) {
           </Button>
         </div>
       </form>
+      <div value={fileUploaded}></div>
     </div>
   );
 }

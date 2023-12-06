@@ -1,4 +1,4 @@
-import { Close, Inbox, Mail } from "@mui/icons-material";
+import { Close } from "@mui/icons-material";
 import {
   Box,
   Divider,
@@ -9,8 +9,8 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Toolbar,
-  Typography,
+  // Toolbar,
+  // Typography,
   useMediaQuery,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
