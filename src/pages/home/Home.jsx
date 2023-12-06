@@ -18,6 +18,8 @@ export default function Home() {
   const [matchedProperties, setMatchedProperties] = useState("");
   const [loading, setLoading] = useState(false);
   const userInfo = useAuthInfo();
+  //const { overAllAverage } = useParams();
+  //console.log(overAllAverage)
 
   const getPropertiesFromWishlist = () => {
 
@@ -27,8 +29,8 @@ export default function Home() {
       },
     })
       .then(response => {
-        setMatchedProperties(response.data.property);
-        //console.log(response.data)
+        setMatchedProperties(response.data.properties);
+        console.log(response.data)
       })
       .catch(error => {
         console.error("Error fetching properties:", error);
@@ -41,6 +43,7 @@ export default function Home() {
       if (useAuthInfo){
         getPropertiesFromWishlist();
       }   
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
@@ -58,7 +61,7 @@ export default function Home() {
 
 
 
-
+// console.log(properties)
 
   return (
     <AppLayout>
@@ -86,7 +89,8 @@ export default function Home() {
                             : data.title
                         }
                         price={data.price}
-                        review={"4.9"}
+                        // review={data.review.overAllRating}
+                        review={data.review}
                       />
                     </Grid>
                   ))
