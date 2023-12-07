@@ -36,10 +36,10 @@ const PersonalInfo = () => {
     console.log(`Tile clicked: ${tileClicked}`); // Log the clicked tile to the console for testing purposes
 
    
-        setOpenImageList(!globalModalForProfile);
+        setGlobalModalForProfile(!globalModalForProfile);
       };
 
-  };
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
