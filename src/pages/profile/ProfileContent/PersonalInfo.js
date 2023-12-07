@@ -35,8 +35,8 @@ const PersonalInfo = () => {
 
     console.log(`Tile clicked: ${tileClicked}`); // Log the clicked tile to the console for testing purposes
 
-    const handleImageLIst = () => {
-        setOpenImageList(!GlobalModalForProfile);
+   
+        setOpenImageList(!globalModalForProfile);
       };
 
   };
