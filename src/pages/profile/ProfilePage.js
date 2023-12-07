@@ -246,10 +246,14 @@ function ProfilePage() {
 
 function Tab1Content() {
   return (
-    <div>
-      <h4>Personal Information</h4>
+    <Box>
+      <h2> Renter Profile </h2>
+      <h5>
+        {" "} Create your Renter Profile once and reuse it for all your applications.
+      </h5>
+      <br></br>
       <PersonalInfo />
-    </div>
+    </Box>
   );
 }
 
