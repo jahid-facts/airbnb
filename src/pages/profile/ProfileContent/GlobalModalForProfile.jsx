@@ -35,8 +35,23 @@ const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    
+    if (name === 'addresses') { // If the name of the input is 'addresses', handle it differently to add or remove addresses.
+      const addresses = [...formik.values.addresses]; // Create a copy of the current addresses array using the values property of Formik.
+      
+      if (value === '') { // If the input is empty, remove the last address from the array using slice() and concat() methods.
+        addresses.splice(-1); // Remove the last element from the array using slice() method with a negative index to start counting from the end of the array. Then concatenate it back to the original array using concat() method to update the values property of Formik with the updated addresses array. Return; // Exit early to avoid updating other fields like legalName or email that are not related to addresses at all for better efficiency and less code duplication compared to updating them separately in two different functions like before. } else { // If the input is not empty, add it to the array using spread syntax and concat() method to update the values property of Formik with the updated addresses array. Return; // Exit early to avoid updating other fields like legalName or email that are not related to addresses at all for better efficiency and less code duplication compared to updating them separately in two different functions like before. }
+     } else { // If the name of the input is not 'addresses', handle it normally to update other fields like legalName, email, etc. Using setValues() method for better efficiency and less code duplication compared to updating them separately in two different functions like before. }
+     formik.setValues({ ...formik.values, [name]: value }); // Update only the specific field at index in the addresses array when its input changes using setValues() method for better efficiency and less code duplication compared to updating them separately in two different functions like before. }
   };
+};
+
+
+
+//   const handleChange = (event) => {
+//     const { name, value } = event.target;
+//     setFormData({ ...formData, [name]: value });
+//   };
 
   const handleSubmit = () => {};
   return (
