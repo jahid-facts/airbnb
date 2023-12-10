@@ -1,23 +1,22 @@
 import { Box, Drawer, Grid, Typography, Button } from "@mui/material";
 import React, { useState } from "react";
-import { Formik, Field, Form } from "formik";
-import * as Yup from "yup";
-import moment from "moment";
-import { DatePicker } from "antd";
 
-import {
-  PersonalInfoForm,
-  AddressHistoryForm,
-  AboutMeForm,
-  IncomeForm,
-  EmergencyForm,
-} from "../../../components/forms";
+import { DatePicker } from "antd";
+import PersonalInfoForm from "../../../components/forms/personal";
+import IncomeForm from "../../../components/forms/income";
+import AddressHistoryForm from "../../../components/forms/AddressHistory";import EmergencyForm from "../../../components/forms/EmergencyForm";
+import AboutMeForm from "../../../components/forms/AboutMe";
+
+
+
+
+
+
 
 const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
   const closeDrawer = () => {
     onClose();
   };
-
 
   const handleModal = () => {
     switch (typeOfForm) {
@@ -51,12 +50,12 @@ const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
     <div>
       GlobalModalForProfile
       <Drawer anchor="bottom" open={open} onClose={onClose}>
-        {/*  */}
+        {/* Personal Information */}
         <form>
           <Grid container spacing={2} m={10}>
-            <Grid item>{handleModal()}</Grid>
+            <Grid item>{ handleModal() }</Grid>
             <Grid item>
-              <Button type="submit" > Submit </Button>
+              <Button type="submit"> Submit </Button>
             </Grid>
           </Grid>
         </form>
@@ -89,6 +88,7 @@ const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
             <Typography variant="text"> Close </Typography>
           </Box>
         </Box>
+
       </Drawer>
     </div>
   );
@@ -96,24 +96,20 @@ const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
 
 export default GlobalModalForProfile;
 
-  // const validationSchema = Yup.object({
-  //   personal: Yup.object({
-  //     legalName: Yup.string().required("Legal name is required"),
-  //     email: Yup.string()
-  //       .email("Email address is not valid")
-  //       .required("Email address is required"),
-  //     governmentID: Yup.string().required("Government ID is required"),
-  //     spouseName: Yup.string(), // This field is optional, so we don't set a validation rule for it.
-  //   }),
-  //   income: Yup.object({
-  //     add_income_source: Yup.string().required("Income source is required"),
-  //     officeName: Yup.string().required("Office name is required"),
-  //   }),
-  // });
-
-
-
-
+// const validationSchema = Yup.object({
+//   personal: Yup.object({
+//     legalName: Yup.string().required("Legal name is required"),
+//     email: Yup.string()
+//       .email("Email address is not valid")
+//       .required("Email address is required"),
+//     governmentID: Yup.string().required("Government ID is required"),
+//     spouseName: Yup.string(), // This field is optional, so we don't set a validation rule for it.
+//   }),
+//   income: Yup.object({
+//     add_income_source: Yup.string().required("Income source is required"),
+//     officeName: Yup.string().required("Office name is required"),
+//   }),
+// });
 
 // const validationSchema = Yup.object({
 //   email: Yup.string()
@@ -176,76 +172,75 @@ export default GlobalModalForProfile;
 //   }
 // };
 
+// const personalInitialValues = {
+//   firstName: "",
+//   lastName: "",
+//   dateOfBirth: moment(),
+//   phoneNumber: "",
+// };
 
-  // const personalInitialValues = {
-  //   firstName: "",
-  //   lastName: "",
-  //   dateOfBirth: moment(),
-  //   phoneNumber: "",
-  // };
+// const aboutMeInitialValues = {
+//   aboutMe: "",
+// };
 
-  // const aboutMeInitialValues = {
-  //   aboutMe: "",
-  // };
+// const incomeInitialValues = {
+//   add_income_source: "",
+//   officeName: "",
+// };
 
-  // const incomeInitialValues = {
-  //   add_income_source: "",
-  //   officeName: "",
-  // };
+// const addressHistoryInitialValues = {
+//   addresses: [],
+//   addresses: [
+//     { street: "", city: "", state: "", zipCode: "" },
+//     // This is the first address object. You can add more objects to the array as needed.
+//   ],
+//   // ... Rest of the component code here ... //
+// };
 
-  // const addressHistoryInitialValues = {
-  //   addresses: [],
-  //   addresses: [
-  //     { street: "", city: "", state: "", zipCode: "" },
-  //     // This is the first address object. You can add more objects to the array as needed.
-  //   ],
-  //   // ... Rest of the component code here ... //
-  // };
+// const personalValidationSchema = Yup.object({
+//   firstName: Yup.string().required("firstName name is required"),
+//   lastName: Yup.string().required("lastName name is required"),
+//   dateOfBirth: Yup.date().required("Please select a date"),
+//   phoneNumber: Yup.string()
+//     .matches(
+//       /^\(?[1-9]\)?[-. ]?[2-9]\d{6,}$/,
+//       "Please enter a valid phone number"
+//     )
+//     .when("region", {
+//       is: "US",
+//       then: Yup.string().required("Please enter a US phone number"),
+//     })
+//     .when("region", {
+//       is: "BD",
+//       then: Yup.string().required("Please enter a Bangladeshi phone number"),
+//     })
+//     .when("region", {
+//       is: "CA",
+//       then: Yup.string().matches(
+//         /^\(?[1-9]\)?[-. ]?[2-9]\d{6}$/,
+//         "Please enter a valid Canadian phone number"
+//       ),
+//     }),
+// });
 
-  // const personalValidationSchema = Yup.object({
-  //   firstName: Yup.string().required("firstName name is required"),
-  //   lastName: Yup.string().required("lastName name is required"),
-  //   dateOfBirth: Yup.date().required("Please select a date"),
-  //   phoneNumber: Yup.string()
-  //     .matches(
-  //       /^\(?[1-9]\)?[-. ]?[2-9]\d{6,}$/,
-  //       "Please enter a valid phone number"
-  //     )
-  //     .when("region", {
-  //       is: "US",
-  //       then: Yup.string().required("Please enter a US phone number"),
-  //     })
-  //     .when("region", {
-  //       is: "BD",
-  //       then: Yup.string().required("Please enter a Bangladeshi phone number"),
-  //     })
-  //     .when("region", {
-  //       is: "CA",
-  //       then: Yup.string().matches(
-  //         /^\(?[1-9]\)?[-. ]?[2-9]\d{6}$/,
-  //         "Please enter a valid Canadian phone number"
-  //       ),
-  //     }),
-  // });
+// const aboutMeValidationSchema = Yup.object({
+//   aboutMe: Yup.string(),
+//   // This field is optional, so we don't set a validation rule for it.
+// });
 
-  // const aboutMeValidationSchema = Yup.object({
-  //   aboutMe: Yup.string(),
-  //   // This field is optional, so we don't set a validation rule for it.
-  // });
+// const addressSchema = Yup.object({
+//   addresses: Yup.array().of(
+//     Yup.object({
+//       street: Yup.string().required("Street is required"),
+//       city: Yup.string().required("City is required"),
+//       state: Yup.string().required("State is required"),
+//       zipCode: Yup.string().required("Zip Code is required"),
+//     })
+//   ),
+// });
 
-  // const addressSchema = Yup.object({
-  //   addresses: Yup.array().of(
-  //     Yup.object({
-  //       street: Yup.string().required("Street is required"),
-  //       city: Yup.string().required("City is required"),
-  //       state: Yup.string().required("State is required"),
-  //       zipCode: Yup.string().required("Zip Code is required"),
-  //     })
-  //   ),
-  // });
-
-  // const initialValues =
-  //   typeOfForm === "personal" ? personalInitialValues : incomeInitialValues;
+// const initialValues =
+//   typeOfForm === "personal" ? personalInitialValues : incomeInitialValues;
 
 ```jsx
 const GlobalModalForProfile = ({ open, onClose, section }) => {
