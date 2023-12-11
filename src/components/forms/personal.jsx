@@ -4,9 +4,9 @@ import moment from "moment";
 
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { Grid } from "@mui/material";
 
 const PersonalInfoForm = ({ values }) => {
-  
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -51,30 +51,40 @@ const PersonalInfoForm = ({ values }) => {
         validationSchema={personalValidationSchema}
       >
         {({ errors, touched }) => (
-          <form>
-            <label htmlFor="firstName">First Name:</label>
-            <input type="text" name="firstName" />{" "}
-            {errors.firstName && touched.firstName ? (
-              <div>{errors.firstName}</div>
-            ) : (
-              ""
-            )}
-            <label htmlFor="lastName">Last Name:</label>
-            <input type="text" name="lastName" />{" "}
-            {errors.lastName && touched.lastName && (
-              <div>{errors.lastName}</div>
-            )}
-            <label htmlFor="dateOfBirth">Date of Birth:</label>
-            <input type="date" name="dateOfBirth" />{" "}
-            {errors.dateOfBirth && touched.dateOfBirth && (
-              <div>{errors.dateOfBirth}</div>
-            )}
-            <label htmlFor="phoneNumber">Phone Number:</label>
-            <input type="text" name="phoneNumber" />{" "}
-            {errors.phoneNumber && touched.phoneNumber && (
-              <div>{errors.phoneNumber}</div>
-            )}
-          </form>
+          <Grid container margin={"auto"} textAlign={"center"}>
+            <form >
+              <Grid items>
+                <label htmlFor="firstName">First Name:</label>
+                <input type="text" name="firstName" />{" "}
+                {errors.firstName && touched.firstName ? (
+                  <div>{errors.firstName}</div>
+                ) : (
+                  ""
+                )}
+              </Grid>
+              <Grid items>
+                <label htmlFor="lastName">Last Name:</label>
+                <input type="text" name="lastName" />{" "}
+                {errors.lastName && touched.lastName && (
+                  <div>{errors.lastName}</div>
+                )}
+              </Grid>
+              <Grid items>
+                <label htmlFor="dateOfBirth">Date of Birth:</label>
+                <input type="date" name="dateOfBirth" />{" "}
+                {errors.dateOfBirth && touched.dateOfBirth && (
+                  <div>{errors.dateOfBirth}</div>
+                )}
+              </Grid>
+              <Grid items>
+                <label htmlFor="phoneNumber">Phone Number:</label>
+                <input type="text" name="phoneNumber" />{" "}
+                {errors.phoneNumber && touched.phoneNumber && (
+                  <div>{errors.phoneNumber}</div>
+                )}
+              </Grid>
+            </form>
+          </Grid>
         )}
       </Formik>
     </>

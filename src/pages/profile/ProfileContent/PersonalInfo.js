@@ -8,13 +8,16 @@ import GlobalModalForProfile from "./GlobalModalForProfile"
 const PersonalInfo = () => {
     const [globalModalForProfile ,setGlobalModalForProfile] = useState(false);
 
+  const [typeOfForm , setTypeOfForm] = useState("");
+
+
   const tilesPersonal = [
     "Personal details",
     "About me",
     "Address history",
     "Employment",
     "Income",
-    "Identity documents",
+    // "Identity documents",
     "Emergency contact",
     "Tenant check (recommended)",
   ];
@@ -27,6 +30,8 @@ const PersonalInfo = () => {
 
    
         setGlobalModalForProfile(!globalModalForProfile);
+        setTypeOfForm(tileClicked);
+
       };
 
 
@@ -73,6 +78,7 @@ const PersonalInfo = () => {
         //propertyId={propertyId}
         open={globalModalForProfile}
         onClose={() => setGlobalModalForProfile(false)}
+        typeOfForm={typeOfForm}
       />
     </>
   );

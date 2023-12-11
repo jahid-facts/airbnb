@@ -1,33 +1,32 @@
 import { Box, Drawer, Grid, Typography, Button } from "@mui/material";
-import React, { useState } from "react";
-
-import { DatePicker } from "antd";
+// import React, { useState } from "react";
+// import { DatePicker } from "antd";
 import PersonalInfoForm from "../../../components/forms/personal";
 import IncomeForm from "../../../components/forms/income";
-import AddressHistoryForm from "../../../components/forms/AddressHistory";import EmergencyForm from "../../../components/forms/EmergencyForm";
+import AddressHistoryForm from "../../../components/forms/AddressHistory";
+import EmergencyForm from "../../../components/forms/EmergencyForm";
 import AboutMeForm from "../../../components/forms/AboutMe";
-
-
-
-
-
-
+import NIDVerificationForm from "../../reservationEcheck/Verification";
+import  "../ProfilePage.css"
 
 const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
+  console.log(typeOfForm);
   const closeDrawer = () => {
     onClose();
   };
 
   const handleModal = () => {
     switch (typeOfForm) {
-      case "personal":
+      case "Personal details":
         return <PersonalInfoForm />;
-      case "aboutMe":
+      case "About me":
         return <AboutMeForm />;
-      case "income":
+      case "Income":
         return <IncomeForm />;
-      case "addressHistory":
+      case "Address history":
         return <AddressHistoryForm />;
+      case "Tenant check (recommended)":
+        return <NIDVerificationForm />;
       default:
         return <EmergencyForm />;
     }
@@ -44,20 +43,27 @@ const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
   // const handleChange = (event) => {
   //   const { name, value } = event.target;
 
+  //   ```jsx
+  // const GlobalModalForProfile = ({ open, onClose, section }) => {
+  //   const initialValues = { ...personalInitialValues }; // Use the initial values for the "Personal details" section as the default values. If the user selects a different section, update the initial values accordingly. const validationSchema = Yup.object({ ...personalValidationSchema }); // Use the validation schema for the "Personal details" section as the default schema. If the user selects a different section, update the validation schema accordingly. // ... Rest of the component code here ... // }; export default GlobalModalForProfile;
+  //   ```
+
   const handleSubmit = () => {};
 
   return (
-    <div>
+    <Box className={"style"}>
       GlobalModalForProfile
-      <Drawer anchor="bottom" open={open} onClose={onClose}>
-        {/* Personal Information */}
-        <form>
+      <Drawer anchor="top" open={open} onClose={onClose}>
+        {/* Personal Information for renter profile */}
+        <form onSubmit={handleSubmit}>
+
           <Grid container spacing={2} m={10}>
-            <Grid item>{ handleModal() }</Grid>
-            <Grid item>
+            <Grid item xs={12} >{ handleModal() }</Grid>
+            <Grid item  xs={12} >
               <Button type="submit"> Submit </Button>
             </Grid>
           </Grid>
+
         </form>
 
         {/* Close Button */}
@@ -88,9 +94,8 @@ const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
             <Typography variant="text"> Close </Typography>
           </Box>
         </Box>
-
       </Drawer>
-    </div>
+    </Box>
   );
 };
 
@@ -241,8 +246,3 @@ export default GlobalModalForProfile;
 
 // const initialValues =
 //   typeOfForm === "personal" ? personalInitialValues : incomeInitialValues;
-
-```jsx
-const GlobalModalForProfile = ({ open, onClose, section }) => {
-  const initialValues = { ...personalInitialValues }; // Use the initial values for the "Personal details" section as the default values. If the user selects a different section, update the initial values accordingly. const validationSchema = Yup.object({ ...personalValidationSchema }); // Use the validation schema for the "Personal details" section as the default schema. If the user selects a different section, update the validation schema accordingly. // ... Rest of the component code here ... // }; export default GlobalModalForProfile; 
-  ```;
