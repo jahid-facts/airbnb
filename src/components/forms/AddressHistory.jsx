@@ -21,74 +21,90 @@ const AddressHistoryForm = ({ values }) => {
     moveInDate: Yup.date().required("Move-in Date is required"),
   });
   return (
-    <Formik initialValues={initialValues} 
-    validationSchema={validationSchema}>
+    <Formik initialValues={initialValues} validationSchema={validationSchema}>
       {({ values, errors, touched }) => (
         <form>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
-            <label htmlFor="address1">First Name:</label><br/>
-            <Field name="aboutMe">
-                    {({ field }) => (
-     <TextField
-     {...field}
-     color="secondary"
-     label="Present Address"
-     name="address1"
-     id="address1"
-     error={errors.address1 && touched.address1}
-     helperText={errors.address1}
-     fullWidth
-   />
-                    )}
-                  </Field>
-
-              <TextField
-                color="secondary"
-                label="Present Address"
-                name="address1"
-                id="address1"
-                error={errors.address1 && touched.address1}
-                helperText={errors.address1}
-                fullWidth
-              />
+              <label htmlFor="address1">First Name:</label>
+              <br />
+              <Field name="address1">
+                {({ field }) => (
+                  <TextField
+                    {...field}
+                    color="secondary"
+                    label="Present Address"
+                    name="address1"
+                    id="address1"
+                    error={errors.address1 && touched.address1}
+                    helperText={errors.address1}
+                    fullWidth
+                  />
+                )}
+              </Field>
             </Grid>
             <Grid item xs={12} md={6}>
-            <label htmlFor="firstName">First Name:</label><br/>
-              <TextField
-                label="Permanent Address"
-                name="address2"
-                error={errors.address2 && touched.address2}
-                helperText={errors.address2}
-                fullWidth
-              />
+              <label htmlFor="firstName">First Name:</label>
+              <br />
+              <Field name="address2">
+                {({ field }) => (
+                  <TextField
+                    {...field}
+                    color="secondary"
+                    label="Permanent Address"
+                    name="address2"
+                    id="address2"
+                    error={errors.address2 && touched.address2}
+                    helperText={errors.address2}
+                    fullWidth
+                  />
+                )}
+              </Field>
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField
-                label="City"
-                name="city"
-                error={errors.city && touched.city}
-                helperText={errors.city}
-                fullWidth
-              />
+              <Field name="city">
+                {({ field }) => (
+                  <TextField
+                    {...field}
+                    color="secondary"
+                    label="City"
+                    id="city"
+                    error={errors.city && touched.city}
+                    helperText={errors.city}
+                    fullWidth
+                  />
+                )}
+              </Field>
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField
-                label="State"
-                name="state"
-                error={errors.state && touched.state}
-                helperText={errors.state}
-                fullWidth
-              />
+              <Field name="state">
+                {({ field }) => (
+                  <TextField
+                    {...field}
+                    color="secondary"
+                    label="State"
+                    id="state"
+                    error={errors.state && touched.state}
+                    helperText={errors.state}
+                    fullWidth
+                  />
+                )}
+              </Field>
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField
-                label="Zip Code"
-                name="zipCode"
-                error={errors.zipCode && touched.zipCode}
-                helperText={errors.zipCode}
-                fullWidth
-              />
+              <Field name="zipCode">
+                {({ field }) => (
+                  <TextField
+                    {...field}
+                    color="secondary"
+                    label="Zip Code"
+                    id="zipCode"
+                    error={errors.zipCode && touched.zipCode}
+                    helperText={errors.zipCode}
+                    fullWidth
+                  />
+                )}
+              </Field>
             </Grid>
             <Grid item xs={12} md={6}>
               <TextField
@@ -101,6 +117,22 @@ const AddressHistoryForm = ({ values }) => {
                 inputProps={{ step: 24 * 60 * 60 * 1000 }}
                 fullWidth
               />
+
+              <Field name="moveInDate">
+                {({ field }) => (
+                  <TextField
+                    {...field}
+                    color="secondary"
+                    label="Move-in Date"
+                    id="moveInDate"
+                    type="date"
+                    name="moveInDate"
+                    error={errors?.moveInDate && touched?.moveInDate}
+                    helperText={errors?.moveInDate}
+                    fullWidth
+                  />
+                )}
+              </Field>
             </Grid>
           </Grid>
         </form>

@@ -40,10 +40,10 @@ function ProfilePage() {
 
   return (
     <AppLayout>
-      <Box sx={{ p: 1 }}>
+      <Box sx={{ m: 1 }}>
         <Container>
-          <Grid container spacing={2}>
-            <Grid item xs={4}>
+          <Grid container spacing={1}>
+            <Grid item xs={12} md={4}>
               <Paper
                 sx={{
                   boxShadow: 6,
@@ -57,10 +57,10 @@ function ProfilePage() {
                   alt="User Avatar"
                   src="/src/assets/images/avatar.png"
                   sx={{
-                    width: 180,
-                    height: 180,
+                    width: "11.25rem",
+                    height:"11.25rem",
                     margin: "0 auto",
-                    marginBottom: "10px",
+                    marginBottom: "0.8rem",
                     position: "relative",
                     cursor: "pointer",
                     border: "3px solid #eee",
@@ -72,9 +72,9 @@ function ProfilePage() {
                   {isUploadOpen && (
                     <div
                       style={{
-                        position: "absolute",
+                        position: "relative",
                         bottom: "10px",
-                        right: "28px",
+                        right: "1.75rem"
                       }}
                     >
                       <input
@@ -157,7 +157,7 @@ function ProfilePage() {
                 </Box>
               </Paper>
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={12} md={8}>
               <Paper
                 elevation={3}
                 style={{
@@ -216,7 +216,7 @@ function ProfilePage() {
                 </Tabs>
                 <Divider
                   style={{
-                    marginBottom: "15px",
+                    marginBottom: "0.9rem",
                     marginTop: "-3px",
                     border: "2px solid #d7d5e9",
                   }}
@@ -226,7 +226,7 @@ function ProfilePage() {
                     role="tabpanel"
                     style={{
                       backgroundColor: "white",
-                      padding: "14px",
+                      padding: "0.9rem",
                     }}
                   >
                     {value === 0 && <Tab1Content />}
