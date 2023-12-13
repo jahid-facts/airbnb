@@ -12,6 +12,9 @@ import React from "react";
 
 const ResponseAlert = (baropen, message) => {
   const [open, setOpen] = React.useState(false);
+  setOpen(baropen);
+
+  console.log(message)
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -24,18 +27,18 @@ const ResponseAlert = (baropen, message) => {
     setOpen(false);
   };
   return (
-    <div>
+    <>
       <Snackbar
         open={open}
         autoHideDuration={6000}
-        message={message}
+        //message={message}
         onClose={handleClose}
       >
         <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
           {message}
         </Alert>
       </Snackbar>
-    </div>
+    </>
   );
 };
 

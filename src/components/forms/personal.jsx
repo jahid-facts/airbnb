@@ -25,7 +25,7 @@ const PersonalInfoForm = () => {
       // Make API call here
       const response = await axios.post(`/personal-info`, { userId, values });
       console.log(response);
-      message(response);
+      // message(response);
 
       // Handle successful response
     } catch (error) {
@@ -155,6 +155,7 @@ const PersonalInfoForm = () => {
                   }}
                   type="submit"
                   disabled={isSubmitting}
+                  onClick={message}
                 >
                   Submit
                 </Button>
