@@ -50,7 +50,7 @@ const AboutMeForm = ({close}) => {
                 <legend htmlFor="aboutMe">About Me:</legend>
               </Grid>
 
-              <Grid items sm={8}>
+              <Grid item sm={8}>
                 <Grid item xs={12} sm={9} md={6} m={"auto"}>
                   <Field name="aboutMe">
                     {({ field }) => (
