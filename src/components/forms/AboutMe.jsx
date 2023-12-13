@@ -1,46 +1,92 @@
-import { Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import moment from "moment";
-import { Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
+import { useAuthInfo } from "../../helpers/AuthCheck";
+import axios from "axios";
 // import { Grid } from "antd";
 
-const AboutMeForm = ({ values }) => {
-  const aboutMeInitialValues = {
-    aboutMe: "",
+const AboutMeForm = ({close}) => {
+  const userInfo = useAuthInfo();
+  const userId = userInfo._id;
+  //const url = `/personal-info/${userId}`;
+
+  const handleSubmit = async (values, actions) => {
+    console.log(values);
+    try {
+      // Make API call here
+      const response = await axios.post(`/about-info`, { userId, values });
+      console.log(response);
+      //message(response);
+
+      // Handle successful response
+    } catch (error) {
+      console.error(error);
+      //message(error);
+      // Handle error response
+    } finally {
+      // Reset form values
+      actions.setSubmitting(false);
+      actions.resetForm();
+      close();
+    }
   };
-  const aboutMeValidationSchema = Yup.object({
-    aboutMe: Yup.string().required(" Enter about Yourself"),
-    // This field is optional, so we don't set a validation rule for it.
-  });
+
   return (
-    <>
+    <div>
+      <h1>About Yourself</h1>
+      <br />
       <Formik
-        initialValues={aboutMeInitialValues}
-        validationSchema={aboutMeValidationSchema}
+        initialValues={{ aboutMe: "" }}
+        validationSchema={Yup.object({
+          aboutMe: Yup.string().required(" Enter about Yourself"),
+        })}
+        onSubmit={handleSubmit}
       >
-        {({ errors, touched }) => (
-          <form style={{ marginBlock: "3rem" }}>
+        {({ errors, touched, isSubmitting }) => (
+          <Form style={{ marginBlock: "3rem" }}>
             <Grid container spacing={1}>
               <Grid items sm={3}>
                 <legend htmlFor="aboutMe">About Me:</legend>
               </Grid>
 
               <Grid items sm={8}>
-                <TextField
-                  label="Tell about yourself "
-                  error={errors.aboutMe && touched.aboutMe}
-                  multiline
-                  rows={6}
-                  fullWidth
-                  name="aboutMe"
-                  id="aboutMe"
-                />
+                <Grid item xs={12} sm={9} md={6} m={"auto"}>
+                  <Field name="aboutMe">
+                    {({ field }) => (
+                      <TextField
+                      {...field}
+                        label="Tell about yourself "
+                        error={errors.aboutMe && touched.aboutMe}
+                        multiline
+                        rows={6}
+                        fullWidth
+                        name="aboutMe"
+                        id="aboutMe"
+                      />
+                    )}
+                  </Field>
+                  <ErrorMessage name="aboutMe" component="div" />{" "}
+                </Grid>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  sx={{
+                    margin: "20px",
+                    padding: "20px",
+                    "&:hover": { backgroundColor: "lightgreen" },
+                  }}
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  Submit
+                </Button>
               </Grid>
             </Grid>
-          </form>
+          </Form>
         )}
       </Formik>
-    </>
+    </div>
   );
 };
 

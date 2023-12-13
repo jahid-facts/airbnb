@@ -1,23 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import {
-  Alert,
   Button,
   Grid,
-  MenuItem,
-  Select,
-  Snackbar,
+
   TextField,
 } from "@mui/material";
 import * as Yup from "yup";
 import axios from "axios";
 import { useAuthInfo } from "../../helpers/AuthCheck";
 import ResponseAlert from "../snakbar";
+import { toast } from "react-toastify";
 
-const PersonalInfoForm = () => {
+const PersonalInfoForm = ({close}) => {
   const userInfo = useAuthInfo();
   const userId = userInfo._id;
   //const url = `/personal-info/${userId}`;
+// const [close, setClose] = useState(false);
 
   const handleSubmit = async (values, actions) => {
     console.log(values);
@@ -25,21 +24,25 @@ const PersonalInfoForm = () => {
       // Make API call here
       const response = await axios.post(`/personal-info`, { userId, values });
       console.log(response);
-      // message(response);
+      toast.success(response.statusText);
+      
 
       // Handle successful response
     } catch (error) {
       console.error(error);
+      message(error);
       // Handle error response
     } finally {
       // Reset form values
       actions.setSubmitting(false);
       actions.resetForm();
+      close();
+      
     }
   };
 
   const message = (message) => {
-    return <ResponseAlert baropen={true} message={message} />;
+    return <ResponseAlert baropen={close} message={message} />;
   };
 
   return (
@@ -155,7 +158,7 @@ const PersonalInfoForm = () => {
                   }}
                   type="submit"
                   disabled={isSubmitting}
-                  onClick={message}
+                
                 >
                   Submit
                 </Button>

@@ -20,15 +20,15 @@ const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
   const handleModal = () => {
     switch (typeOfForm) {
       case "Personal details":
-        return <PersonalInfoForm />;
+        return <PersonalInfoForm close={onClose} />;
       case "About me":
-        return <AboutMeForm />;
+        return <AboutMeForm close={onClose} />;
       case "Income":
-        return <IncomeForm />;
+        return <IncomeForm close={onClose} />;
       case "Address history":
-        return <AddressHistoryForm />;
+        return <AddressHistoryForm close={onClose}/>;
       case "Tenant check (recommended)":
-        return <NIDVerificationForm />;
+        return <NIDVerificationForm close={onClose}/>;
       default:
         return <EmergencyForm />;
     }
