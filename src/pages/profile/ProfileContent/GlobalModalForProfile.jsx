@@ -7,13 +7,15 @@ import AddressHistoryForm from "../../../components/forms/AddressHistory";
 import EmergencyForm from "../../../components/forms/EmergencyForm";
 import AboutMeForm from "../../../components/forms/AboutMe";
 import NIDVerificationForm from "../../reservationEcheck/Verification";
-import  "../ProfilePage.css"
+import "../ProfilePage.css";
+
 
 const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
   console.log(typeOfForm);
   const closeDrawer = () => {
     onClose();
   };
+
 
   const handleModal = () => {
     switch (typeOfForm) {
@@ -32,39 +34,27 @@ const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
     }
   };
 
-  // const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
 
-  //   // Use the appropriate initial values based on the selected form type.
-  //   const validationSchema = typeOfForm === "personal" ? personalValidationSchema : incomeValidationSchema;
-  //   // Use the appropriate validation schema based on the selected form type. // ... Rest of the component code here ... //
-  // };
-  // export default GlobalModalForProfile;
 
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
 
-  //   ```jsx
-  // const GlobalModalForProfile = ({ open, onClose, section }) => {
-  //   const initialValues = { ...personalInitialValues }; // Use the initial values for the "Personal details" section as the default values. If the user selects a different section, update the initial values accordingly. const validationSchema = Yup.object({ ...personalValidationSchema }); // Use the validation schema for the "Personal details" section as the default schema. If the user selects a different section, update the validation schema accordingly. // ... Rest of the component code here ... // }; export default GlobalModalForProfile;
-  //   ```
-
-  const handleSubmit = () => {};
 
   return (
-    <Box className={"style"}>
-      GlobalModalForProfile
-      <Drawer anchor="top" open={open} onClose={onClose}>
+    <>
+      {/* GlobalModalForProfile */}
+      <Drawer
+        anchor="top"
+        open={open}
+        onClose={onClose}
+        style={{ width: "49.5rem", textAlign: "center" }}
+        //className="style"
+      >
         {/* Personal Information for renter profile */}
-        <form onSubmit={handleSubmit}>
-
-          <Grid container spacing={2} m={10}>
-            <Grid item xs={12} >{ handleModal() }</Grid>
-            <Grid item  xs={12} >
-              <Button type="submit"> Submit </Button>
-            </Grid>
+        <div  className="body">
+          <Grid item xs={12}>
+            {handleModal()}
           </Grid>
 
-        </form>
+        </div>
 
         {/* Close Button */}
         <Box
@@ -95,10 +85,9 @@ const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
           </Box>
         </Box>
       </Drawer>
-    </Box>
+    </>
   );
 };
-
 export default GlobalModalForProfile;
 
 // const validationSchema = Yup.object({
@@ -246,3 +235,20 @@ export default GlobalModalForProfile;
 
 // const initialValues =
 //   typeOfForm === "personal" ? personalInitialValues : incomeInitialValues;
+
+
+  // const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
+
+  //   // Use the appropriate initial values based on the selected form type.
+  //   const validationSchema = typeOfForm === "personal" ? personalValidationSchema : incomeValidationSchema;
+  //   // Use the appropriate validation schema based on the selected form type. // ... Rest of the component code here ... //
+  // };
+  // export default GlobalModalForProfile;
+
+  // const handleChange = (event) => {
+  //   const { name, value } = event.target;
+
+  //   ```jsx
+  // const GlobalModalForProfile = ({ open, onClose, section }) => {
+  //   const initialValues = { ...personalInitialValues }; // Use the initial values for the "Personal details" section as the default values. If the user selects a different section, update the initial values accordingly. const validationSchema = Yup.object({ ...personalValidationSchema }); // Use the validation schema for the "Personal details" section as the default schema. If the user selects a different section, update the validation schema accordingly. // ... Rest of the component code here ... // }; export default GlobalModalForProfile;
+  //   ```

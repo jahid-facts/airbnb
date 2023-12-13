@@ -3,7 +3,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { Box } from "@mui/material";
-import GlobalModalForProfile from "./GlobalModalForProfile"
+import GlobalModalForProfile from "./GlobalModalForProfile";
+import "../ProfilePage.css";
 
 const PersonalInfo = () => {
     const [globalModalForProfile ,setGlobalModalForProfile] = useState(false);
@@ -15,10 +16,10 @@ const PersonalInfo = () => {
     "Personal details",
     "About me",
     "Address history",
-    "Employment",
+    //"Employment",
     "Income",
     // "Identity documents",
-    "Emergency contact",
+     "Emergency contact",
     "Tenant check (recommended)",
   ];
 
@@ -58,13 +59,14 @@ const PersonalInfo = () => {
         <br></br>
       </Box>
 
-      <Grid container spacing={2}>
+      <Grid container spacing={2} >
         {tilesPersonal.map((tiles) => (
           <Grid item xs={12}>
             <Button
               sx={{ mt: "20px", textTransform: "capitalize" }}
               variant="outlined"
-              onClick={handleTiles} // Pass the handleTiles function as a prop to the Button component here.
+              onClick={handleTiles} 
+              // Pass the handleTiles function as a prop to the Button component here.
             >
               {tiles}
             </Button>
@@ -74,7 +76,7 @@ const PersonalInfo = () => {
 
     
       {/* modal  */}
-      <GlobalModalForProfile
+      <GlobalModalForProfile 
         //propertyId={propertyId}
         open={globalModalForProfile}
         onClose={() => setGlobalModalForProfile(false)}
