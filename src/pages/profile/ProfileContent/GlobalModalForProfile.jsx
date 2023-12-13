@@ -11,7 +11,7 @@ import "../ProfilePage.css";
 
 
 const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
-  console.log(typeOfForm);
+  // console.log(typeOfForm);
   const closeDrawer = () => {
     onClose();
   };
