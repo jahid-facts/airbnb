@@ -1,16 +1,32 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Button, Grid, TextField } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Grid,
+  MenuItem,
+  Select,
+  Snackbar,
+  TextField,
+} from "@mui/material";
 import * as Yup from "yup";
 import axios from "axios";
+import { useAuthInfo } from "../../helpers/AuthCheck";
+import ResponseAlert from "../snakbar";
 
 const PersonalInfoForm = () => {
+  const userInfo = useAuthInfo();
+  const userId = userInfo._id;
+  //const url = `/personal-info/${userId}`;
+
   const handleSubmit = async (values, actions) => {
     console.log(values);
     try {
       // Make API call here
-      const response = await axios.post("/personal-info", values);
+      const response = await axios.post(`/personal-info`, { userId, values });
       console.log(response);
+      message(response);
+
       // Handle successful response
     } catch (error) {
       console.error(error);
@@ -20,6 +36,10 @@ const PersonalInfoForm = () => {
       actions.setSubmitting(false);
       actions.resetForm();
     }
+  };
+
+  const message = (message) => {
+    return <ResponseAlert baropen={true} message={message} />;
   };
 
   return (
@@ -52,16 +72,27 @@ const PersonalInfoForm = () => {
               return age;
             }),
           phoneNumber: Yup.string()
-            .required("Required")
-            .matches(/^\(?[1-9]\)?[-. ]?[2-9]\d{6,}$/, "Invalid phone number"),
+            .when("region", {
+              is: "BD",
+              then: Yup.string().matches(
+                /^\+8801\d{9}$/,
+                "Please enter a valid Canadian phone number"
+              ),
+            })
+            .when("region", {
+              is: "CA",
+              then: Yup.string().matches(
+                /^\(?[1-9]\)?[-. ]?[2-9]\d{6}$/,
+                "Please enter a valid Canadian phone number"
+              ),
+            }),
         })}
         onSubmit={handleSubmit}
-
       >
         {({ isSubmitting }) => (
           <Form>
-            <Grid container spacing={4} >
-              <Grid item xs={12} sm={9} md={6}  m={"auto"}>
+            <Grid container spacing={4}>
+              <Grid item xs={12} sm={9} md={6} m={"auto"}>
                 <Field name="firstName">
                   {({ field }) => (
                     <TextField
@@ -69,13 +100,12 @@ const PersonalInfoForm = () => {
                       label="First Name"
                       variant="outlined"
                       fullWidth
-                      
                     />
                   )}
                 </Field>
                 <ErrorMessage name="firstName" component="div" />{" "}
               </Grid>
-              <Grid item xs={12} sm={9} md={6}  m={"auto"}>
+              <Grid item xs={12} sm={9} md={6} m={"auto"}>
                 <Field name="lastName">
                   {({ field }) => (
                     <TextField
@@ -88,7 +118,7 @@ const PersonalInfoForm = () => {
                 </Field>
                 <ErrorMessage name="lastName" component="div" />{" "}
               </Grid>
-              <Grid item xs={12} sm={9} md={6}  m={"auto"}>
+              <Grid item xs={12} sm={9} md={6} m={"auto"}>
                 <Field name="dateOfBirth">
                   {({ field }) => (
                     <TextField
@@ -104,7 +134,7 @@ const PersonalInfoForm = () => {
                 </Field>
                 <ErrorMessage name="dateOfBirth" component="div" />{" "}
               </Grid>
-              <Grid item xs={12} sm={9} md={6}  m={"auto"}>
+              <Grid item xs={12} sm={9} md={6} m={"auto"}>
                 <Field name="phoneNumber">
                   {({ field }) => (
                     <TextField
@@ -139,15 +169,12 @@ const PersonalInfoForm = () => {
 
 export default PersonalInfoForm;
 
-        // onSubmit={(values, { setSubmitting }) => {
-        //   setTimeout(() => {
-        //     alert(JSON.stringify(values, null, 2));
-        //     setSubmitting(false);
-        //   }, 400);
-        // }}
-
-
-
+// onSubmit={(values, { setSubmitting }) => {
+//   setTimeout(() => {
+//     alert(JSON.stringify(values, null, 2));
+//     setSubmitting(false);
+//   }, 400);
+// }}
 
 // import { Formik, Form, Field, ErrorMessage } from 'formik';
 // import React from 'react';
