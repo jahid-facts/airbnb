@@ -1,4 +1,4 @@
-import { Formik } from "formik";
+import { Form, Formik } from "formik";
 import {
   TextField,
   MenuItem,
@@ -39,8 +39,8 @@ const EmergencyForm = ({ values }) => {
       validationSchema={emergencySchema}
     >
       {({ values, errors, touched }) => (
-        <form>
-          <legend> Emergency Contqact Information </legend>
+        <Form>
+          <legend> Emergency Contact Information </legend>
           <br />
 
           <FormControl>
@@ -98,7 +98,7 @@ const EmergencyForm = ({ values }) => {
               Submit{" "}
             </Button>
           
-        </form>
+        </Form>
       )}
     </Formik>
   );

@@ -79,7 +79,7 @@ const AboutMeForm = ({close}) => {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  Submit
+                  Save & back
                 </Button>
               </Grid>
             </Grid>

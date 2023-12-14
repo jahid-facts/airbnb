@@ -1,6 +1,6 @@
 import { Field, Formik } from "formik";
 import * as Yup from "yup";
-import { Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
 import { FormControl } from "@mui/material";
 
 const AddressHistoryForm = ({ values }) => {
@@ -22,11 +22,11 @@ const AddressHistoryForm = ({ values }) => {
   });
   return (
     <Formik initialValues={initialValues} validationSchema={validationSchema}>
-      {({ values, errors, touched }) => (
+      {({ isSubmitting,values, errors, touched }) => (
         <form>
-          <Grid container spacing={3}>
+          <Grid container spacing={3} paddingX={15}>
             <Grid item xs={12} md={6}>
-              <label htmlFor="address1">First Name:</label>
+              <label htmlFor="address1">Present Address:</label>
               <br />
               <Field name="address1">
                 {({ field }) => (
@@ -44,7 +44,7 @@ const AddressHistoryForm = ({ values }) => {
               </Field>
             </Grid>
             <Grid item xs={12} md={6}>
-              <label htmlFor="firstName">First Name:</label>
+              <label htmlFor="firstName">Permanent Address:</label>
               <br />
               <Field name="address2">
                 {({ field }) => (
@@ -107,16 +107,6 @@ const AddressHistoryForm = ({ values }) => {
               </Field>
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField
-                label="Move-in Date"
-                type="date"
-                name="moveInDate"
-                error={errors?.moveInDate && touched?.moveInDate}
-                helperText={errors?.moveInDate}
-                InputLabelProps={{ shrink: true }}
-                inputProps={{ step: 24 * 60 * 60 * 1000 }}
-                fullWidth
-              />
 
               <Field name="moveInDate">
                 {({ field }) => (
@@ -129,11 +119,28 @@ const AddressHistoryForm = ({ values }) => {
                     name="moveInDate"
                     error={errors?.moveInDate && touched?.moveInDate}
                     helperText={errors?.moveInDate}
+                    InputLabelProps={{ shrink: true }}
+                    inputProps={{ step: 24 * 60 * 60 * 1000 }}
                     fullWidth
                   />
                 )}
               </Field>
             </Grid>
+            <Grid item xs={12}>
+            <Button
+                  sx={{
+                    margin: "20px",
+                    padding: "20px",
+                    "&:hover": { backgroundColor: "lightgreen" },
+                  }}
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  Save and Back
+                </Button>
+              </Grid>
+
+
           </Grid>
         </form>
       )}
