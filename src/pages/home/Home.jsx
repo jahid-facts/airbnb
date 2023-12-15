@@ -28,27 +28,31 @@ export default function Home() {
 
 
   const getPropertiesFromWishlist = () => {
-
-    axios.get("/getPropertiesFromWishlist", {
-      params: {
-        userId: userInfo._id,
-      },
-    })
-      .then(response => {
-        setMatchedProperties(response.data.properties);
-        console.log(response.data)
+    try{
+      axios.get("/getPropertiesFromWishlist", {
+        params: {
+          userId: userInfo._id,
+        },
       })
-      .catch(error => {
-        console.error("Error fetching properties:", error);
-      });
+        .then(response => {
+          setMatchedProperties(response.data.properties);
+          console.log(response.data)
+        })
+        
+    }catch(error) {
+      console.error("Error fetching properties:", error);
+    };
+
+
   };
   
 
   useEffect(() => {
 
-      if (userInfo._id){
-        getPropertiesFromWishlist();
-      }
+      // if (userInfo._id){
+       
+      // }
+      getPropertiesFromWishlist();
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
