@@ -48,10 +48,7 @@ export default function Home() {
   
 
   useEffect(() => {
-
-      // if (userInfo._id){
-       
-      // }
+    
       getPropertiesFromWishlist();
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

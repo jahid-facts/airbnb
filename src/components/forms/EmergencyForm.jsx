@@ -1,16 +1,19 @@
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import {
   TextField,
   MenuItem,
   FormControl,
   FormLabel,
-  FormHelperText,
   Button,
 } from "@mui/material";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
+import axios from "axios";
+import { useAuthInfo } from "../../helpers/AuthCheck";
 
-const EmergencyForm = ({ values }) => {
+const EmergencyForm = ({ close }) => {
+  const userInfo = useAuthInfo();
+  const userId = userInfo._id;
   const { t } = useTranslation();
   const relationshipOptions = [
     { value: "spouse", label: t("spouse") },
@@ -29,14 +32,39 @@ const EmergencyForm = ({ values }) => {
       t("emergencyContactNameIsRequired")
     ),
     relationship: Yup.string().required(t("relationshipIsRequired")),
-    emergencyContactPhoneNumber: Yup.string().required(
-      t("emergencyContactPhoneNumberIsRequired")
-    ),
+    emergencyContactPhoneNumber: Yup.number()
+    .integer(t("pleaseEnterAWholeNumber"))
+    .required(t("emergencyContactPhoneNumberIsRequired")),
   });
+
+  const handleSubmit = async (values, actions) => {
+    console.log(values);
+    try {
+      // Make API call here
+      const response = await axios.post(`/emergency-info`, { userId, values }
+      );
+      console.log(response);
+      //message(response);
+
+      // Handle successful response
+    } catch (error) {
+      console.error(error);
+      //message(error);
+      // Handle error response
+    } finally {
+      // Reset form values
+      actions.setSubmitting(false);
+      actions.resetForm();
+      close();
+    }
+  };
+
+
   return (
     <Formik
       initialValues={emergencyInitialValues}
       validationSchema={emergencySchema}
+      onSubmit={handleSubmit}
     >
       {({ values, errors, touched }) => (
         <Form>
@@ -45,47 +73,60 @@ const EmergencyForm = ({ values }) => {
 
           <FormControl>
             <FormLabel>{t("Emergency Contact Name")}</FormLabel>
-            <TextField
-              name="emergencyContactName"
-              error={
-                errors.emergencyContactName && touched.emergencyContactName
-              }
-              helperText={errors.emergencyContactName}
-            />
+            <Field name="emergencyContactName">
+              {({ field }) => (
+                <TextField
+                { ...field}
+                  name="emergencyContactName"
+                  error={
+                    errors.emergencyContactName && touched.emergencyContactName
+                  }
+                  helperText={errors.emergencyContactName}
+                />
+              )}
+            </Field>
+
             <br />
             <FormLabel>{t("Relationship")}</FormLabel>
-            <TextField
-              select
-              name="relationship"
-              error={errors.relationship && touched.relationship}
-              helperText={errors.relationship}
-            >
-              {relationshipOptions.map((option) => (
-                <MenuItem
-                  key={option.value}
-                  value={option.value}
-                  selected={option.value === values.relationship}
+            <Field name="relationship">
+              {({ field }) => (
+                <TextField
+                { ...field}
+                  select
+                  name="relationship"
+                  error={errors.relationship && touched.relationship}
+                  helperText={errors.relationship}
                 >
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+                  {relationshipOptions.map((option) => (
+                    <MenuItem
+                      key={option.value}
+                      value={option.value}
+                      selected={option.value === values.relationship}
+                    >
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )}
+            </Field>
             <br />
             <FormLabel>{t("Emergency Contact PhoneNumber")}</FormLabel>
-            <TextField
-              name="emergencyContactPhoneNumber"
-              error={
-                errors.emergencyContactPhoneNumber &&
-                touched.emergencyContactPhoneNumber
-              }
-              helperText={errors.emergencyContactPhoneNumber}
-            />
-            {errors.overall && ( // Custom validation for overall errors (optional)
-              <FormHelperText>{errors.overall}</FormHelperText>
-            )}
+            <Field name="emergencyContactPhoneNumber">
+              {({ field }) => (
+                <TextField
+                { ...field}
+                  name="emergencyContactPhoneNumber"
+                  error={
+                    errors.emergencyContactPhoneNumber &&
+                    touched.emergencyContactPhoneNumber
+                  }
+                  helperText={errors.emergencyContactPhoneNumber}
+                />
+              )}
+            </Field>
             <br />
-          </FormControl>
-          <Button
+
+            <Button
               style={{
                 margin: "20px",
                 padding: "20px",
@@ -97,12 +138,14 @@ const EmergencyForm = ({ values }) => {
               {" "}
               Submit{" "}
             </Button>
-          
+          </FormControl>
         </Form>
       )}
     </Formik>
   );
 };
+
+export default EmergencyForm;
 
 // import { Formik, Field, Form } from "formik";
 // import * as Yup from "yup";
@@ -228,7 +271,6 @@ const EmergencyForm = ({ values }) => {
 //   );
 // };
 
-export default EmergencyForm;
 
 //   <form>
 //   <label htmlFor="emergencyContactName">{t("emergencyContactName")}:</label>

@@ -30,7 +30,7 @@ const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
       case "Tenant check (recommended)":
         return <NIDVerificationForm close={onClose}/>;
       default:
-        return <EmergencyForm />;
+        return <EmergencyForm close={onClose}/>;
     }
   };
 

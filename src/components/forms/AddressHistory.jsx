@@ -1,9 +1,13 @@
-import { Field, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { Button, Grid, TextField } from "@mui/material";
-import { FormControl } from "@mui/material";
+// import { FormControl } from "@mui/material";
+import axios from "axios";
+import { useAuthInfo } from "../../helpers/AuthCheck";
 
-const AddressHistoryForm = ({ values }) => {
+const AddressHistoryForm = ({ close }) => {
+  const userInfo = useAuthInfo();
+  const userId = userInfo._id;
   const initialValues = {
     address1: "",
     address2: "",
@@ -20,10 +24,33 @@ const AddressHistoryForm = ({ values }) => {
     zipCode: Yup.string().required("Zip Code is required"),
     moveInDate: Yup.date().required("Move-in Date is required"),
   });
+  const handleSubmit = async (values, actions) => {
+    console.log(values);
+    try {
+      // Make API call here
+      const response = await axios.post(`/address-info`, { userId, values }
+      );
+      console.log(response);
+      //message(response);
+
+      // Handle successful response
+    } catch (error) {
+      console.error(error);
+      //message(error);
+      // Handle error response
+    } finally {
+      // Reset form values
+      actions.setSubmitting(false);
+      actions.resetForm();
+      close();
+    }
+  };
   return (
-    <Formik initialValues={initialValues} validationSchema={validationSchema}>
+    <Formik initialValues={initialValues} 
+    validationSchema={validationSchema}
+    onSubmit={handleSubmit}>
       {({ isSubmitting,values, errors, touched }) => (
-        <form>
+        <Form>
           <Grid container spacing={3} paddingX={15}>
             <Grid item xs={12} md={6}>
               <label htmlFor="address1">Present Address:</label>
@@ -120,7 +147,7 @@ const AddressHistoryForm = ({ values }) => {
                     error={errors?.moveInDate && touched?.moveInDate}
                     helperText={errors?.moveInDate}
                     InputLabelProps={{ shrink: true }}
-                    inputProps={{ step: 24 * 60 * 60 * 1000 }}
+                    //inputProps={{ step: 24 * 60 * 60 * 1000 }}
                     fullWidth
                   />
                 )}
@@ -142,7 +169,7 @@ const AddressHistoryForm = ({ values }) => {
 
 
           </Grid>
-        </form>
+        </Form>
       )}
     </Formik>
   );
