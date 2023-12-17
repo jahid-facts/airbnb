@@ -248,10 +248,10 @@ function ProfilePage() {
 function Tab1Content() {
   return (
     <Box>
-      <h2> Renter Profile </h2>
-      <h5>
+      <Typography variant="h4"> Renter Profile </Typography>
+      <h4>
         {" "} Create your Renter Profile once and reuse it for all your applications.
-      </h5>
+      </h4>
       <br></br>
       <PersonalInfo />
     </Box>
@@ -280,10 +280,10 @@ function Tab3Content() {
 
 function Tab4Content() {
   return (
-    <div>
-       <h4>MyTrips</h4>
+    <Box>
+       <Typography variant="h4">My Trips</Typography>
       <MyTrips />
-    </div>
+    </Box>
   );
 }
 

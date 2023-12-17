@@ -13,6 +13,7 @@ import {
   Typography,
   ListItemAvatar,
   Paper,
+  Hidden,
   //Avatar
 } from "@mui/material";
 import { Flex } from "antd";
@@ -49,7 +50,7 @@ function MyTrips() {
   //console.log(rentingStatus);
 
   return (
-    <div>
+    <div style={{marginInline:"1rem"}}>
       <Box>
         <h3>Review The stay</h3>
       </Box>
@@ -58,19 +59,19 @@ function MyTrips() {
       <Grid container rowGap={2} columnGap={2}>
         {rentingStatus.map((rental) => (
           <Box
-            sx={{
+          fullWidth   
+          >
+            <Grid item xs={12} sx={{
               borderRadius: "10px",
               boxShadow: 3,
-            }}
-          >
-            <Grid item xs={12} md={8}>
+            }}>
               <ListItem>
                 <ListItemAvatar>
                   <Box
                     component="img"
                     p={1}
                     mr={2}
-                    width={"7.625rem"}
+                    width={"8.625rem"}
                     height={"6.625rem"}
                     borderRadius="10px"
                     bgcolor="#e0eeff"
@@ -99,16 +100,15 @@ function MyTrips() {
                   {rental.propertyId.address.postalCode}.
                 </Typography>
               </ListItem>
-            </Grid>
-            <Grid item xs={12} md={8}>
+
               {rental.reviewStatus !== "reviewed" && (
                 // if the review status is not 'reviewed' (i.e., the review has not been submitted yet)...
                 <div
                   style={{
                     // display: "flex",
-                    // justifyContent:"center",
-                    // justifyItems: "center",
-                    // alignItems: "center",
+                    justifyContent: "center",
+                    justifyItems: "center",
+                    alignItems: "center",
                   }}
                 >
                   <Button
@@ -116,7 +116,6 @@ function MyTrips() {
                     variant="contained"
                     onClick={handleOpen}
                   >
-                     
                     <Typography
                       variant="button"
                       display="inline-block"
@@ -159,7 +158,6 @@ function MyTrips() {
             </Grid>
           </Box>
         ))}
-        ;
       </Grid>
     </div>
   );

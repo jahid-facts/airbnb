@@ -17,7 +17,7 @@ const PersonalInfo = () => {
   const UserInfo = useAuthInfo();
 
   console.log(UserInfo);
-  
+
   const tilesPersonal = [
     "Personal details",
     "About me",
@@ -34,7 +34,6 @@ const PersonalInfo = () => {
       setIsGreen(true);
     }
   }, []);
-
 
   const handleTiles = (event) => {
     const tileClicked = event.target.textContent; // Get the text content of the button that was clicked
@@ -53,11 +52,9 @@ const PersonalInfo = () => {
   return (
     <>
       <Box>
-        <p>
-          {" "}
-          <b>Personal</b>{" "}
-        </p>
-        {""}
+        <Typography variant="h5">
+          Personal
+        </Typography>{" "}
         <p>
           Details to help property managers validate who you are and assess your
           identity, employment and income.
@@ -75,7 +72,9 @@ const PersonalInfo = () => {
                 textTransform: "capitalize",
                 paddingRight: "60%",
                 paddingBlock: "2%",
+                borderRadius: "8px",
                 backgroundColor: isGreen ? "green" : "",
+                fontSize: "1rem",
               }}
               variant="outlined"
               onClick={handleTiles}
