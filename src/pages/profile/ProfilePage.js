@@ -45,10 +45,10 @@ function ProfilePage() {
             <Grid item xs={12} md={4}>
               <Paper
                 sx={{
-                  boxShadow: 6,
+                  boxShadow: 3,
                   p: 4,
                   m: 2,
-                  borderRadius: 6,
+                  borderRadius: 4,
                   position: "relative",
                 }}
               >
@@ -114,9 +114,10 @@ function ProfilePage() {
               </Paper>
               <Paper
                 sx={{
+                  boxShadow:3,
                   p: 4,
                   m: 2,
-                  borderRadius: 6,
+                  borderRadius: 3,
                 }}
               >
                 <Box>

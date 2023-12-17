@@ -5,7 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuthInfo } from "../../helpers/AuthCheck";
 
-const ReviewForm = ({ propertyID, bookingID,setReviewStatus}) => {
+const ReviewForm = ({ propertyID, bookingID, setReviewStatus, close }) => {
   const [reviewMessage, setReviewMessage] = useState("");
   //const [reviewed, setReviewed] = useState("");
   const [propertyId, setPropertyId] = useState("");
@@ -39,82 +39,89 @@ const ReviewForm = ({ propertyID, bookingID,setReviewStatus}) => {
       ServicesRating,
       LocationRating,
     };
-    //console.log(bookingId); 
+    //console.log(bookingId);
+    try {
+      axios
+        .post("/reviews", review)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("Error adding review:", error.response.data.error);
+        });
 
-    axios
-      .post("/reviews", review)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("Error adding review:", error.response.data.error);
-      });
-
-      axios.post("/reviewStatusUpdate", { bookingId: bookingId })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("Error updating reviewStatus:", error);
-      });
+      axios
+        .post("/reviewStatusUpdate", { bookingId: bookingId })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("Error updating reviewStatus:", error);
+        });
+    } catch {
+      console.log("Error updating reviewStatus:");
+    } finally {
+      close();
+    }
   };
 
   return (
-    <Box  marginInline={"auto"} padding={1}>
-    <Grid
-      container
-      marginBlock={2}
-      alignItems={"center"}
-      alignContent={"center"}
-      justifyItems={"center"}
-      justifyContent={"center"}
-      marginInline={"auto"}
-    >
-      {/* {ratingType.map((rentalRating)=>(
+    <Box marginInline={"auto"} padding={1}>
+      <Grid
+        container
+        marginBlock={2}
+        alignItems={"center"}
+        alignContent={"center"}
+        justifyItems={"center"}
+        justifyContent={"center"}
+        marginInline={"auto"}
+      >
+        {/* {ratingType.map((rentalRating)=>(
       <Grid item xs={12} sm={6}>
       <ReviewRating ratingType={rentalRating}  setRating={setCommunicationRating}  />
     </Grid>
 ))} */}
 
-      <Grid item xs={12} md={6}>
-        <ReviewRating
-          ratingType={"Communication"}
-          setRating={setCommunicationRating}
-        />
-      </Grid>
-      <Grid item xs={12}  md={6}>
-        <ReviewRating ratingType={"Recommend"} setRating={setRecommendRating} />
-      </Grid>
-      <Grid item xs={12}  md={6}>
-        <ReviewRating ratingType={"Services"} setRating={setServicesRating} />
-      </Grid>
-      <Grid item xs={12}  md={6}>
-        <ReviewRating ratingType={"Location"} setRating={setLocationRating} />
-      </Grid>
+        <Grid item xs={12} md={6}>
+          <ReviewRating
+            ratingType={"Communication"}
+            setRating={setCommunicationRating}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <ReviewRating
+            ratingType={"Recommend"}
+            setRating={setRecommendRating}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <ReviewRating ratingType={"Services"} setRating={setServicesRating} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <ReviewRating ratingType={"Location"} setRating={setLocationRating} />
+        </Grid>
 
-      <Grid item xs={11}>
-        <TextField
-         label="how was your trip"
-         multiline
-         fullWidth
-         rows={3}
-
-         defaultValue="How was your trip"
-         sx={{ display: "block", marginBlock:"5px" }}
-          id="review"
-          value={reviewMessage}
-          onChange={(e) => setReviewMessage(e.target.value)}
-        />
+        <Grid item xs={11}>
+          <TextField
+            label="how was your trip"
+            multiline
+            fullWidth
+            rows={3}
+            defaultValue="How was your trip"
+            sx={{ display: "block", marginBlock: "5px" }}
+            id="review"
+            value={reviewMessage}
+            onChange={(e) => setReviewMessage(e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12} m={1}>
+          <Button variant="contained" onClick={handleSubmit}>
+            {" "}
+            Feedback{" "}
+          </Button>
+        </Grid>
       </Grid>
-      <Grid item xs={12} m={1}>
-        <Button  variant="contained" onClick={handleSubmit}>
-          {" "}
-          Feedback{" "}
-        </Button>
-      </Grid>
-    </Grid>
     </Box>
-
   );
 };
 
