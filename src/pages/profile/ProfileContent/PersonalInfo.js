@@ -5,6 +5,8 @@ import Grid from "@mui/material/Grid";
 import { Box } from "@mui/material";
 import GlobalModalForProfile from "./GlobalModalForProfile";
 import "../ProfilePage.css";
+import { Typography } from "antd";
+import { CheckBox, Favorite } from "@mui/icons-material";
 
 const PersonalInfo = () => {
     const [globalModalForProfile ,setGlobalModalForProfile] = useState(false);
@@ -61,16 +63,21 @@ const PersonalInfo = () => {
 
       <Grid container spacing={2} >
         {tilesPersonal.map((tiles) => (
-          <Grid item xs={12}>
-            <Button
-              sx={{ mt: "20px", textTransform: "capitalize" }}
+          <><Grid item xs={9} sx={{ textAlign: 'start' }}>
+            <button
+              style={{
+                
+                width: "100%", paddingLeft: "0%", textTransform: "capitalize", paddingRight: "60%", paddingBlock: "2%"
+              }}
+
+
               variant="outlined"
-              onClick={handleTiles} 
-              // Pass the handleTiles function as a prop to the Button component here.
+              onClick={handleTiles}
             >
-              {tiles}
-            </Button>
-          </Grid>
+
+              <Typography>{tiles} </Typography>
+            </button>
+          </Grid><Grid item xs={3}> <CheckBox /></Grid></>
         ))}
       </Grid>
 

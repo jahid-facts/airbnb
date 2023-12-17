@@ -6,7 +6,7 @@ import axios from "axios";
 
 //import { getApi, getApiById } from "../../config/configAxios";
 
-function NIDVerificationForm({ bookingId, mode }) {
+function NIDVerificationForm({ bookingId, mode, close}) {
 
   // const update_url = process.env.REACT_APP_STATUS_ENDPOINT;
   // const delete_url = process.env.REACT_APP_DELETE_ENDPOINT;
@@ -117,6 +117,8 @@ function NIDVerificationForm({ bookingId, mode }) {
       }
     } catch (error) {
       console.error(error);
+    }finally{
+      close();
     }
   };
  
@@ -171,7 +173,7 @@ function NIDVerificationForm({ bookingId, mode }) {
           </Button>
 
           <Button
-            type="submit"
+            // type="submit"
             variant="contained"
             color="primary"
             onClick={handleStatusDelete}

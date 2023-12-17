@@ -1,5 +1,5 @@
 import ReviewRating from "../rating";
-import { Button, Grid } from "@mui/material";
+import { Box, Button, Grid, TextField } from "@mui/material";
 import axios from "axios";
 
 import { useEffect, useState } from "react";
@@ -60,11 +60,15 @@ const ReviewForm = ({ propertyID, bookingID,setReviewStatus}) => {
   };
 
   return (
+    <Box  marginInline={"auto"} padding={1}>
     <Grid
       container
-      columnSpacing={1}
-      justifyContent="space-around"
-      // alignItems="flex-start"
+      marginBlock={2}
+      alignItems={"center"}
+      alignContent={"center"}
+      justifyItems={"center"}
+      justifyContent={"center"}
+      marginInline={"auto"}
     >
       {/* {ratingType.map((rentalRating)=>(
       <Grid item xs={12} sm={6}>
@@ -72,38 +76,45 @@ const ReviewForm = ({ propertyID, bookingID,setReviewStatus}) => {
     </Grid>
 ))} */}
 
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} md={6}>
         <ReviewRating
           ratingType={"Communication"}
           setRating={setCommunicationRating}
         />
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12}  md={6}>
         <ReviewRating ratingType={"Recommend"} setRating={setRecommendRating} />
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12}  md={6}>
         <ReviewRating ratingType={"Services"} setRating={setServicesRating} />
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12}  md={6}>
         <ReviewRating ratingType={"Location"} setRating={setLocationRating} />
       </Grid>
 
-      <Grid Items>
-        <textarea
-          rows={3}
-          sx={{ display: "block" }}
+      <Grid item xs={11}>
+        <TextField
+         label="how was your trip"
+         multiline
+         fullWidth
+         rows={3}
+
+         defaultValue="How was your trip"
+         sx={{ display: "block", marginBlock:"5px" }}
           id="review"
           value={reviewMessage}
           onChange={(e) => setReviewMessage(e.target.value)}
         />
       </Grid>
-      <Grid Items>
-        <Button variant="contained" onClick={handleSubmit}>
+      <Grid item xs={12} m={1}>
+        <Button  variant="contained" onClick={handleSubmit}>
           {" "}
           Feedback{" "}
         </Button>
       </Grid>
     </Grid>
+    </Box>
+
   );
 };
 

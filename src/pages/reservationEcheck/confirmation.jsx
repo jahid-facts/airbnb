@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Verification from "./Verification";
 import { useLocation } from "react-router-dom";
 import { useAuthInfo } from "../../helpers/AuthCheck";
@@ -6,18 +6,8 @@ import { useAuthInfo } from "../../helpers/AuthCheck";
 function Confirmation(bookinStatu, mode) {
   const location = useLocation();
   const UserInfo = useAuthInfo();
-  const [bookingStatus, setBookingStatus] = useState("");
-  const [idStatus, setIdStatus] = useState(null);
 
-
-
-  useEffect(() => {
-    setBookingStatus(bookinStatu);
-   
-    //console.log("idStatus" , idStatus);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps 
-  }, []);
+  // const [idStatus, setIdStatus] = useState(null);
 
 
   // useEffect(() => {
@@ -25,6 +15,7 @@ function Confirmation(bookinStatu, mode) {
     
   // // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [idStatus]);
+
   console.log("bookinStatus",bookinStatu);
 
   const displayStatus = () => {
@@ -32,24 +23,11 @@ function Confirmation(bookinStatu, mode) {
     //const bookingStatus = bookinStatu;
     if (location.pathname === "/profile" && UserInfo.status === "active") {
       return "VERIFIED";
-    } else if (bookingStatus === "active" && location.pathname === "/e-check" ) {
-      return "RENTED";
-    } else {
-      return <Verification mode={mode} />; // or display your verification form here
+    }  else {
+      return <Verification mode={"update"} />; // or display your verification form here
     }
   };
 
-
-// useEffect(() => {
-
-//   displayStatus();
-//   setBookingStatus(null);
-// }, [])
-
-
-  //console.log("bookin Status", bookingStatus, "id Status", idStatus);
-
-// console.log("bookingId",bookingId)
   return (
     <div
       className="active-status"
