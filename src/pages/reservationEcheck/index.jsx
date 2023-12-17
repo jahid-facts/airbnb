@@ -53,6 +53,9 @@ const ReservationCheck = () => {
 
   //console.log(bookingStatuses);
 
+
+  
+
   const displayStatus = (bookingId,bookingStatus, mode) => {
    
     //const bookingStatus = bookinStatu;

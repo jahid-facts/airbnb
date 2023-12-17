@@ -28,17 +28,17 @@ const ReviewRating = ({ ratingType, setRating }) => {
   return (
     <Box
       sx={{
-        '& > legend': { m: 2 },
-        display:"inline-block",
-        marginLeft: "7px",
-        marginRight:"10px",
-        textAlign:"center"
+        "& > legend": { m: 2 },
+        display: "inline-block",
+        marginInline: "8px",
+        textAlign: "center",
         //  marginBottom:"10px"
       }}
     >
-      <Typography component="legend">{ratingType}</Typography>
-      
+      <Typography component="legend" fontSize={"1.1rem"}>{ratingType}</Typography>
+
       <Rating
+        size="large"
         name="simple-controlled"
         value={newValue}
         onChange={handleChange}
