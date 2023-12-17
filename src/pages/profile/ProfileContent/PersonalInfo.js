@@ -52,13 +52,12 @@ const PersonalInfo = () => {
   return (
     <>
       <Box>
-        <Typography variant="h5">
-          Personal
-        </Typography>{" "}
-        <p>
+        <Typography variant="subtitle2">
+         <big> Personal </big> {" "}
+         <br/>
           Details to help property managers validate who you are and assess your
           identity, employment and income.
-        </p>
+          </Typography>
         <br></br>
       </Box>
 
