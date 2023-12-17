@@ -13,10 +13,10 @@ import {
   Divider,
 } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
+import PersonalInfo from "./ProfileContent/PersonalInfo";
+import ActiveRenting from "./ProfileContent/ActiveRenting";
+import UpcomingRenting from "./ProfileContent/UpcomingRenting";
 import { AppLayout } from "../../layouts/appLayout";
-import PersonalInfo from "../../pages/profile/ProfileContent/PersonalInfo";
-import ActiveRenting from "../../pages/profile/ProfileContent/ActiveRenting";
-import UpcomingRenting from "../../pages/profile/ProfileContent/UpcomingRenting";
 
 function ProfilePage() {
   const [value, setValue] = useState(0);
@@ -35,7 +35,7 @@ function ProfilePage() {
       <Box sx={{ p: 1 }}>
         <Container>
           <Grid container spacing={2}>
-            <Grid item md={4} xs={12}>
+            <Grid item xs={4}>
               <Paper
                 sx={{
                   boxShadow: 6,
@@ -157,7 +157,7 @@ function ProfilePage() {
                 </Box>
               </Paper>
             </Grid>
-            <Grid item md={8} xs={12}>
+            <Grid item xs={8}>
               <Paper
                 elevation={3}
                 style={{

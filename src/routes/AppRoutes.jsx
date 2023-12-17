@@ -12,6 +12,7 @@ import Hosting from "../pages/hosting";
 import PropertyList from "../pages/propertyList";
 import EditProperty from "../pages/editProperty";
 import ReservationDetailsCopy from "../pages/reservationDetails/ReservationDetails copy";
+import SearchResults from "../components/VoiceSearch/SearchResults";
 
 export const AppRoutes = () => {
   const isAuthenticated = useSelector((state) => state.auth.isLoggedIn);
@@ -63,6 +64,11 @@ export const AppRoutes = () => {
           path="/add-properties"
           element={<ProtectedRoute children={<AddProperties />} />}
         />
+        {/* added by sn  */}
+        <Route 
+          path="/search-results" 
+          element={<SearchResults />} 
+        /> 
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </>

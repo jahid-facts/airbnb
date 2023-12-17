@@ -31,8 +31,7 @@ import { BeatLoader } from 'react-spinners';
 const LoginScreen = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
-  const { error, success } = useSelector((state) => state.auth);
-
+  const status = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const initialValues = {
@@ -78,16 +77,16 @@ const LoginScreen = () => {
   });
 
   useEffect(() => {
-    if (error) {
-      toast.error(error);
+    if (status?.error) {
+      toast.error(status?.error);
       dispatch(clearMessage());
     }
-    if (success) {
-      toast.success(success);
+    if (status?.success) {
+      toast.success(status?.success);
       navigate("/");
       dispatch(clearMessage());
     }
-  }, [error, success, dispatch, navigate]);
+  }, [status, dispatch, navigate]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 

@@ -3,35 +3,29 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
 import Mic from '@mui/icons-material/Mic';
 import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import { Grid } from '@mui/material';
+import { Dialog, DialogContent,DialogTitle, Grid, TextField } from '@mui/material';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import './VoiceSearch.css';
-
-const modal_style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
+import axios from 'axios';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function VoiceSearch() {
+  
     //  modal start (SN)
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const [showModal, setShowModal] = useState(false);
     //  modal end (SN)
+      
+    // text search start (SN) 
+    const [searchQuery, setSearchQuery] = useState('');
+    const [propertyData, setPropertyData] = useState([]);
+    const [message, setMessage] = useState('');
 
     // Speech Recognition start (SN)
     const {
@@ -40,11 +34,48 @@ export default function VoiceSearch() {
         resetTranscript,
         browserSupportsSpeechRecognition
     } = useSpeechRecognition();
-
+    useEffect(()=>{
+        setSearchQuery(transcript)
+    },[transcript])
     if (!browserSupportsSpeechRecognition) {
         return <span>Browser doesn't support speech recognition.</span>;
     }
     // Speech Recognition end (SN)
+
+    const handleTextSearch = async () => {
+        try {
+            const response = await axios.get(`http://127.0.0.1:5050/search?searchText=${searchQuery}`);
+            console.log('API Response:', response.data);   
+
+            const searchData = response.data;
+            setPropertyData(searchData);
+
+            window.location.href = `/search-results?q=${searchQuery}`;
+    
+            if (!searchData || searchData.length === 0) {
+                setMessage('No matching property data found.');
+                setPropertyData([]);  // Clear existing data
+            } else {
+                setMessage('');
+            }
+        } catch (error) {
+            console.error('Error with text search:', error);
+            console.log('API Response:', error.response);
+            setMessage('Error in API response. Please check the server logs for details.');
+        }
+    };   
+    // text search end (SN) 
+
+    // modal start (sn)
+    const handleOpenModal = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
+    
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            handleTextSearch();
+        }
+    };
+//   modal end (sn)
     return (
         <div>
             <Grid>
@@ -55,32 +86,39 @@ export default function VoiceSearch() {
                         borderRadius: "50%",
                         background: "#fbfbfb"
                     }}
-                    onClick={handleOpen}><Mic /></Button>
+                    onClick={handleOpenModal}><Mic /></Button>
             </Grid>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={modal_style}>
-
-                    <Paper
-                        component="form"
-                        sx={{ display: 'flex', alignItems: 'center' }}
-                    >
-                        <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-                            <SearchIcon />
+            <Dialog open={showModal} onClose={handleCloseModal}>
+                <DialogTitle>
+                    <Box display="flex" justifyContent="space-between" alignItems="center">
+                        <Typography variant="h6">Search</Typography>
+                        <IconButton onClick={handleCloseModal}>
+                        <CloseIcon />
                         </IconButton>
-                        <InputBase
-                            sx={{ ml: 1, flex: 1 }}
-                            placeholder="Search"
+                    </Box>
+                </DialogTitle>
+                <DialogContent>                    
+                <Box >                   
+                    <Paper
+                            component="form"
+                            sx={{ display: 'flex', alignItems: 'center' }}
+                        >
+                            <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+                                <SearchIcon />
+                            </IconButton>
+                            <TextField                        
+                            autoFocus
+                            placeholder="Search..."
+                            onKeyPress={handleKeyPress}
                             inputProps={{ 'aria-label': 'search' }}
-                        />
-                        <p>{transcript}</p>
-                        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            />                                     
+                            <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />       
+                        <Button onClick={handleTextSearch}>Search</Button>
                         <Button onClick={resetTranscript}>x</Button>
-                    </Paper>
+                    </Paper> 
+                    {/* speech recognition start (sn)*/}
                     <Typography fontSize="10px" mt={2}>
                         Microphone: {listening ? <Mic /> : <MicOffIcon />}
                     </Typography>
@@ -94,9 +132,10 @@ export default function VoiceSearch() {
                         <Button onClick={SpeechRecognition.startListening}>Start</Button>
                         <Button onClick={SpeechRecognition.stopListening}>Stop</Button>
                     </Box>
+                    {/* speech recognition end (sn)*/}
                 </Box>
-            </Modal>
+                </DialogContent>
+            </Dialog>
         </div >
     );
-
 }
