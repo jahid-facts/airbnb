@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import {
   Container,
   Grid,
@@ -12,7 +12,7 @@ import {
   Box,
   Divider,
 } from "@mui/material";
-import { PhotoCamera } from "@mui/icons-material";
+import { PhotoCamera, UploadFile } from "@mui/icons-material";
 import PersonalInfo from "./ProfileContent/PersonalInfo";
 import ActiveRenting from "./ProfileContent/ActiveRenting";
 import UpcomingRenting from "./ProfileContent/UpcomingRenting";
@@ -20,12 +20,34 @@ import { AppLayout } from "../../layouts/appLayout";
 import MyTrips from "../profile/ProfileContent/MyTrips";
 // import Verification from "../reservationEcheck/Verification";
 import Confirmation from "../reservationEcheck/confirmation";
-
+import axios from "axios";
+import { useAuthInfo } from "../../helpers/AuthCheck";
 
 function ProfilePage() {
   const [value, setValue] = useState(0);
   const [isUploadOpen, setUploadOpen] = useState(false);
   // const userInfo = useAuthInfo();
+  const [file, setFile] = useState(null);
+
+  const userInfo = useAuthInfo();
+  const userId = userInfo._id;
+
+  console.log(userId);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("avatar", file);
+    try {
+      const response = await axios.post(`/users/${userId}/avatar`, formData);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -54,10 +76,10 @@ function ProfilePage() {
               >
                 <Avatar
                   alt="User Avatar"
-                  src="/src/assets/images/avatar.png"
+                  src={userInfo.avatar.url}
                   sx={{
-                    width: "11.25rem",
-                    height:"11.25rem",
+                    width: "13.25rem",
+                    height: "11.25rem",
                     margin: "0 auto",
                     marginBottom: "0.8rem",
                     position: "relative",
@@ -69,34 +91,40 @@ function ProfilePage() {
                   onMouseLeave={toggleUpload}
                 >
                   {isUploadOpen && (
-                    <div
-                      style={{
-                        position: "relative",
-                        bottom: "10px",
-                        right: "1.75rem"
-                      }}
-                    >
-                      <input
-                        accept="image/*"
-                        style={{ display: "none" }}
-                        id="upload-button"
-                        type="file"
-                      />
-                      <label htmlFor="upload-button">
-                        <IconButton component="span">
-                          <PhotoCamera />
+                    <form onSubmit={handleSubmit}>
+                      <div
+                        style={{
+                          position: "relative",
+                          display: "flex",
+                          justifyContent: "center",
+                          // bottom: "10px",
+                          // right: "1.75rem",
+                        }}
+                      >
+                        <input
+                          accept="image/*"
+                          style={{ display: "none" }}
+                          id="upload-button"
+                          type="file"
+                          onChange={handleFileChange}
+                        />
+                        <label htmlFor="upload-button">
+                          <IconButton component="span">
+                            <PhotoCamera />
+                          </IconButton>
+                        </label>
+                        <IconButton type="submit">
+                          <UploadFile />{" "}
                         </IconButton>
-                      </label>
-                    </div>
+                      </div>
+                    </form>
                   )}
                 </Avatar>
                 <Box style={{ textAlign: "center" }}>
                   <Typography variant="h6" gutterBottom>
-                    Salma Hayek
+                    {userInfo.name}
                   </Typography>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Guest
-                  </Typography>
+                  {/* 
                   <Button
                     variant="outlined"
                     style={{
@@ -109,12 +137,12 @@ function ProfilePage() {
                     }}
                   >
                     Edit Profile
-                  </Button>
+                  </Button> */}
                 </Box>
               </Paper>
               <Paper
                 sx={{
-                  boxShadow:3,
+                  boxShadow: 3,
                   p: 4,
                   m: 2,
                   borderRadius: 3,
@@ -152,7 +180,7 @@ function ProfilePage() {
                   </Typography>
 
                   {/* <Verification /> */}
-                  <Confirmation/>
+                  <Confirmation />
 
                   {/* userId={ userInfo._id } */}
                 </Box>
@@ -250,7 +278,8 @@ function Tab1Content() {
     <Box>
       <Typography variant="h4"> Renter Profile </Typography>
       <h4>
-        {" "} Create your Renter Profile once and reuse it for all your applications.
+        {" "}
+        Create your Renter Profile once and reuse it for all your applications.
       </h4>
       <br></br>
       <PersonalInfo />
@@ -262,7 +291,7 @@ function Tab2Content() {
   return (
     <div>
       <h4>Current Renting</h4>
-      <br/>
+      <br />
       <ActiveRenting />
     </div>
   );
@@ -282,7 +311,7 @@ function Tab3Content() {
 function Tab4Content() {
   return (
     <Box>
-       <Typography variant="h4">My Trips</Typography>
+      <Typography variant="h4">My Trips</Typography>
       <MyTrips />
     </Box>
   );
