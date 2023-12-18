@@ -56,8 +56,8 @@ function ReviewSection() {
 
 
         const responData = reviewResponse.data.reviws;
-        console.log(reviewResponse.data)
-        console.log(responData.reviws);
+        //console.log(reviewResponse.data)
+        //console.log(responData.reviws);
         setreviewResponsedData(responData);
         setTotalResults(reviewResponse.data.totalResults);
 
@@ -244,7 +244,7 @@ function ReviewSection() {
               sx={{ width: 40, height: 40, mr: 3 }} />
               <Box>
                 <Typography fontWeight={"bold"}>
-                  {review.reviewedBy.name}
+                  {review.reviewedBy.name}                     
                 </Typography>
                 <Box>
                   <Typography
@@ -259,7 +259,7 @@ function ReviewSection() {
                       precision={0.5}
                       readOnly
                     />{" "}
-                    {review.overAllRating}
+                    {/* {review.overAllRating} */}
                     <Divider
                       sx={{ mx: 1 }}
                       orientation="vertical"

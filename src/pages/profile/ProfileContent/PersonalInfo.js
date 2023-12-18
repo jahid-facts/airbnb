@@ -53,13 +53,22 @@ const PersonalInfo = () => {
     <>
       <Box>
         <Typography variant="subtitle2">
-         <big> Personal </big> {" "}
-         <br/>
+          <big> Personal </big> <br />
           Details to help property managers validate who you are and assess your
           identity, employment and income.
-          </Typography>
+        </Typography>
         <br></br>
       </Box>
+
+      {isGreen ? (
+        <>
+          <Typography>
+            You have succesfully Updated your renter profile.
+          </Typography>
+        </>
+      ) : (
+        <br />
+      )}
 
       <Grid container spacing={2}>
         {tilesPersonal.map((tiles) => (

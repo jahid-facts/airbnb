@@ -1,39 +1,119 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
-import CloseIcon from '@mui/icons-material/Close';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import IconButton from "@mui/material/IconButton";
+import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@mui/material";
+import { useAuthInfo } from "../../../helpers/AuthCheck";
+import axios from "axios";
 
-export default function ActiveRenting() {
-    const [open, setOpen] = React.useState(false);
+const ActiveRentingTable = () => {
+  const [activeRentingData, setActiveRentingData] = React.useState([]);
 
-    const handleClickOpen = () => {
-        setOpen(true);
+  const userInfo = useAuthInfo();
+  const renterId = userInfo._id;
+  console.log(renterId);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `/active-bookins?renterId=${renterId}`
+        );
+        setActiveRentingData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
     };
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    const handleClose = (event, reason) => {
-        if (reason !== 'backdropClick') {
-            setOpen(false);
-        }
-    };
+  console.log(activeRentingData);
 
-    return (
-        <div>
+  return (
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }}>
+        <TableHead sx={{ fontWeight: "bold", fontSize: "24px" }}>
+          <TableRow>
+            <TableCell>
+              <b>
+                {" "}
+                <big> Place</big>{" "}
+              </b>
+            </TableCell>
+            <TableCell>
+              <b>
+                {" "}
+                <big>Title</big>{" "}
+              </b>
+            </TableCell>
+            <TableCell>
+              <b>
+                {" "}
+                <big>Address</big>{" "}
+              </b>
+            </TableCell>
+            <TableCell>
+              <b>
+                {" "}
+                <big>Staying</big>{" "}
+              </b>
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {activeRentingData.map((rental) => (
+            <TableRow key={rental.propertyId._id}>
+              <TableCell>
+                <Box
+                  component="img"
+                  p={1}
+                  mr={2}
+                  width={"5.625rem"}
+                  height={"5.625rem"}
+                  borderRadius="10px"
+                  bgcolor="#e0eeff"
+                  display="flex"
+                  textAlign="center"
+                  alignItems="center"
+                  justifyContent="center"
+                  src={rental.propertyId.images[0].url}
+                ></Box>
+              </TableCell>
+              <TableCell>{rental.propertyId.title}</TableCell>
+             
+              <TableCell>
+                {rental.propertyId.address.addressLine1},{" "}
+                {rental.propertyId.address.city},{" "}
+                {rental.propertyId.address.state}
+              </TableCell>
+              <TableCell>{rental.stayDays} days</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+};
 
-        </div>
-    );
-}
-
-
+export default ActiveRentingTable;
 
 // <Button variant="black" onClick={handleClickOpen}>Your ActiveRenting</Button>
 // <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>

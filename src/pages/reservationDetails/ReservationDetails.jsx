@@ -442,6 +442,12 @@ export default function ReservationDetails() {
                     </Grid>
                     <Divider sx={{ my: 4 }} />
 
+
+
+
+
+
+
                     {/* Review section */}
                     <Grid container spacing={3}>
                       <ReviewSection propertyID={propertyId} />

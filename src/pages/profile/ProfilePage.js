@@ -261,7 +261,8 @@ function Tab1Content() {
 function Tab2Content() {
   return (
     <div>
-      <h4>Active Renting</h4>
+      <h4>Current Renting</h4>
+      <br/>
       <ActiveRenting />
     </div>
   );
