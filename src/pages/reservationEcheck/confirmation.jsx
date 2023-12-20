@@ -16,7 +16,7 @@ function Confirmation(bookinStatu, mode) {
   // // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [idStatus]);
 
-  console.log("bookinStatus",bookinStatu);
+  //console.log("bookinStatus",bookinStatu);
 
   const displayStatus = () => {
    

@@ -12,7 +12,7 @@ import {
   Box,
   Divider,
 } from "@mui/material";
-import { PhotoCamera, UploadFile } from "@mui/icons-material";
+import { ContactSupportOutlined, PhotoCamera, UploadFile } from "@mui/icons-material";
 import PersonalInfo from "./ProfileContent/PersonalInfo";
 import ActiveRenting from "./ProfileContent/ActiveRenting";
 import UpcomingRenting from "./ProfileContent/UpcomingRenting";
@@ -35,11 +35,27 @@ function ProfilePage() {
   console.log(userId);
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(file);
     const formData = new FormData();
-    formData.append("avatar", file);
+    formData.append("file", file);
+    formData.append("userId", userId);
+
     try {
-      const response = await axios.post(`/users/${userId}/avatar`, formData);
-      console.log(response.data);
+      const response = await fetch("http://localhost:5050/api/users/avatar", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        console.error(
+          "Failed to send image. Server responded with " + response.status
+        );
+        return;
+      }
+
+
+      // const response = await axios.post('/users/avatar', formData);
+      // console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -58,7 +74,7 @@ function ProfilePage() {
   };
 
   //const handleVerify = () => {};
-
+console.log(userInfo.avatar.url);
   return (
     <AppLayout>
       <Box sx={{ m: 1 }}>
@@ -77,6 +93,8 @@ function ProfilePage() {
                 <Avatar
                   alt="User Avatar"
                   src={userInfo.avatar.url}
+                  // src=""
+                  // uploads/1703051180203-123247207.png
                   sx={{
                     width: "13.25rem",
                     height: "11.25rem",
@@ -91,7 +109,7 @@ function ProfilePage() {
                   onMouseLeave={toggleUpload}
                 >
                   {isUploadOpen && (
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} encType="multipart/form-data">
                       <div
                         style={{
                           position: "relative",
