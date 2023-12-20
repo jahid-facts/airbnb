@@ -10,19 +10,27 @@ import {
   InputAdornment,
   FormControl,
   TextField,
+  Divider,
 } from "@mui/material";
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import * as Yup from "yup";
 
+import googleLogo from "../../assets/images/google-logo.png";
 import assets from "../../assets";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { clearMessage, registerUser } from "../../redux/features/AuthSlice";
+import {
+  clearMessage,
+  registerUser,
+  socialLoginSignup,
+} from "../../redux/features/AuthSlice";
 import { BeatLoader } from "react-spinners";
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 
 const RegisterScreen = () => {
   const dispatch = useDispatch();
@@ -117,6 +125,39 @@ const RegisterScreen = () => {
     event.preventDefault();
   };
 
+  // useEffect(() => {
+  //   if (error) {
+  //     toast.error(error);
+  //     dispatch(clearMessage());
+  //   }
+  //   if (success) {
+  //     toast.success(success);
+  //     navigate("/");
+  //     dispatch(clearMessage());
+  //   }
+  // }, [error, success]);
+
+  /// social login
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => {
+      const accessToken = tokenResponse.access_token; // Extract the access token from the response
+
+      axios
+        .get("https://www.googleapis.com/userinfo/v2/me", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((response) => {
+          const loginData = response.data;
+          dispatch(socialLoginSignup(loginData));
+        })
+        .catch((error) => {
+          console.error("Error fetching user info:", error);
+        });
+    },
+  });
+
   return (
     <Box
       display="flex"
@@ -162,7 +203,11 @@ const RegisterScreen = () => {
               borderRadius={"20px"}
               bgcolor={"#fff"}
             >
-              <h1>Sign Up</h1>
+              <h3>Sign up</h3>
+              <div style={{ textAlign: "left", width: "100%" }}>
+                <h4>Welcome ! 👋🏻</h4>
+                <p>Please sign-up to your account and start the adventure</p>
+              </div>
               <form noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <Box pt={5}>
                   <TextField
@@ -326,26 +371,66 @@ const RegisterScreen = () => {
                     </p>
                   )}
                 </Box>
-                <Box
-                  pt={4}
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Link to="/login">
-                    <Typography variant="body2">Sign In</Typography>
-                  </Link>
+                <Box pt={2}>
                   <Button
                     type="submit"
                     disabled={isSubmitting}
                     variant="contained"
                     color="primary"
+                    fullWidth
                     sx={{ textTransform: "capitalize" }}
                   >
                     {isSubmitting ? <BeatLoader color="#ff0000" /> : "Resigter"}
                   </Button>
-                </Box> 
+                </Box>
+                <Box sx={{ position: "relative", my: 3, textAlign: "center" }}>
+                  <Divider />
+                  <p
+                    style={{
+                      position: "absolute",
+                      top: "-13px",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      background: "#fafcfe",
+                      padding: "0px 11px",
+                      margin: 0,
+                      borderRadius: "10px",
+                      border: "1px solid #0000001f",
+                    }}
+                  >
+                    or
+                  </p>
+                </Box>
               </form>
+
+              <Box
+                my={2}
+                bgcolor={"white"}
+                p={1}
+                border={"1px solid #0000001f"}
+                borderRadius={1}
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                onClick={() => login()}
+                sx={{ cursor: "pointer" }}
+              >
+                <img src={googleLogo} height={"18px"} alt="" />
+                <Typography variant="text" sx={{ ml: 1 }} fontSize={"14px"}>
+                  Sing up with google
+                </Typography>
+              </Box>
+              <Box pt={2} display="flex" alignItems="center">
+                If you have already an account ?
+                <Link to="/login">
+                  <Typography
+                    style={{ textDecoration: "underline" }}
+                    variant="body2"
+                  >
+                    Sign in
+                  </Typography>
+                </Link>
+              </Box>
             </Box>
           </Grid>
         </Grid>

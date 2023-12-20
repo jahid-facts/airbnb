@@ -40,12 +40,12 @@ import { getUserProperties } from "../../redux/features/UserPropertiesSlice";
 
 const PropertyList = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [filter, setFilter] = useState(null);
   const [userProperties, setUserProperties] = useState([]);
   const [originalProperties, setOriginalProperties] = useState([]);
   const userInfo = useAuthInfo();
   const [loading, setLoading] = useState(true);
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const [filter, setFilter] = useState(null);
   const dispatch = useDispatch();
 
   const handleMenuOpen = (event) => {
