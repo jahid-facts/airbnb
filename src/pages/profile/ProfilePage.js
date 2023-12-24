@@ -12,7 +12,7 @@ import {
   Box,
   Divider,
 } from "@mui/material";
-import { ContactSupportOutlined, PhotoCamera, UploadFile } from "@mui/icons-material";
+import { ContactSupportOutlined, EmailOutlined, PhotoCamera, UploadFile } from "@mui/icons-material";
 import PersonalInfo from "./ProfileContent/PersonalInfo";
 import ActiveRenting from "./ProfileContent/ActiveRenting";
 import UpcomingRenting from "./ProfileContent/UpcomingRenting";
@@ -74,7 +74,7 @@ function ProfilePage() {
   };
 
   //const handleVerify = () => {};
-console.log(userInfo.avatar.url);
+// console.log(userInfo.avatar.url);
   return (
     <AppLayout>
       <Box sx={{ m: 1 }}>
@@ -175,8 +175,8 @@ console.log(userInfo.avatar.url);
                     User's confirmed information
                   </Typography>
 
-                  <Typography variant="subtitle1" gutterBottom>
-                    Email address
+                  <Typography variant="subtitle1" sx={{display:"flex",gap:1}}  gutterBottom>
+                    <EmailOutlined/>  {userInfo.email}
                   </Typography>
                 </Box>
                 <Divider
