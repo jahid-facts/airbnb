@@ -11,7 +11,7 @@ import { Avatar, Box, Grid, Menu, MenuItem, Typography } from '@mui/material';
 
 // assets
 // import EarningIcon from '../assets/images/icons/earning.svg';
-import EarningIcon from "../../../../../assets/images/icons/earning.svg"
+import EarningIcon from "../../../../assets/images/icons/earning.svg"
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import GetAppTwoToneIcon from '@mui/icons-material/GetAppOutlined';
@@ -23,7 +23,7 @@ import MainCard from './ui-component/cards/MainCard';
 import SkeletonEarningCard from './ui-component/cards/Skeleton/EarningCard';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
-  backgroundColor: theme.palette.secondary.dark,
+  backgroundColor: theme.palette.secondary.main,
   color: '#fff',
   overflow: 'hidden',
   position: 'relative',
@@ -102,7 +102,7 @@ const EarningCard = ({ isLoading }) => {
                       sx={{
                         ...theme.typography.commonAvatar,
                         ...theme.typography.mediumAvatar,
-                        backgroundColor: theme.palette.secondary.dark,
+                        backgroundColor: theme.palette.secondary,
                         color: theme.palette.secondary[200],
                         zIndex: 1
                       }}

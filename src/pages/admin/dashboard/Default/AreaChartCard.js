@@ -17,7 +17,7 @@ import chartData from './chart-data/bajaj-area-chart';
 const BajajAreaChartCard = () => {
   const theme = useTheme();
   const customization = useSelector((state) => state.customization);
-  const { navType } = customization;
+  // const { navType } = customization;
 
   const orangeDark = theme.palette.secondary[800];
 
@@ -30,7 +30,8 @@ const BajajAreaChartCard = () => {
       }
     };
     ApexCharts.exec(`support-chart`, 'updateOptions', newSupportChart);
-  }, [navType, orangeDark]);
+  }, [ orangeDark]);
+//  [navType, orangeDark]
 
   return (
     <Card sx={{ bgcolor: 'secondary.light' }}>

@@ -4,16 +4,22 @@ import { Box, Card, Grid, Typography } from "@mui/material";
 import DashboardCard from "../../../components/dashboardCard/DashboardCard";
 import { MonetizationOnOutlined } from "@mui/icons-material";
 import { theme } from "../../../theme";
-import EarningCard from "../views/dashboard/Default/EarningCard";
+// import EarningCard from "./Default/EarningCard";
+import Dashboard from "./Default";
 
 const HostDashboard = () => {
   return (
     <AdminLayout title={"Hosting"}>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <h4>Finance info</h4>
+        <Grid item xs={12} sx={{ mt: 2 }}>
+          <h3>Finance info</h3>
         </Grid>
-        <Grid item xs={12} md={4}>
+
+        <Grid item xs={12}>
+          <Dashboard />
+        </Grid>
+
+        {/* <Grid item xs={12} md={4}>
           <DashboardCard
             icon={"clarity:dashboard-line"}
             title={"Spend this month"}
@@ -85,22 +91,7 @@ const HostDashboard = () => {
               </Box>
             </Box>
           </Card>
-        </Grid>
-
-        {/* //        EarningCard       */}
-        <Grid item xs={12} md={4}>
-          <EarningCard />
-        </Grid>
-
-        {/* //        EarningCard       */}
-        <Grid item xs={12} md={4}>
-          <EarningCard />
-        </Grid>
-
-        {/* //        EarningCard       */}
-        <Grid item xs={12} md={4}>
-          <EarningCard />
-        </Grid>
+        </Grid> */}
 
         <Grid item xs={12} sx={{ mt: 3 }}>
           <h4>User & properties info</h4>

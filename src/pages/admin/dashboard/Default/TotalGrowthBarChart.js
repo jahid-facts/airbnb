@@ -11,12 +11,15 @@ import ApexCharts from 'apexcharts';
 import Chart from 'react-apexcharts';
 
 // project imports
-import SkeletonTotalGrowthBarChart from 'ui-component/cards/Skeleton/TotalGrowthBarChart';
-import MainCard from 'ui-component/cards/MainCard';
-import { gridSpacing } from 'store/constant';
+import SkeletonTotalGrowthBarChart from './ui-component/cards/Skeleton/TotalGrowthBarChart';
+import MainCard from './ui-component/cards/MainCard';
+// import { gridSpacing } from 'store/constant';
 
 // chart data
 import chartData from './chart-data/total-growth-bar-chart';
+
+
+const gridSpacing=2;
 
 const status = [
   {
@@ -40,7 +43,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
   const theme = useTheme();
   const customization = useSelector((state) => state.customization);
 
-  const { navType } = customization;
+  // const { navType } = customization;
   const { primary } = theme.palette.text;
   const darkLight = theme.palette.dark.light;
   const grey200 = theme.palette.grey[200];
@@ -86,8 +89,9 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     if (!isLoading) {
       ApexCharts.exec(`bar-chart`, 'updateOptions', newChartData);
     }
-  }, [navType, primary200, primaryDark, secondaryMain, secondaryLight, primary, darkLight, grey200, isLoading, grey500]);
+  }, [ primary200, primaryDark, secondaryMain, secondaryLight, primary, darkLight, grey200, isLoading, grey500]);
 
+  // [navType, primary200, primaryDark, secondaryMain, secondaryLight, primary, darkLight, grey200, isLoading, grey500]
   return (
     <>
       {isLoading ? (
