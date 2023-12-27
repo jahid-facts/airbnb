@@ -34,10 +34,6 @@ const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
     }
   };
 
-
-
-
-
   return (
     <>
       {/* GlobalModalForProfile */}

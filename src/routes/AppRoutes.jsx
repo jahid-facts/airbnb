@@ -7,7 +7,8 @@ import AddProperties from "../pages/addProperties";
 import PaymentForm from "../pages/payments";
 import { useSelector } from "react-redux";
 import ProtectedRoute from "../helpers/ProtectedRoute";
-import Hosting from "../pages/hosting";
+
+// import Hosting from "../pages/hosting";
 import PropertyList from "../pages/propertyList";
 import EditProperty from "../pages/editProperty";
 import ReservationDetailsCopy from "../pages/reservationDetails/ReservationDetails copy";
@@ -17,6 +18,7 @@ import ProfilePage from "../pages/profile/ProfilePage";
 import Echeck from "../pages/reservationEcheck";
 import MyTrips from "../pages/profile/ProfileContent/MyTrips";
 import Wishlist from "../pages/profile/ProfileContent/Wishlist";
+import HostDashboard from "../pages/admin/dashboard/hostDashboard";
 // import HostProfileInfo from "../pages/profile/HostInfo";
 
 export const AppRoutes = () => {
@@ -42,7 +44,7 @@ export const AppRoutes = () => {
         />
         <Route
           path="/hosting"
-          element={<ProtectedRoute children={<Hosting />} />}
+          element={<ProtectedRoute children={<HostDashboard />} />}
         />
 
         <Route
