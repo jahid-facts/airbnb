@@ -4,6 +4,7 @@ import { Box, Card, Grid, Typography } from "@mui/material";
 import DashboardCard from "../../../components/dashboardCard/DashboardCard";
 import { MonetizationOnOutlined } from "@mui/icons-material";
 import { theme } from "../../../theme";
+import EarningCard from "../views/dashboard/Default/EarningCard";
 
 const HostDashboard = () => {
   return (
@@ -85,6 +86,22 @@ const HostDashboard = () => {
             </Box>
           </Card>
         </Grid>
+
+        {/* //        EarningCard       */}
+        <Grid item xs={12} md={4}>
+          <EarningCard />
+        </Grid>
+
+        {/* //        EarningCard       */}
+        <Grid item xs={12} md={4}>
+          <EarningCard />
+        </Grid>
+
+        {/* //        EarningCard       */}
+        <Grid item xs={12} md={4}>
+          <EarningCard />
+        </Grid>
+
         <Grid item xs={12} sx={{ mt: 3 }}>
           <h4>User & properties info</h4>
         </Grid>
