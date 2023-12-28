@@ -1,4 +1,4 @@
-import { Box, Drawer, Grid, Typography, Button } from "@mui/material";
+import { Box, Drawer, Grid, Typography } from "@mui/material";
 // import React, { useState } from "react";
 // import { DatePicker } from "antd";
 import PersonalInfoForm from "../../../components/forms/personal";
@@ -6,8 +6,8 @@ import IncomeForm from "../../../components/forms/income";
 import AddressHistoryForm from "../../../components/forms/AddressHistory";
 import EmergencyForm from "../../../components/forms/EmergencyForm";
 import AboutMeForm from "../../../components/forms/AboutMe";
-import NIDVerificationForm from "../../reservationEcheck/Verification";
 import "../ProfilePage.css";
+import TenantCheck from "../../../components/forms/tenantCheck";
 
 
 const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
@@ -28,15 +28,11 @@ const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
       case "Address history":
         return <AddressHistoryForm close={onClose}/>;
       case "Tenant check (recommended)":
-        return <NIDVerificationForm close={onClose}/>;
+        return <TenantCheck close={onClose}/>;
       default:
         return <EmergencyForm close={onClose}/>;
     }
   };
-
-
-
-
 
   return (
     <>
@@ -45,16 +41,23 @@ const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
         anchor="top"
         open={open}
         onClose={onClose}
-        style={{ width: "49.5rem", textAlign: "center" }}
+        style={{ 
+         textAlign: "center" }}
         //className="style"
       >
+
+
         {/* Personal Information for renter profile */}
         <div  className="body">
-          <Grid item xs={12}>
+          <Grid item xs={12} 
+          justifyContent={"center"} 
+          justifyItems={"center"}>
             {handleModal()}
           </Grid>
 
         </div>
+
+
 
         {/* Close Button */}
         <Box

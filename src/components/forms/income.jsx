@@ -4,12 +4,19 @@ import * as Yup from "yup";
 import { Button, Grid, Input, TextField } from "@mui/material";
 import axios from "axios";
 import { useAuthInfo } from "../../helpers/AuthCheck";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const IncomeForm = ({ close }) => {
   const fileRefButton =useRef(null);
   const userInfo = useAuthInfo();
   const userId = userInfo._id;
+
+
+  const [file, setFile] = useState(null);
+
+  // const handleFileChange = (event) => {
+  //   setFile(event.target.files[0]);
+  // };
 
   const incomeInitialValues = {
     incomeSource: "",
@@ -26,20 +33,49 @@ const IncomeForm = ({ close }) => {
   });
 
   const handleSubmit = async (values, actions) => {
-    console.log(values);
-    try {
-      // Make API call here
-      const response = await axios.post(`/income-info`, { userId, values }
-      );
-      console.log(response);
-      //message(response);
+    // event.preventDefault();
+    // console.log(file);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("values", values);
+    formData.append("userId", userId);
+    // console.log(formData);
+    // console.log(values);
+    
 
-      // Handle successful response
+    try {
+      const response = await fetch("http://localhost:5050/api/income-info", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        console.error(
+          "Failed to send image. Server responded with " + response.status
+        );
+        return;
+      }
+
+
+      // const response = await axios.post('/users/avatar', formData);
+      // console.log(response.data);
     } catch (error) {
       console.error(error);
-      //message(error);
-      // Handle error response
-    } finally {
+    }
+    // try {
+    //   // Make API call here
+    //   const response = await axios.post(`/income-info`, { formData }
+    //   );
+    //   console.log(response);
+    //   //message(response);
+
+    //   // Handle successful response
+    // } catch (error) {
+    //   console.error(error);
+    //   //message(error);
+    //   // Handle error response
+    // }
+     finally {
       // Reset form values
       actions.setSubmitting(false);
       actions.resetForm();
@@ -151,6 +187,7 @@ const IncomeForm = ({ close }) => {
                     // id="file"
                     onChange={(event) => {
                       setFieldValue("file", event.target.files[0]);
+                      setFile(event.target.files[0]);
                     }}
                   />
                   <ErrorMessage name="file" component="div" />{" "}

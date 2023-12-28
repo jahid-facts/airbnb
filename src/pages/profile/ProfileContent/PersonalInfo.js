@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
@@ -7,12 +7,16 @@ import GlobalModalForProfile from "./GlobalModalForProfile";
 import "../ProfilePage.css";
 import { Typography } from "antd";
 import { CheckBox, Favorite } from "@mui/icons-material";
+import { useAuthInfo } from "../../../helpers/AuthCheck";
 
 const PersonalInfo = () => {
-    const [globalModalForProfile ,setGlobalModalForProfile] = useState(false);
+  const [globalModalForProfile, setGlobalModalForProfile] = useState(false);
+  const [isGreen, setIsGreen] = useState(false);
 
-  const [typeOfForm , setTypeOfForm] = useState("");
+  const [typeOfForm, setTypeOfForm] = useState("");
+  const UserInfo = useAuthInfo();
 
+  console.log(UserInfo);
 
   const tilesPersonal = [
     "Personal details",
@@ -21,25 +25,24 @@ const PersonalInfo = () => {
     //"Employment",
     "Income",
     // "Identity documents",
-     "Emergency contact",
+    "Emergency contact",
     "Tenant check (recommended)",
   ];
 
+  useEffect(() => {
+    if (UserInfo.personalInfo) {
+      setIsGreen(true);
+    }
+  }, []);
 
   const handleTiles = (event) => {
     const tileClicked = event.target.textContent; // Get the text content of the button that was clicked
 
     console.log(`Tile clicked: ${tileClicked}`); // Log the clicked tile to the console for testing purposes
 
-   
-        setGlobalModalForProfile(!globalModalForProfile);
-        setTypeOfForm(tileClicked);
-
-      };
-
-
-
-
+    setGlobalModalForProfile(!globalModalForProfile);
+    setTypeOfForm(tileClicked);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -49,41 +52,49 @@ const PersonalInfo = () => {
   return (
     <>
       <Box>
-        <p>
-          {" "}
-          <b>Personal</b>{" "}
-        </p>
-        {""}
-        <p>
+        <Typography variant="subtitle2">
+          <big> Personal </big> <br />
           Details to help property managers validate who you are and assess your
           identity, employment and income.
-        </p>
+        </Typography>
         <br></br>
       </Box>
 
-      <Grid container spacing={2} >
+      {isGreen ? (
+        <>
+          <Typography>
+            You have succesfully Updated your renter profile.
+          </Typography>
+        </>
+      ) : (
+        <br />
+      )}
+
+      <Grid container spacing={2}>
         {tilesPersonal.map((tiles) => (
-          <><Grid item xs={9} sx={{ textAlign: 'start' }}>
+          <Grid item xs={9} sx={{ textAlign: "start" }}>
             <button
               style={{
-                
-                width: "100%", paddingLeft: "0%", textTransform: "capitalize", paddingRight: "60%", paddingBlock: "2%"
+                width: "100%",
+                paddingLeft: "0%",
+                textTransform: "capitalize",
+                paddingRight: "60%",
+                paddingBlock: "2%",
+                borderRadius: "8px",
+                backgroundColor: isGreen ? "green" : "",
+                fontSize: "1rem",
               }}
-
-
               variant="outlined"
               onClick={handleTiles}
             >
-
-              <Typography>{tiles} </Typography>
+              {tiles}
             </button>
-          </Grid><Grid item xs={3}> <CheckBox /></Grid></>
+          </Grid>
         ))}
       </Grid>
 
-    
       {/* modal  */}
-      <GlobalModalForProfile 
+      <GlobalModalForProfile
         //propertyId={propertyId}
         open={globalModalForProfile}
         onClose={() => setGlobalModalForProfile(false)}

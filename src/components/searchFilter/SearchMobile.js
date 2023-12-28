@@ -56,14 +56,14 @@ const SearchMobile = () => {
               width: "fit-content",
               mr: "20px",
               borderRadius: "50px",
-              color: "primary.main",
+              color: "text.primary",
             }}
           >
             <Search sx={{ marginLeft: "5px" }} />
           </Box>
             <Box>
             <Typography
-              sx={{ color: "primary.main" }}
+              sx={{ color: "text.primary" }}
               variant="h6"
               fontSize={"14px"}
               fontWeight={"600"}
@@ -71,7 +71,7 @@ const SearchMobile = () => {
               Anywhere
             </Typography>
             <Typography
-              sx={{ color: "primary.main" }}
+              sx={{ color: "text.primary" }}
               variant="h6"
               fontSize={"12px"}
               fontWeight={"400"}
@@ -89,7 +89,7 @@ const SearchMobile = () => {
               py: "5px",
               borderRadius: "50px",
               border: "1px solid #f4f4f4",
-              color: "primary.main",
+              color: "text.primary",
             }}
           >  
             <FilterAlt sx={{ marginLeft: "5px" }} />

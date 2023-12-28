@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import { theme } from "../../theme";
+import { theme } from "../../assets/themes/theme";
 import AvatarMenu from "../../components/avater";
 
 const TopBar = ({ setOpen, open, title }) => {

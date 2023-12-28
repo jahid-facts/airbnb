@@ -14,7 +14,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { theme } from "../../theme";
+import { theme } from "../../assets/themes/theme";
 import assets from "../../assets";
 import { Link, useLocation } from "react-router-dom";
 import sidebarContent from "./SideBarContent";

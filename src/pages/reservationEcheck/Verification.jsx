@@ -123,19 +123,15 @@ function NIDVerificationForm({ bookingId, mode, close}) {
   };
  
   return (
-    <div  >
+    <div style={{textAlign:"center"}} >
       <form
         encType="multipart/form-data"
         onSubmit={handleSubmit}
-        style={{
-          display: "flex",
-          //flexDirection: "column",
-          alignItems: "center",
-        }}
       >
         <div
           style={{
             display: "flex",
+            paddingInline:"16px",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
