@@ -44,6 +44,7 @@ const AvatarMenu = () => {
         <Box
           sx={{
             cursor: "pointer",
+            color:"grey.900"
           }}
           onClick={handleMenuOpen}
           display={"flex"}
@@ -53,7 +54,7 @@ const AvatarMenu = () => {
           py={"5px"}
           borderRadius={"50px"}
         >
-          <ArrowDropDownCircle />
+          <ArrowDropDownCircle  />
           <Avatar
             alt="Remy Sharp"
             src={assets.images.avatar}

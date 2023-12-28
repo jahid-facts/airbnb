@@ -13,7 +13,7 @@ import {
 //   BarChart,
 //   MonetizationOnOutlined,
 // } from "@mui/icons-material";
-import { theme } from "../../theme";
+import { theme } from "../../assets/themes/theme";
 //import FormControl from '@mui/material/FormControl';
 // import {getApi, postApi} from '../../config/configAxios';
 import Verification from "./Verification";

@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import { Box, Card, Typography } from "@mui/material";
 import React from "react";
-import { theme } from "../../theme";
+import { theme } from "../../assets/themes/theme";
 
 const DashboardCard = ({ icon, title, subTitle, countNumber, color }) => {
   return (

@@ -3,7 +3,7 @@ import AdminLayout from "../../../layouts/adminLayout";
 import { Box, Card, Grid, Typography } from "@mui/material";
 import DashboardCard from "../../../components/dashboardCard/DashboardCard";
 import { MonetizationOnOutlined } from "@mui/icons-material";
-import { theme } from "../../../theme";
+import { theme } from "../../../assets/themes/theme";
 // import EarningCard from "./Default/EarningCard";
 import Dashboard from "./Default";
 
@@ -94,12 +94,12 @@ const HostDashboard = () => {
         </Grid> */}
 
         <Grid item xs={12} sx={{ mt: 3 }}>
-          <h4>User & properties info</h4>
+          <h4>Rent & properties info</h4>
         </Grid>
         <Grid item xs={12} md={4}>
           <DashboardCard
             icon={"fa:users"}
-            title={"Users"}
+            title={"Renters"}
             subTitle={"Total"}
             countNumber={"54"}
             color={"#F4D160"}
@@ -108,7 +108,7 @@ const HostDashboard = () => {
         <Grid item xs={12} md={4}>
           <DashboardCard
             icon={"tdesign:building"}
-            title={"Active property"}
+            title={"Live property"}
             subTitle={"Total"}
             countNumber={"65"}
             color={"#FF6AC2"}
@@ -126,7 +126,7 @@ const HostDashboard = () => {
         <Grid item xs={12} md={4}>
           <DashboardCard
             icon={"clarity:building-line"}
-            title={"Disabled properties"}
+            title={"Tolet properties"}
             subTitle={"Total"}
             countNumber={"50"}
             color={"#ff0000"}
@@ -135,7 +135,7 @@ const HostDashboard = () => {
         <Grid item xs={12} md={4}>
           <DashboardCard
             icon={"clarity:building-line"}
-            title={"Active property renting"}
+            title={"Active rented property"}
             subTitle={"Total"}
             countNumber={"30"}
             color={"#ff0000"}
