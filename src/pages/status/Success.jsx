@@ -1,21 +1,20 @@
-import React from 'react';
-import Typography from '@mui/material/Typography';
-import CancelIcon from '@mui/icons-material/Cancel';
-import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
-import AppLayout from "../../layouts/appLayout";
+import React from "react";
+import Typography from "@mui/material/Typography";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
+import { AppLayout } from "../../layouts/appLayout";
 
-const Cancel = () => {
+const Success = () => {
   return (
     <AppLayout>
       <div style={{ textAlign: "center", paddingTop: "100px" }}>
-        <CancelIcon sx={{ fontSize: 100, color: "red" }} />
+        <CheckCircleOutlineIcon sx={{ fontSize: 100, color: "green" }} />
         <Typography variant="h4" gutterBottom>
-          Payment Canceled
+          Payment Successful
         </Typography>
         <Typography variant="body1">
-          Your payment has been canceled. If you have any questions, please
-          contact our support team.
+          Thank you for your purchase. Your payment was successful.
         </Typography>
         <Button
           variant="contained"
@@ -31,4 +30,4 @@ const Cancel = () => {
   );
 };
 
-export default Cancel;
+export default Success;

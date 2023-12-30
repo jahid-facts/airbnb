@@ -15,7 +15,7 @@ import Decide from "../../components/addpropertiesComponents/Decide";
 import Discounts from "../../components/addpropertiesComponents/Discounts";
 import { getApiById, putApi } from "../../config/configAxios";
 import { useNavigate, useParams } from "react-router-dom";
-import { AppLayout } from "../../layouts/appLayout";
+import AppLayout from "../../layouts/appLayout";
 import { BeatLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import MultipleImages from "../../components/addpropertiesComponents/MultipleImages";

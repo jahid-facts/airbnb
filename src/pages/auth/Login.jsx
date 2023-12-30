@@ -36,7 +36,7 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const { error, success } = useSelector((state) => state.auth);
-
+  const status = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const initialValues = {
@@ -120,7 +120,6 @@ const LoginScreen = () => {
         });
     },
   });
-
   return (
     <Box
       display="flex"
@@ -151,6 +150,7 @@ const LoginScreen = () => {
                   />
                 </Link>
                 <Box p={1}></Box>
+                <Box p={2}></Box>
                 <p>Explore the ideas throughtout the world</p>
               </Box>
             </Box>
@@ -171,6 +171,7 @@ const LoginScreen = () => {
                 <h4>Welcome ! 👋🏻</h4>
                 <p>Please sign-in to your account and start the adventure</p>
               </div>
+              <h1>Sign In</h1>
               <form noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <Box pt={5}>
                   <TextField
@@ -300,9 +301,31 @@ const LoginScreen = () => {
                   </Typography>
                 </Link>
               </Box>
+
+                {/* {error && <Alert severity="error">{error}</Alert>} */}
+                {/* <Box
+                  pt={3}
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Link to="/register">
+                    <Typography variant="body2">Sign Up</Typography>
+                  </Link>
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    variant="contained"
+                    color="primary"
+                    sx={{ textTransform: "capitalize" }}
+                  >
+                    {isSubmitting ? <BeatLoader color="#ff0000" /> : "Login"}
+                  </Button>
+                </Box>
+              </form> */}
             </Box>
           </Grid>
-        </Grid>
+          </Grid>
       </Box>
     </Box>
   );

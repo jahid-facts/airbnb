@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   AppBar,
   Badge,
@@ -22,6 +22,7 @@ import useScrollTrigger from "@mui/material/useScrollTrigger";
 import AvatarMenu from "../avater";
 import SearchMobile from "../searchFilter/SearchMobile";
 import Logo from "./Logo";
+import VoiceSearch from "../VoiceSearch/VoiceSearch";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -57,10 +58,16 @@ export default function Navbar(props) {
   let showCategory;
   let showSearchFilter;
   let showSearchMobile;
+  let containerWidth;
+
   if (location.pathname === "/") {
     showCategory = <Category />;
     showSearchFilter = <SearchFilter />;
     showSearchMobile = <SearchMobile />;
+    containerWidth = "xl";
+  } else {
+    containerWidth = "xl";
+    // containerWidth = "lg";
   }
 
   return (
@@ -73,10 +80,9 @@ export default function Navbar(props) {
             padding: "0px",
           }}
         >
-          <Container maxWidth={"xl"}>
+          <Container maxWidth={containerWidth}>
             <StyledToolbar>
               <Logo />
-
               <Box
                 sx={{
                   display: {
@@ -87,7 +93,6 @@ export default function Navbar(props) {
               >
                 {showSearchFilter}
               </Box>
-
               <Box
                 sx={{
                   width: "100%",
@@ -98,14 +103,15 @@ export default function Navbar(props) {
               >
                 {showSearchMobile}
               </Box>
-
+              <Box>
+                <VoiceSearch />
+              </Box>
               <Stack direction={"row"} alignItems={"center"}>
                 <Link to={"/hosting"}>
                   <Button
                     variant="text"
                     size="small"
                     sx={{
-                      color: "text.primary",
                       borderRadius: "20px",
                       mr: "15px",
                       py: "7px",
@@ -141,7 +147,7 @@ export default function Navbar(props) {
                   <Badge
                     max={9}
                     badgeContent={10}
-                    color="secondary" /////////////////////////m
+                    color="secondary"
                     sx={{
                       marginRight: "30px",
                       display: {

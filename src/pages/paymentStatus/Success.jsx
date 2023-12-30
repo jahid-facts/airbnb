@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import { AppLayout } from "../../layouts/appLayout";
+import AppLayout from "../../layouts/appLayout";
 import Swal from "sweetalert2";
 import { useStripe } from "@stripe/react-stripe-js";
 import { postApi } from "../../config/configAxios";

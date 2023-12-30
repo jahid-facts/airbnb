@@ -1,0 +1,31 @@
+/* SN  */
+.snMic {
+    position: relative;
+    background: #fc0101;
+    color: #fff;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.snMic::before {
+    position: absolute;
+    content: "";
+    background: rgba(0, 0, 0, 0.5);
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    z-index: 0;
+    animation: animatedIcon 1s forwards infinite;
+}
+
+@keyframes animatedIcon {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
+}

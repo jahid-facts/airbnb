@@ -25,7 +25,7 @@ import Reserve from "../../components/Reserve";
 import { Link, useParams } from "react-router-dom";
 import Maps from "../../components/leaftLet/Maps";
 import OpenImageList from "./ImageList";
-import { AppLayout } from "../../layouts/appLayout";
+import AppLayout from "../../layouts/appLayout";
 import { getApiById } from "../../config/configAxios";
 import "./imageOverlay.css";
 import CustomHashLoader from "../../components/customLoader/CustomHashLoader";
