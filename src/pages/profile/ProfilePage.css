@@ -1,0 +1,21 @@
+.body {
+    position: 'absolute';
+    margin-block: 3rem;
+    margin-inline: 2rem;
+
+    top: '50%';
+    left: '50%';
+    transform: 'translate(-50%; -50%)';
+    /* height: 39.45rem; */
+    height: auto;
+    background-color: 'background.paper';
+    box-shadow: 24px;
+    padding:  0.4rem;
+    /* border: 2px black solid; */
+    text-align: center;
+}
+.style{
+    margin: 30px;
+    
+
+}

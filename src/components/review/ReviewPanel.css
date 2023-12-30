@@ -1,0 +1,96 @@
+
+.ReviewPanel {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-top: 0;
+}
+
+.RatingStars {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.Star {
+  display: inline-block;
+  margin: 0 5px;
+  color: #ffc107;
+}
+
+.Star:hover {
+  color: #ffd54f;
+}
+
+.Star:hover i {
+  color: #ffc107;
+}
+
+.ReviewForm {
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #ffc107;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ffd54f;
+}
+
+.ReviewList {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.ReviewList li {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.ReviewList h4 {
+  margin: 0;
+}
+
+.ReviewList p {
+  margin: 10px 0;
+}
+
+.ReviewList .Rating {
+  margin-top: 10px;
+}
+
+h3 {
+  margin-top: 20px;
+}

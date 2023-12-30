@@ -1,10 +1,12 @@
 import {
   Favorite,
   MessageSharp,
-  Person,
+  // Person,
   Notifications,
   Home,
 } from "@mui/icons-material";
+import LuggageSharpIcon from "@mui/icons-material/LuggageSharp";
+// import ModeOfTravelIcon from '@mui/icons-material/ModeOfTravel';
 import {
   BottomNavigation,
   BottomNavigationAction,
@@ -14,12 +16,38 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export const BottomBar = () => {
   const [value, setValue] = useState(0);
   const location = useLocation();
   const [locationCheck, setLocatinCheck] = useState(false);
+
+  const navigation = [
+    { label: "Home", icon: <Home />, onClick: () => navigate("/") },
+    {
+      label: "Messages",
+      icon: <MessageSharp />,
+      onClick: () => navigate("/messages"),
+    },
+    {
+      label: "Wishlist",
+      icon: <Favorite />,
+      onClick: () => navigate("/wishlist"),
+    },
+    {
+      label: "Notifications",
+      icon: <Notifications />,
+      onClick: () => navigate("/notifications"),
+    },
+    {
+      label: "My Trips",
+      icon: <LuggageSharpIcon />,
+      onClick: () => navigate("/my-trips"),
+    },
+  ];
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (location.pathname === "/reservation-details") {
@@ -69,14 +97,20 @@ export const BottomBar = () => {
               setValue(newValue);
             }}
           >
-            <BottomNavigationAction label="Home" icon={<Home />} />
+            {navigation.map((item, index) => (
+              <BottomNavigationAction
+                key={index}
+                label={item.label}
+                icon={item.icon}
+                onClick={item.onClick}
+              />
+            ))}
+
+            {/* <BottomNavigationAction label="Home" icon={<Home />} />
             <BottomNavigationAction label="Messages" icon={<MessageSharp />} />
             <BottomNavigationAction label="Wishlist" icon={<Favorite />} />
-            <BottomNavigationAction
-              label="Notifications"
-              icon={<Notifications />}
-            />
-            <BottomNavigationAction label="Account" icon={<Person />} />
+            <BottomNavigationAction label="Notifications" icon={<Notifications />}/>
+            <BottomNavigationAction label="My Trips" icon={<LuggageSharpIcon />} /> */}
           </BottomNavigation>
         )}
       </Paper>

@@ -22,6 +22,8 @@ import assets from "../../assets";
 import L from "leaflet";
 import { markers } from "./property";
 import "./markerStyle.css"
+import axios from "axios";
+import { useAuthInfo } from "../../helpers/AuthCheck";
 
 // const iconControl = {
 //   images: {
@@ -51,25 +53,66 @@ const iconControl = (price) => {
   // });
 };
 
+
 export default function Home() {
   const dispatch = useDispatch();
   const { properties } = useSelector((state) => state.properties);
+  const [matchedProperties, setMatchedProperties] = useState("");
   const [loading, setLoading] = useState(false);
+  const userInfo = useAuthInfo();
+
+  //const { overAllAverage } = useParams();
+  //console.log(overAllAverage)
+
+
+
+
+
+
+  const getPropertiesFromWishlist = () => {
+    try{
+      axios.get("/getPropertiesFromWishlist", {
+        params: {
+          userId: userInfo._id,
+        },
+      })
+        .then(response => {
+          setMatchedProperties(response.data.properties);
+          console.log(response.data)
+        })
+        
+    }catch(error) {
+      console.error("Error fetching properties:", error);
+    };
+
+
+  };
+  
+
+  useEffect(() => {
+    
+      getPropertiesFromWishlist();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
+
 
   useEffect(() => {
     // Check if properties is an empty array or "falsy"
     // if (!properties || (Array.isArray(properties) && properties.length === 0)) {
+
     setLoading(true);
     dispatch(getActiveProperties());
     setLoading(false);
     // }
   }, [dispatch, properties]);
 
+
   const [openMap, setOpenMap] = useState(false);
   const closeDrawer = () => {
     setOpenMap(false);
   };
-
   return (
     <AppLayout>
       <Container maxWidth="xl">
@@ -85,6 +128,7 @@ export default function Home() {
                     <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
                       <ReservationCard
                         propertyId={data._id}
+                        matchedProperties={matchedProperties}
                         image1={data.images[0]?.url}
                         image2={data.images[1]?.url}
                         image3={data.images[2]?.url}
@@ -95,7 +139,8 @@ export default function Home() {
                             : data.title
                         }
                         price={data.price}
-                        review={"4.9"}
+                        // review={data.review.overAllRating}
+                        review={data.review}
                       />
                     </Grid>
                   ))

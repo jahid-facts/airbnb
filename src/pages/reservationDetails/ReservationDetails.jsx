@@ -8,7 +8,7 @@ import {
   Container,
   Divider,
   Grid,
-  Rating,
+  //Rating,
   Typography,
 } from "@mui/material";
 import {
@@ -32,12 +32,18 @@ import CustomHashLoader from "../../components/customLoader/CustomHashLoader";
 import { Icon } from "@iconify/react";
 import OpenAmenitiseList from "./AmenitiseList";
 
+// import axios from "axios";
+import ReviewSection from "./reviewSection";
+
 export default function ReservationDetails() {
   const [selectPosition, setSelectPosition] = React.useState(null);
   const [propertyValues, setPropertyValues] = React.useState(null);
   const [amenitiseItem, setAmenitiseItem] = React.useState(null);
   const [openImageList, setOpenImageList] = React.useState(false);
+
   const [openAmenitiseList, setOpenAmenitiseList] = React.useState(false);
+ 
+
   const [itemDataImages, setItemDataImages] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const { propertyId } = useParams();
@@ -61,8 +67,11 @@ export default function ReservationDetails() {
         setItemDataImages(newItems);
         setAmenitiseItem(response.data.property?.amenitiesIds);
         setLoading(false); // Set loading to false after data is fetched
+
+        //console.log(propertyId);
       } catch (error) {
         console.error("Internal server error:", error);
+
         // You can add error handling here, such as displaying an error message
         setLoading(false); // Ensure to set loading to false even in case of an error
       }
@@ -99,6 +108,7 @@ export default function ReservationDetails() {
 
   // date
   const joinedDate = new Date(propertyValues?.userId?.createdAt);
+
   const year = joinedDate.getFullYear();
   const month = joinedDate.getMonth();
 
@@ -163,6 +173,7 @@ export default function ReservationDetails() {
                   </Box>
                 </Box>
               </Grid>
+
               <Grid item xs={12}>
                 <ImageList
                   sx={{
@@ -331,7 +342,7 @@ export default function ReservationDetails() {
                         {propertyValues?.amenitiesIds
                           .slice(0, 8)
                           .map((item) => (
-                            <Grid item xs={12} sm={6} key={item?._id}>
+                            <Grid item xs={12} sm={6} key={item._id}>
                               <Box display={"flex"} flexDirection={"row"}>
                                 <Box mr={3}>
                                   <Icon icon={item.icon} fontSize={"22px"} />
@@ -430,273 +441,25 @@ export default function ReservationDetails() {
                       </Grid>
                     </Grid>
                     <Divider sx={{ my: 4 }} />
-                    <Grid container spacing={3}>
-                      <Grid item xs={12}>
-                        <Typography
-                          variant="h6"
-                          fontSize={"18px"}
-                          fontWeight={"600"}
-                        >
-                          Reviews
-                        </Typography>
-                        <Typography
-                          variant="text"
-                          fontSize={"15px"}
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                        >
-                          824 reviews for this property
-                          <Rating
-                            name="half-rating-read"
-                            value={3.5}
-                            precision={0.5}
-                            readOnly
-                            sx={{ mx: 1 }}
-                          />
-                          4.5
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Typography
-                          variant="h6"
-                          mt={2}
-                          mb={1}
-                          fontSize={"16px"}
-                          fontWeight={"600"}
-                        >
-                          Rating Breakdown
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
-                        <Typography
-                          variant="text"
-                          fontSize={"14px"}
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          Communication
-                          <Rating name="read-only" value={4} readOnly />
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
-                        <Typography
-                          variant="text"
-                          fontSize={"14px"}
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          Recommend
-                          <Rating name="read-only" value={5} readOnly />
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
-                        <Typography
-                          variant="text"
-                          fontSize={"14px"}
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          Services
-                          <Rating name="read-only" value={2} readOnly />
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
-                        <Typography
-                          variant="text"
-                          fontSize={"14px"}
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          Cleanliness
-                          <Rating name="read-only" value={3} readOnly />
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
-                        <Typography
-                          variant="text"
-                          fontSize={"14px"}
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          Location
-                          <Rating name="read-only" value={5} readOnly />
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} my={1}>
-                        <Box display={"flex"} alignItems={"start"}>
-                          <Avatar
-                            alt="Remy Sharp"
-                            sx={{ width: 40, height: 40, mr: 3 }}
-                          />
-                          <Box>
-                            <Typography fontWeight={"bold"}>Taylor</Typography>
-                            <Box>
-                              <Typography
-                                variant="text"
-                                fontSize={"14px"}
-                                sx={{ display: "flex", alignItems: "center" }}
-                              >
-                                <Rating
-                                  name="Taylor"
-                                  sx={{ fontSize: "18px" }}
-                                  value={5}
-                                  precision={0.5}
-                                  readOnly
-                                />{" "}
-                                5
-                                <Divider
-                                  sx={{ mx: 1 }}
-                                  orientation="vertical"
-                                  variant="fullWidth"
-                                  flexItem
-                                />{" "}
-                                14th December 2022
-                              </Typography>
-                              <Box mt={1}>
-                                <Typography variant="text" fontSize={"14px"}>
-                                  Absolutely highly recommend! It’s the total
-                                  experience from the beginning all the way
-                                  through. The hosts are the professional,
-                                  engaging and the kindest I’ve ever encountered
-                                </Typography>
-                              </Box>
-                            </Box>
-                          </Box>
-                        </Box>
-                      </Grid>
-                      <Grid item xs={12} my={1}>
-                        <Box display={"flex"} alignItems={"start"}>
-                          <Avatar
-                            alt="Remy Sharp"
-                            sx={{ width: 40, height: 40, mr: 3 }}
-                          />
-                          <Box>
-                            <Typography fontWeight={"bold"}>Miller</Typography>
-                            <Box>
-                              <Typography
-                                variant="text"
-                                fontSize={"14px"}
-                                sx={{ display: "flex", alignItems: "center" }}
-                              >
-                                <Rating
-                                  name="half-rating-read"
-                                  sx={{ fontSize: "18px" }}
-                                  value={3.5}
-                                  precision={0.5}
-                                  readOnly
-                                />{" "}
-                                3.5
-                                <Divider
-                                  sx={{ mx: 1 }}
-                                  orientation="vertical"
-                                  variant="fullWidth"
-                                  flexItem
-                                />{" "}
-                                14th December 2022
-                              </Typography>
-                              <Box mt={1}>
-                                <Typography variant="text" fontSize={"14px"}>
-                                  Absolutely highly recommend! It’s the total
-                                  experience from the beginning all the way
-                                  through. The hosts are the professional,
-                                  engaging and the kindest I’ve ever encountered
-                                </Typography>
-                              </Box>
-                            </Box>
-                          </Box>
-                        </Box>
-                      </Grid>
-                      <Grid item xs={12} my={1}>
-                        <Box display={"flex"} alignItems={"start"}>
-                          <Avatar
-                            alt="Remy Sharp"
-                            sx={{ width: 40, height: 40, mr: 3 }}
-                          />
-                          <Box>
-                            <Typography fontWeight={"bold"}>Devid</Typography>
-                            <Box>
-                              <Typography
-                                variant="text"
-                                fontSize={"14px"}
-                                sx={{ display: "flex", alignItems: "center" }}
-                              >
-                                <Rating
-                                  name="half-rating-read"
-                                  sx={{ fontSize: "18px" }}
-                                  value={4}
-                                  precision={0.5}
-                                  readOnly
-                                />{" "}
-                                4
-                                <Divider
-                                  sx={{ mx: 1 }}
-                                  orientation="vertical"
-                                  variant="fullWidth"
-                                  flexItem
-                                />{" "}
-                                14th December 2022
-                              </Typography>
-                              <Box mt={1}>
-                                <Typography variant="text" fontSize={"14px"}>
-                                  Absolutely highly recommend! It’s the total
-                                  experience from the beginning all the way
-                                  through. The hosts are the professional,
-                                  engaging and the kindest I’ve ever encountered
-                                </Typography>
-                              </Box>
-                            </Box>
-                          </Box>
-                        </Box>
-                      </Grid>
-                    </Grid>
-                    <Divider sx={{ my: 4 }} />
 
-                    {/* <Box sx={{ my: "40px" }}>
-                <Typography
-                  variant="h6"
-                  fontSize={"18px"}
-                  fontWeight={"600"}
-                  color={"primary.main"}
-                  mb={1}
-                >
-                  8 night
-                </Typography>
-                <Typography
-                  variant="text"
-                  fontSize={"14px"}
-                  color={"primary.main"}
-                  mb={3}
-                >
-                  Aug 10, 2023 - Aug 18, 2023
-                </Typography>
-                <Box  mt={3}> 
-                  <WhenDate />
-                </Box>
-              </Box> */}
+
+
+
+
+
+
+                    {/* Review section */}
+                    <Grid container spacing={3}>
+                      <ReviewSection propertyID={propertyId} />
+                      <Divider sx={{ my: 4 }} />
+                    </Grid>
                   </Grid>
-                  <Grid item xs={4}>
+                  {/* Review section end*/}
+
+                  <Grid item xs={12} md={4}>
                     <Box
                       sx={{
                         display: {
-                          xs: "none",
-                          md: "block",
                           position: "sticky",
                           top: "110px",
                         },
@@ -727,6 +490,99 @@ export default function ReservationDetails() {
   );
 }
 
+// const [reviewResponsedData, setreviewResponsedData] = React.useState([]);
+// const [overAllAverage, setOverAllAverage] = React.useState(null);
+// const [communicationAverage, setCommunicationAverage] = React.useState(null);
+//const [openReviewLists, setOpenReviewLists] = React.useState(false);
+// const [recommendAverage, setRecommendAverage] = React.useState(null);
+// const [servicesAverage, setServicesAverage] = React.useState(null);
+// const [locationAverage, setLocationAverage] = React.useState(null);
+// const [reviewDate, setReviewDate] = React.useState("");
+//const [reviewUserName, setReviewUserName] = React.useState("");
 
+// function calculateAverage(array) {
+//   let sum = 0;
+//   const length = array.length;
 
+//   for (let i = 0; i < length; i++) {
+//     sum += array[i];
+//   }
 
+//   const average = sum / length;
+//   return average;
+// }
+
+// // getting review response from mongodb
+// const reviewResponse = await axios.get(
+//   `/getReviews?propertyId=${propertyId}`
+// );
+
+// const responData = reviewResponse.data.reviws;
+// setreviewResponsedData(responData);
+
+// // for (const Data of reviewResponsedData) {
+// //   console.log(Data.reviewMessage);
+// //   console.log(Data.CommunicationRating);
+// //   console.log(Data.RecommendRating);
+// //   console.log(Data.ServicesRating);
+// //   console.log(Data.LocationRating);
+// //   console.log(Data.overAllRating);
+// //   console.log(Data.createdAt);
+// // }
+
+// const communicationRatings = reviewResponse.data.reviws.map(
+//   (data) => data.CommunicationRating
+// );
+
+// const recommendRatings = reviewResponse.data.reviws.map(
+//   (data) => data.RecommendRating
+// );
+// const servicesRatings = reviewResponse.data.reviws.map(
+//   (data) => data.ServicesRating
+// );
+// const locationRatings = reviewResponse.data.reviws.map(
+//   (data) => data.LocationRating
+// );
+
+// const overAllRating = reviewResponse.data.reviws.map(
+//   (data) => data.overAllRating
+// );
+
+// setCommunicationAverage(calculateAverage(communicationRatings));
+// setRecommendAverage(calculateAverage(recommendRatings));
+// setServicesAverage(calculateAverage(servicesRatings));
+// setLocationAverage(calculateAverage(locationRatings));
+// setOverAllAverage(calculateAverage(overAllRating));
+
+//console.log(communicationAverage, recommendAverage);
+
+// const handleReviewedUser = (reviewedBy) => {
+//   axios
+//     .get(`http://localhost:5050/api/user/${reviewedBy}`)
+//     .then((response) => {
+//       setReviewUserName(response.data.user.name);
+//     })
+//     .catch((error) => {
+//       if (error.response) {
+//         console.log("Server returned error:", error.response.data);
+//       }
+//     });
+//   return reviewUserName;
+// };
+
+// const dateFormatting = (reviewDate) => {
+//   const date = new Date(reviewDate);
+//   // December 25, 2023
+//   const formattedDate = new Intl.DateTimeFormat("en-GB", {
+//     year: "numeric",
+//     month: "long",
+//     day: "numeric",
+//   })
+//     .formatToParts(date)
+//     .map((part) => part.value)
+//     .join(" ");
+//   // const formattedDate = date.toISOString().substring(0, 10);
+//   // "2023-12-25"
+//   //console.log(formattedDate);dateFormatting
+//   return formattedDate;
+// };

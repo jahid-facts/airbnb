@@ -121,7 +121,7 @@ const SearchFilter = () => {
         >
           <Box sx={{ px: "15px" }}>
             <Typography
-              sx={{ color: "primary.main" }}
+              // sx={{ color: "primary.main" }}
               variant="h6"
               fontSize={"14px"}
               fontWeight={"600"}
@@ -204,7 +204,7 @@ const SearchFilter = () => {
         >
           <Box sx={{ px: "15px" }}>
             <Typography
-              sx={{ color: "primary.main" }}
+              // sx={{ color: "primary.main" }}
               variant="h6"
               fontSize={"14px"}
               fontWeight={"600"}
@@ -212,7 +212,7 @@ const SearchFilter = () => {
               Check in
             </Typography>
             <Typography
-              sx={{ color: "primary.main" }}
+              sx={{ color: "text.secondary" }}
               variant="h6"
               fontSize={"12px"}
               fontWeight={"400"}
@@ -293,7 +293,7 @@ const SearchFilter = () => {
         >
           <Box sx={{ px: "15px" }}>
             <Typography
-              sx={{ color: "primary.main" }}
+              // sx={{ color: "primary.main" }}
               variant="h6"
               fontSize={"14px"}
               fontWeight={"600"}
@@ -301,7 +301,7 @@ const SearchFilter = () => {
               Check out
             </Typography>
             <Typography
-              sx={{ color: "primary.main" }}
+             sx={{ color: "text.secondary" }}
               variant="h6"
               fontSize={"12px"}
               fontWeight={"400"}
@@ -401,7 +401,7 @@ const SearchFilter = () => {
         >
           <Box sx={{ px: "15px" }}>
             <Typography
-              sx={{ color: "primary.main" }}
+              // sx={{ color: "primary.main" }}
               variant="h6"
               fontSize={"14px"}
               fontWeight={"600"}
@@ -409,7 +409,7 @@ const SearchFilter = () => {
               Who
             </Typography>
             <Typography
-              sx={{ color: "primary.main" }}
+              sx={{ color: "text.secondary" }}
               variant="h6"
               fontSize={"12px"}
               fontWeight={"400"}

@@ -25,6 +25,7 @@ import mapIcon from "./images/mapIcon.png";
 // import shadowUrl from './images/shadowUrl.webp';
 // import mapIcon from './images/2150761168-removebg-preview.png';
 
+
 const assets = {
   images: {
     logo,

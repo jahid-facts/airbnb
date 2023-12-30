@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Badge,
@@ -63,8 +63,6 @@ export default function Navbar(props) {
     showSearchMobile = <SearchMobile />;
   }
 
-  const [openT, setOpenT] = useState(true);
-
   return (
     <>
       <CssBaseline />
@@ -76,19 +74,6 @@ export default function Navbar(props) {
           }}
         >
           <Container maxWidth={"xl"}>
-            <div>
-              {openT && (
-                <>
-                  <button onClick={()=>setOpenT(false)}>close</button>
-                  <img
-                    src={
-                      "https://cdn.ostad.app/public/upload/2023-12-19T07-40-06.467Z-web@3x%20(1)%20updated.png"
-                    }
-                    alt=""
-                  />
-                </>
-              )}
-            </div>
             <StyledToolbar>
               <Logo />
 
@@ -102,6 +87,7 @@ export default function Navbar(props) {
               >
                 {showSearchFilter}
               </Box>
+
               <Box
                 sx={{
                   width: "100%",
@@ -119,6 +105,7 @@ export default function Navbar(props) {
                     variant="text"
                     size="small"
                     sx={{
+                      color: "text.primary",
                       borderRadius: "20px",
                       mr: "15px",
                       py: "7px",
@@ -154,7 +141,7 @@ export default function Navbar(props) {
                   <Badge
                     max={9}
                     badgeContent={10}
-                    color="secondary"
+                    color="secondary" /////////////////////////m
                     sx={{
                       marginRight: "30px",
                       display: {

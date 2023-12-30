@@ -24,6 +24,11 @@ const sidebarContent = [
     path: "/admin/host/users", 
     icon: "humbleicons:users",
   },
+  {
+    name: "Reservation check-in",
+    path: "/e-check",
+    icon: "clarity:building-line",
+  },
 ];
 
 export default sidebarContent;

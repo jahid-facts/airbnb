@@ -18,7 +18,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
-import { theme } from "../../theme";
+import { theme } from "../../assets/themes/theme";
 import {
   AddCircleRounded,
   Close,

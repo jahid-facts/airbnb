@@ -7,10 +7,19 @@ import AddProperties from "../pages/addProperties";
 import PaymentForm from "../pages/payments";
 import { useSelector } from "react-redux";
 import ProtectedRoute from "../helpers/ProtectedRoute";
-import Hosting from "../pages/hosting";
+
+// import Hosting from "../pages/hosting";
 import PropertyList from "../pages/propertyList";
 import EditProperty from "../pages/editProperty";
+import ReservationDetailsCopy from "../pages/reservationDetails/ReservationDetails copy";
+
+// Vai Bashar added
 import ProfilePage from "../pages/profile/ProfilePage";
+import Echeck from "../pages/reservationEcheck";
+import MyTrips from "../pages/profile/ProfileContent/MyTrips";
+import Wishlist from "../pages/profile/ProfileContent/Wishlist";
+import HostDashboard from "../pages/admin/dashboard/hostDashboard";
+// import HostProfileInfo from "../pages/profile/HostInfo";
 
 export const AppRoutes = () => {
   const isAuthenticated = useSelector((state) => state.auth.isLoggedIn);
@@ -35,12 +44,18 @@ export const AppRoutes = () => {
         />
         <Route
           path="/hosting"
-          element={<ProtectedRoute children={<Hosting />} />}
+          element={<ProtectedRoute children={<HostDashboard />} />}
         />
+
         <Route
           path="/property/list"
           element={<ProtectedRoute children={<PropertyList />} />}
         />
+        {/* <Route
+          path="/personal/info"
+          element={<ProtectedRoute children={<HostProfileInfo />} />}
+        /> */}
+
         <Route path="/edit/property/:propertyId" element={<EditProperty />} />
         <Route
           path="/profile"
@@ -51,12 +66,30 @@ export const AppRoutes = () => {
           element={<ProtectedRoute children={<ReservationDetails />} />}
         />
         <Route
+          path="/reservation-details"
+          element={<ProtectedRoute children={<ReservationDetailsCopy />} />}
+        />
+        <Route
           path="/payments"
           element={<ProtectedRoute children={<PaymentForm />} />}
         />
         <Route
           path="/add-properties"
           element={<ProtectedRoute children={<AddProperties />} />}
+        />
+        <Route
+          path="/e-check"
+          element={<ProtectedRoute children={<Echeck />} />}
+        />
+        {/* "/my-trips" */}
+        <Route
+          path="/my-trips"
+          element={<ProtectedRoute children={<MyTrips />} />}
+        />
+        {/* /wishlist */}
+        <Route
+          path="/wishlist"
+          element={<ProtectedRoute children={<Wishlist />} />}
         />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>

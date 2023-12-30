@@ -12,15 +12,58 @@ import {
   Box,
   Divider,
 } from "@mui/material";
-import { PhotoCamera } from "@mui/icons-material";
+import { ContactSupportOutlined, EmailOutlined, PhotoCamera, UploadFile } from "@mui/icons-material";
 import PersonalInfo from "./ProfileContent/PersonalInfo";
 import ActiveRenting from "./ProfileContent/ActiveRenting";
 import UpcomingRenting from "./ProfileContent/UpcomingRenting";
 import { AppLayout } from "../../layouts/appLayout";
+import MyTrips from "../profile/ProfileContent/MyTrips";
+// import Verification from "../reservationEcheck/Verification";
+import Confirmation from "../reservationEcheck/confirmation";
+import axios from "axios";
+import { useAuthInfo } from "../../helpers/AuthCheck";
 
 function ProfilePage() {
   const [value, setValue] = useState(0);
   const [isUploadOpen, setUploadOpen] = useState(false);
+  // const userInfo = useAuthInfo();
+  const [file, setFile] = useState(null);
+
+  const userInfo = useAuthInfo();
+  const userId = userInfo._id;
+
+  console.log(userId);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(file);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("userId", userId);
+
+    try {
+      const response = await fetch("http://localhost:5050/api/users/avatar", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        console.error(
+          "Failed to send image. Server responded with " + response.status
+        );
+        return;
+      }
+
+
+      // const response = await axios.post('/users/avatar', formData);
+      // console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -30,29 +73,33 @@ function ProfilePage() {
     setUploadOpen(!isUploadOpen);
   };
 
+  //const handleVerify = () => {};
+// console.log(userInfo.avatar.url);
   return (
     <AppLayout>
-      <Box sx={{ p: 1 }}>
+      <Box sx={{ m: 1 }}>
         <Container>
-          <Grid container spacing={2}>
-            <Grid item xs={4}>
+          <Grid container spacing={1}>
+            <Grid item xs={12} md={4}>
               <Paper
                 sx={{
-                  boxShadow: 6,
+                  boxShadow: 3,
                   p: 4,
                   m: 2,
-                  borderRadius: 6,
+                  borderRadius: 4,
                   position: "relative",
                 }}
               >
                 <Avatar
-                  alt="User Avatar" 
-                  src="/src/assets/images/avatar.png"
+                  alt="User Avatar"
+                  src={userInfo.avatar.url}
+                  // src=""
+                  // uploads/1703051180203-123247207.png
                   sx={{
-                    width: 180,
-                    height: 180,
+                    width: "13.25rem",
+                    height: "11.25rem",
                     margin: "0 auto",
-                    marginBottom: "10px",
+                    marginBottom: "0.8rem",
                     position: "relative",
                     cursor: "pointer",
                     border: "3px solid #eee",
@@ -62,34 +109,40 @@ function ProfilePage() {
                   onMouseLeave={toggleUpload}
                 >
                   {isUploadOpen && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        bottom: "10px",
-                        right: "28px",
-                      }}
-                    >
-                      <input
-                        accept="image/*"
-                        style={{ display: "none" }}
-                        id="upload-button"
-                        type="file"
-                      />
-                      <label htmlFor="upload-button">
-                        <IconButton component="span">
-                          <PhotoCamera />
+                    <form onSubmit={handleSubmit} encType="multipart/form-data">
+                      <div
+                        style={{
+                          position: "relative",
+                          display: "flex",
+                          justifyContent: "center",
+                          // bottom: "10px",
+                          // right: "1.75rem",
+                        }}
+                      >
+                        <input
+                          accept="image/*"
+                          style={{ display: "none" }}
+                          id="upload-button"
+                          type="file"
+                          onChange={handleFileChange}
+                        />
+                        <label htmlFor="upload-button">
+                          <IconButton component="span">
+                            <PhotoCamera />
+                          </IconButton>
+                        </label>
+                        <IconButton type="submit">
+                          <UploadFile />{" "}
                         </IconButton>
-                      </label>
-                    </div>
+                      </div>
+                    </form>
                   )}
                 </Avatar>
                 <Box style={{ textAlign: "center" }}>
                   <Typography variant="h6" gutterBottom>
-                    Salma Hayek
+                    {userInfo.name}
                   </Typography>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Guest
-                  </Typography>
+                  {/* 
                   <Button
                     variant="outlined"
                     style={{
@@ -102,14 +155,15 @@ function ProfilePage() {
                     }}
                   >
                     Edit Profile
-                  </Button>
+                  </Button> */}
                 </Box>
               </Paper>
               <Paper
                 sx={{
+                  boxShadow: 3,
                   p: 4,
                   m: 2,
-                  borderRadius: 6,
+                  borderRadius: 3,
                 }}
               >
                 <Box>
@@ -120,8 +174,9 @@ function ProfilePage() {
                   >
                     User's confirmed information
                   </Typography>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Email address
+
+                  <Typography variant="subtitle1" sx={{display:"flex",gap:1}}  gutterBottom>
+                    <EmailOutlined/>  {userInfo.email}
                   </Typography>
                 </Box>
                 <Divider
@@ -141,23 +196,15 @@ function ProfilePage() {
                     Before you book or Host on Airbnb, you’ll need to complete
                     this step.
                   </Typography>
-                  <Button
-                    variant="outlined"
-                    style={{
-                      color: "black",
-                      fontWeight: "bold",
-                      border: "1px solid black",
-                      borderRadius: "6px",
-                      padding: "10px",
-                      textTransform: "capitalize",
-                    }}
-                  >
-                    Edit Profile
-                  </Button>
+
+                  {/* <Verification /> */}
+                  <Confirmation />
+
+                  {/* userId={ userInfo._id } */}
                 </Box>
               </Paper>
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={12} md={8}>
               <Paper
                 elevation={3}
                 style={{
@@ -204,7 +251,7 @@ function ProfilePage() {
                     }}
                   />
                   <Tab
-                    label="Past Renting"
+                    label="My trips"
                     sx={{
                       fontWeight: "bold",
                       "&:hover, &:focus": {
@@ -216,7 +263,7 @@ function ProfilePage() {
                 </Tabs>
                 <Divider
                   style={{
-                    marginBottom: "15px",
+                    marginBottom: "0.9rem",
                     marginTop: "-3px",
                     border: "2px solid #d7d5e9",
                   }}
@@ -226,7 +273,7 @@ function ProfilePage() {
                     role="tabpanel"
                     style={{
                       backgroundColor: "white",
-                      padding: "14px",
+                      padding: "0.9rem",
                     }}
                   >
                     {value === 0 && <Tab1Content />}
@@ -246,17 +293,23 @@ function ProfilePage() {
 
 function Tab1Content() {
   return (
-    <div>
-      <h4>Personal Information</h4>
+    <Box>
+      <Typography variant="h4"> Renter Profile </Typography>
+      <h4>
+        {" "}
+        Create your Renter Profile once and reuse it for all your applications.
+      </h4>
+      <br></br>
       <PersonalInfo />
-    </div>
+    </Box>
   );
 }
 
 function Tab2Content() {
   return (
     <div>
-      <h4>Active Renting</h4>
+      <h4>Current Renting</h4>
+      <br />
       <ActiveRenting />
     </div>
   );
@@ -271,45 +324,14 @@ function Tab3Content() {
   );
 }
 
+// ----------------------------------------------------------------
+
 function Tab4Content() {
   return (
-    <div>
-      <h4>Past Renting</h4>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
-        doloremque dolore vitae cum quibusdam quaerat dicta, rem nostrum itaque
-        obcaecati cumque corporis assumenda qui, tempora accusantium odit
-        nesciunt tenetur ea.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut dignissimos
-        aspernatur laboriosam, laborum mollitia natus consequatur voluptate,
-        neque alias molestiae magni quaerat, quis unde recusandae dolor.
-        Repellat inventore ad iure voluptatem libero! Exercitationem aspernatur
-        eum perferendis ullam, laborum alias? Delectus saepe temporibus
-        repellat. Eaque aut unde fugit veniam id voluptas officia quo explicabo
-        delectus illum velit totam saepe dolorum, cupiditate voluptatibus cumque
-        fuga, dolorem illo minus vel quisquam enim dolore? Possimus voluptatum
-        dolor tempore, officiis deleniti sunt numquam magni repudiandae iusto
-        cupiditate, aspernatur, deserunt voluptatem dolores placeat! Et nam
-        dolores veritatis numquam rem reiciendis facilis, atque dignissimos
-        quidem. Beatae, distinctio.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut dignissimos
-        aspernatur laboriosam, laborum mollitia natus consequatur voluptate,
-        neque alias molestiae magni quaerat, quis unde recusandae dolor.
-        Repellat inventore ad iure voluptatem libero! Exercitationem aspernatur
-        eum perferendis ullam, laborum alias? Delectus saepe temporibus
-        repellat. Eaque aut unde fugit veniam id voluptas officia quo explicabo
-        delectus illum velit totam saepe dolorum, cupiditate voluptatibus cumque
-        fuga, dolorem illo minus vel quisquam enim dolore? Possimus voluptatum
-        dolor tempore, officiis deleniti sunt numquam magni repudiandae iusto
-        cupiditate, aspernatur, deserunt voluptatem dolores placeat! Et nam
-        dolores veritatis numquam rem reiciendis facilis, atque dignissimos
-        quidem. Beatae, distinctio.
-      </p>
-    </div>
+    <Box>
+      <Typography variant="h4">My Trips</Typography>
+      <MyTrips />
+    </Box>
   );
 }
 

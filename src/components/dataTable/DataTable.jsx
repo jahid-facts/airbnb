@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputAdornment } from "@mui/material";
-import { theme } from "../../theme";
+import { theme } from "../../assets/themes/theme";
 
 const DataTable = ({ data, columns }) => {
   const [filteredData, setFilteredData] = useState(data);

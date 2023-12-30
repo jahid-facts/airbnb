@@ -2,7 +2,6 @@ import React from "react";
 import { ThemeProvider } from "@mui/material";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { theme } from "./theme";
 import { PageNotFound } from "./pages/404";
 import RegisterScreen from "./pages/auth/Register";
 import LoginScreen from "./pages/auth/Login";
@@ -19,6 +18,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Students from "./pages/students/Students";
 import { Edit } from "./pages/students/Edit";
+import { theme } from "./assets/themes/index";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
