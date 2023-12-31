@@ -9,6 +9,7 @@ import messenger from "../../assets/images/messenger.png";
 import twitter from "../../assets/images/twitter.png";
 import embed from "../../assets/images/application.png";
 import { Box, Grid } from "@mui/material";
+import { toast } from "react-toastify";
 
 const ShareThisPlace = ({ propertyValues }) => {
   const copyLink = () => {
@@ -30,7 +31,7 @@ const ShareThisPlace = ({ propertyValues }) => {
     // Remove the temporary input element
     document.body.removeChild(tempInput);
 
-    window.alert("Link copied!");
+    toast("Link copied!");
   };
 
   const sendEmail = () => {
@@ -42,7 +43,7 @@ const ShareThisPlace = ({ propertyValues }) => {
     // Open the default email client with the mailto link
     window.location.href = mailtoLink;
     console.log("Email clicked");
-    window.open();
+    window.open(mailtoLink, "_blank");
   };
 
   const sendSMS = () => {
@@ -76,11 +77,8 @@ const ShareThisPlace = ({ propertyValues }) => {
     // Open the default browser with the WhatsApp link
     window.location.href = whatsappLink;
 
-    // Show alert
-    window.alert("WhatsApp clicked");
-    window.open();
+    window.open(whatsappLink, "_blank");
   };
-  console.log();
   const sendMessenger = async ({ propertyValues }) => {
     const messengerLink =
       "https://www.facebook.com/dialog/send?link=" +
@@ -95,9 +93,6 @@ const ShareThisPlace = ({ propertyValues }) => {
       // Fallback for browsers that do not support the Web Share API
       // Open the Messenger link in a new window
       window.open(messengerLink, "_blank");
-
-      // Show alert
-      alert("Messenger clicked");
     }
   };
 
@@ -112,9 +107,6 @@ const ShareThisPlace = ({ propertyValues }) => {
 
     // Open the Facebook Share Dialog in a new window
     window.open(facebookShareUrl, "_blank");
-
-    // Show alert
-    alert("Facebook clicked");
   };
 
   const shareOnTwitter = () => {
@@ -129,9 +121,6 @@ const ShareThisPlace = ({ propertyValues }) => {
 
     // Open the Twitter Web Intent in a new window
     window.open(twitterIntentUrl, "_blank");
-
-    // Show alert
-    alert("Twitter clicked");
   };
 
   const copyEmbedCode = () => {
@@ -159,7 +148,7 @@ const ShareThisPlace = ({ propertyValues }) => {
     document.body.removeChild(tempInput);
 
     // Show alert
-    window.alert("Embed code copied!");
+    toast("Embed code copied!");
   };
 
   console.log(propertyValues);
@@ -185,6 +174,7 @@ const ShareThisPlace = ({ propertyValues }) => {
               border={"1px solid #a9a9a9"}
               onClick={copyLink}
               position={"relative"}
+              sx={{ cursor: "pointer" }}
             >
               <img
                 style={{
@@ -205,6 +195,7 @@ const ShareThisPlace = ({ propertyValues }) => {
               border={"1px solid #a9a9a9"}
               onClick={sendEmail}
               position={"relative"}
+              sx={{ cursor: "pointer" }}
             >
               <img
                 style={{
@@ -225,6 +216,7 @@ const ShareThisPlace = ({ propertyValues }) => {
               border={"1px solid #a9a9a9"}
               onClick={sendSMS}
               position={"relative"}
+              sx={{ cursor: "pointer" }}
             >
               <img
                 style={{
@@ -246,6 +238,7 @@ const ShareThisPlace = ({ propertyValues }) => {
               border={"1px solid #a9a9a9"}
               onClick={sendWhatsApp}
               position={"relative"}
+              sx={{ cursor: "pointer" }}
             >
               <img
                 style={{
@@ -266,6 +259,7 @@ const ShareThisPlace = ({ propertyValues }) => {
               border={"1px solid #a9a9a9"}
               onClick={sendMessenger}
               position={"relative"}
+              sx={{ cursor: "pointer" }}
             >
               <img
                 style={{
@@ -286,6 +280,7 @@ const ShareThisPlace = ({ propertyValues }) => {
               border={"1px solid #a9a9a9"}
               onClick={shareOnFacebook}
               position={"relative"}
+              sx={{ cursor: "pointer" }}
             >
               <img
                 style={{
@@ -306,6 +301,7 @@ const ShareThisPlace = ({ propertyValues }) => {
               border={"1px solid #a9a9a9"}
               onClick={shareOnTwitter}
               position={"relative"}
+              sx={{ cursor: "pointer" }}
             >
               <img
                 style={{
@@ -326,6 +322,7 @@ const ShareThisPlace = ({ propertyValues }) => {
               border={"1px solid #a9a9a9"}
               onClick={copyEmbedCode}
               position={"relative"}
+              sx={{ cursor: "pointer" }}
             >
               <img
                 style={{

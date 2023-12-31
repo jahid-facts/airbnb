@@ -195,13 +195,15 @@ export default function Home() {
                   margin: "auto",
                   marginBottom: "130px",
                   mt: 3,
+                  pr: 2,
+                  pl: 3,
                 }}
               >
                 <Grid container spacing={2}>
                   <MapContainer
                     center={[23.747764138817665, 90.37080989945406]}
                     zoom={13}
-                    style={{ height: "500px", width: "100%" }}
+                    style={{ height: "600px", width: "100%" }}
                   >
                     <TileLayer
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -248,6 +250,7 @@ export default function Home() {
                 right={0}
                 display={"flex"}
                 justifyContent={"center"}
+                zIndex={9999999999}
               >
                 <Box
                   onClick={closeDrawer}
