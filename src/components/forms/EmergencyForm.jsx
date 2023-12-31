@@ -67,11 +67,14 @@ const EmergencyForm = ({ close }) => {
       onSubmit={handleSubmit}
     >
       {({ values, errors, touched }) => (
-        <Form>
-          <legend> Emergency Contact Information </legend>
+        <Form  style={{  paddingBlock:"0.5rem"}}>
+          <div style={{ paddingBlock:"1rem"}}>
+          <h2> Emergency Contact Information </h2>
+          </div>
+         
           <br />
 
-          <FormControl>
+          <FormControl fullWidth>
             <FormLabel>{t("Emergency Contact Name")}</FormLabel>
             <Field name="emergencyContactName">
               {({ field }) => (

@@ -1,4 +1,5 @@
-import { Box, Drawer, Grid, Typography } from "@mui/material";
+import { Box, Modal, Grid, Typography, Paper } from "@mui/material";
+import Fade from "@mui/material/Fade";
 // import React, { useState } from "react";
 // import { DatePicker } from "antd";
 import PersonalInfoForm from "../../../components/forms/personal";
@@ -9,13 +10,11 @@ import AboutMeForm from "../../../components/forms/AboutMe";
 import "../ProfilePage.css";
 import TenantCheck from "../../../components/forms/tenantCheck";
 
-
 const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
   // console.log(typeOfForm);
   const closeDrawer = () => {
     onClose();
   };
-
 
   const handleModal = () => {
     switch (typeOfForm) {
@@ -26,72 +25,122 @@ const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
       case "Income":
         return <IncomeForm close={onClose} />;
       case "Address history":
-        return <AddressHistoryForm close={onClose}/>;
+        return <AddressHistoryForm close={onClose} />;
       case "Tenant check (recommended)":
-        return <TenantCheck close={onClose}/>;
+        return <TenantCheck close={onClose} />;
       default:
-        return <EmergencyForm close={onClose}/>;
+        return <EmergencyForm close={onClose} />;
     }
   };
 
   return (
     <>
       {/* GlobalModalForProfile */}
-      <Drawer
-        anchor="top"
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
         open={open}
         onClose={onClose}
-        style={{ 
-         textAlign: "center" }}
-        //className="style"
+        closeAfterTransition
       >
-
-
-        {/* Personal Information for renter profile */}
-        <div  className="body">
-          <Grid item xs={12} 
-          justifyContent={"center"} 
-          justifyItems={"center"}>
-            {handleModal()}
-          </Grid>
-
-        </div>
-
-
-
-        {/* Close Button */}
-        <Box
-          position={"fixed"}
-          bottom={0}
-          left={0}
-          right={0}
-          display={"flex"}
-          justifyContent={"center"}
-        >
-          <Box
-            onClick={closeDrawer}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              width: "fit-content",
-              px: "20px",
-              py: "8px",
-              m: "15px",
-              cursor: "pointer",
-              borderRadius: "10px",
-              bgcolor: "secondary.main",
-              color: "primary.contrastText",
-            }}
-          >
-            {/* <CloseIcon sx={{ marginLeft: "5px" }} /> */}
-            <Typography variant="text"> Close </Typography>
-          </Box>
-        </Box>
-      </Drawer>
+        <Fade in={open}>
+          {/* marginBlock:"5rem", marginInline:"5rem" */}
+          <Paper sx={{ width:"62vw",marginInline:"auto" }}>  
+            {/* Personal Information for renter profile */}
+            <div className="body" style={{ padding:"3.5rem", width:"60vw", marginInline:"auto"}}>
+              <Grid
+                item
+                xs={12}
+                justifyContent={"center"}
+                justifyItems={"center"}
+              >
+                {handleModal()}
+              </Grid>
+            </div>
+            {/* Close Button */}
+            <Box
+              position={"fixed"}
+              bottom={0}
+              left={0}
+              right={0}
+              display={"flex"}
+              justifyContent={"center"}
+            >
+              <Box
+                onClick={closeDrawer}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  width: "fit-content",
+                  px: "20px",
+                  py: "8px",
+                  m: "15px",
+                  cursor: "pointer",
+                  borderRadius: "10px",
+                  bgcolor: "secondary.main",
+                  color: "primary.contrastText",
+                }}
+              >
+                {/* <CloseIcon sx={{ marginLeft: "5px" }} /> */}
+                <Typography variant="text"> Close </Typography>
+              </Box>
+            </Box>
+          </Paper>
+        </Fade>
+      </Modal>
     </>
   );
 };
 export default GlobalModalForProfile;
+
+// <Modal
+// // anchor="top"
+// open={open}
+// onClose={onClose}
+// style={{
+//  textAlign: "center" }}
+// //className="style"
+// >
+
+// {/* Personal Information for renter profile */}
+// <div  className="body">
+//   <Grid item xs={12}
+//   justifyContent={"center"}
+//   justifyItems={"center"}>
+//     {handleModal()}
+//   </Grid>
+
+// </div>
+
+// {/* Close Button */}
+// <Box
+//   position={"fixed"}
+//   bottom={0}
+//   left={0}
+//   right={0}
+//   display={"flex"}
+//   justifyContent={"center"}
+// >
+//   <Box
+//     onClick={closeDrawer}
+//     sx={{
+//       display: "flex",
+//       alignItems: "center",
+//       width: "fit-content",
+//       px: "20px",
+//       py: "8px",
+//       m: "15px",
+//       cursor: "pointer",
+//       borderRadius: "10px",
+//       bgcolor: "secondary.main",
+//       color: "primary.contrastText",
+//     }}
+//   >
+//     {/* <CloseIcon sx={{ marginLeft: "5px" }} /> */}
+//     <Typography variant="text"> Close </Typography>
+//   </Box>
+// </Box>
+// </Modal>
 
 // const validationSchema = Yup.object({
 //   personal: Yup.object({
@@ -239,19 +288,18 @@ export default GlobalModalForProfile;
 // const initialValues =
 //   typeOfForm === "personal" ? personalInitialValues : incomeInitialValues;
 
+// const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
 
-  // const GlobalModalForProfile = ({ open, onClose, typeOfForm }) => {
+//   // Use the appropriate initial values based on the selected form type.
+//   const validationSchema = typeOfForm === "personal" ? personalValidationSchema : incomeValidationSchema;
+//   // Use the appropriate validation schema based on the selected form type. // ... Rest of the component code here ... //
+// };
+// export default GlobalModalForProfile;
 
-  //   // Use the appropriate initial values based on the selected form type.
-  //   const validationSchema = typeOfForm === "personal" ? personalValidationSchema : incomeValidationSchema;
-  //   // Use the appropriate validation schema based on the selected form type. // ... Rest of the component code here ... //
-  // };
-  // export default GlobalModalForProfile;
+// const handleChange = (event) => {
+//   const { name, value } = event.target;
 
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
-
-  //   ```jsx
-  // const GlobalModalForProfile = ({ open, onClose, section }) => {
-  //   const initialValues = { ...personalInitialValues }; // Use the initial values for the "Personal details" section as the default values. If the user selects a different section, update the initial values accordingly. const validationSchema = Yup.object({ ...personalValidationSchema }); // Use the validation schema for the "Personal details" section as the default schema. If the user selects a different section, update the validation schema accordingly. // ... Rest of the component code here ... // }; export default GlobalModalForProfile;
-  //   ```
+//   ```jsx
+// const GlobalModalForProfile = ({ open, onClose, section }) => {
+//   const initialValues = { ...personalInitialValues }; // Use the initial values for the "Personal details" section as the default values. If the user selects a different section, update the initial values accordingly. const validationSchema = Yup.object({ ...personalValidationSchema }); // Use the validation schema for the "Personal details" section as the default schema. If the user selects a different section, update the validation schema accordingly. // ... Rest of the component code here ... // }; export default GlobalModalForProfile;
+//   ```

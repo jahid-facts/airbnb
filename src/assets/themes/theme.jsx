@@ -32,10 +32,10 @@ export const theme = createTheme({
       main: "#D71313",
     },
     secondary: {
-      // main: "#ff0000",
-      //dark: "#FF607C",
-      main: "#ba313b",
+      main: "#ff0000",
       dark: "#FF607C",
+      // main: "#ba313b",
+      // dark: "#FF607C",
       // main: "#f04b65",
     },
     otherColor: {

@@ -7,10 +7,9 @@ import { useAuthInfo } from "../../helpers/AuthCheck";
 import { useRef, useState } from "react";
 
 const IncomeForm = ({ close }) => {
-  const fileRefButton =useRef(null);
+  const fileRefButton = useRef(null);
   const userInfo = useAuthInfo();
   const userId = userInfo._id;
-
 
   const [file, setFile] = useState(null);
 
@@ -29,7 +28,7 @@ const IncomeForm = ({ close }) => {
     incomeSource: Yup.string().required("Income source is required"),
     officeName: Yup.string().required("Office name is required"),
     workplaceLocation: Yup.string().required("Workplace Location is required"),
-    file:Yup.mixed().required("Upload a File")  
+    file: Yup.mixed().required("Upload a File"),
   });
 
   const handleSubmit = async (values, actions) => {
@@ -41,7 +40,6 @@ const IncomeForm = ({ close }) => {
     formData.append("userId", userId);
     // console.log(formData);
     // console.log(values);
-    
 
     try {
       const response = await fetch("http://localhost:5050/api/income-info", {
@@ -56,26 +54,24 @@ const IncomeForm = ({ close }) => {
         return;
       }
 
-
       // const response = await axios.post('/users/avatar', formData);
       // console.log(response.data);
     } catch (error) {
       console.error(error);
-    }
-    // try {
-    //   // Make API call here
-    //   const response = await axios.post(`/income-info`, { formData }
-    //   );
-    //   console.log(response);
-    //   //message(response);
+    } finally {
+      // try {
+      //   // Make API call here
+      //   const response = await axios.post(`/income-info`, { formData }
+      //   );
+      //   console.log(response);
+      //   //message(response);
 
-    //   // Handle successful response
-    // } catch (error) {
-    //   console.error(error);
-    //   //message(error);
-    //   // Handle error response
-    // }
-     finally {
+      //   // Handle successful response
+      // } catch (error) {
+      //   console.error(error);
+      //   //message(error);
+      //   // Handle error response
+      // }
       // Reset form values
       actions.setSubmitting(false);
       actions.resetForm();
@@ -85,21 +81,26 @@ const IncomeForm = ({ close }) => {
 
   return (
     <>
-      <h1>Add Income Sources</h1>
-      <br />
+      <div style={{ marginBlock:"1.3rem" }}>
+        <h1>Add Income Sources</h1>
+      </div>
+      
       <Formik
         initialValues={incomeInitialValues}
         validationSchema={incomeSchema}
         onSubmit={handleSubmit}
       >
         {({ values, errors, touched, isSubmitting, setFieldValue }) => (
-          <Form style={{ marginBlock: "3rem", textAlign: "center" }} encType="multipart/form-data">
-            <Grid container spacing={2} rowGap={1}>
-              <Grid item sm={3}>
+          <Form
+            style={{ marginBlock: "0.1rem", textAlign: "center" }}
+            encType="multipart/form-data"
+          >
+            <Grid container spacing={1} rowGap={1}>
+              <Grid item sm={4}>
                 <legend htmlFor="income_source">Add Income Source:</legend>
               </Grid>
               <Grid item sm={8}>
-                <Grid item xs={12} sm={9} md={6} m="auto">
+                <Grid item xs={12} sm={9} md={8} m="auto">
                   <Field name="incomeSource">
                     {({ field }) => (
                       <TextField
@@ -117,11 +118,11 @@ const IncomeForm = ({ close }) => {
                   <ErrorMessage name="income_source" component="div" />{" "}
                 </Grid>
               </Grid>
-              <Grid item sm={3}>
+              <Grid item sm={4}>
                 <legend htmlFor="workplaceLocation">WorkPlace Location:</legend>
               </Grid>
               <Grid item sm={8}>
-                <Grid item xs={12} sm={9} md={6} m="auto">
+                <Grid item xs={12} sm={9} md={8} m="auto">
                   <Field name="workplaceLocation">
                     {({ field }) => (
                       <TextField
@@ -141,11 +142,11 @@ const IncomeForm = ({ close }) => {
                   <ErrorMessage name="income_source" component="div" />{" "}
                 </Grid>
               </Grid>
-              <Grid item sm={3}>
+              <Grid item sm={4}>
                 <legend htmlFor="officeName">Office Name:</legend>
               </Grid>
               <Grid item sm={8}>
-                <Grid item xs={12} sm={9} md={6} m="auto">
+                <Grid item xs={12} sm={9} md={8} m="auto">
                   <Field name="officeName">
                     {({ field }) => (
                       <TextField
@@ -166,7 +167,7 @@ const IncomeForm = ({ close }) => {
                   style={{
                     textAlign: "left",
                     padding: "10px",
-                    marginBlock: "1rem",
+                    // marginBlock: "1rem",
                   }}
                 >
                   <h2>Recent proof of income</h2>
@@ -195,7 +196,7 @@ const IncomeForm = ({ close }) => {
                     fullWidth
                     style={{
                       backgroundColor: "red",
-                      padding:"16px",
+                      padding: "16px",
                       color: "white",
                       "&:hover": { backgroundColor: "blue" },
                     }}
@@ -210,8 +211,8 @@ const IncomeForm = ({ close }) => {
               <Grid item xs={12}>
                 <Button
                   style={{
-                    margin: "20px",
-                    padding: "20px",
+                    // margin: "20px",
+                    padding: "8px",
                     "&:hover": { backgroundColor: "green" },
                   }}
                   variant="outlined"
@@ -219,9 +220,9 @@ const IncomeForm = ({ close }) => {
                   disabled={isSubmitting}
                 >
                   Submit
-                </Button>{" "}
-              </Grid>{" "}
-            </Grid>{" "}
+                </Button>
+              </Grid>
+            </Grid>
           </Form>
         )}
       </Formik>

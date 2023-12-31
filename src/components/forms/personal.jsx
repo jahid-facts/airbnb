@@ -1,22 +1,17 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import {
-  Button,
-  Grid,
-
-  TextField,
-} from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
 import * as Yup from "yup";
 import axios from "axios";
 import { useAuthInfo } from "../../helpers/AuthCheck";
 import ResponseAlert from "../snakbar";
 import { toast } from "react-toastify";
 
-const PersonalInfoForm = ({close}) => {
+const PersonalInfoForm = ({ close }) => {
   const userInfo = useAuthInfo();
   const userId = userInfo._id;
   //const url = `/personal-info/${userId}`;
-// const [close, setClose] = useState(false);
+  // const [close, setClose] = useState(false);
 
   const handleSubmit = async (values, actions) => {
     console.log(values);
@@ -25,7 +20,6 @@ const PersonalInfoForm = ({close}) => {
       const response = await axios.post(`/personal-info`, { userId, values });
       console.log(response);
       toast.success(response.statusText);
-      
 
       // Handle successful response
     } catch (error) {
@@ -37,7 +31,6 @@ const PersonalInfoForm = ({close}) => {
       actions.setSubmitting(false);
       actions.resetForm();
       close();
-      
     }
   };
 
@@ -47,8 +40,10 @@ const PersonalInfoForm = ({close}) => {
 
   return (
     <div>
-      <h1>Personal Information</h1>
-      <br />
+      <div style={{ paddingBlock: "2rem" }}>
+        <h1>Personal Information</h1>
+      </div>
+
       <Formik
         initialValues={{
           firstName: "",
@@ -158,7 +153,6 @@ const PersonalInfoForm = ({close}) => {
                   }}
                   type="submit"
                   disabled={isSubmitting}
-                
                 >
                   Submit
                 </Button>

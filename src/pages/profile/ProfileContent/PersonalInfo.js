@@ -11,6 +11,10 @@ import { useAuthInfo } from "../../../helpers/AuthCheck";
 
 const PersonalInfo = () => {
   const [globalModalForProfile, setGlobalModalForProfile] = useState(false);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const [isGreen, setIsGreen] = useState(false);
 
   const [typeOfForm, setTypeOfForm] = useState("");
