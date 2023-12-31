@@ -1,0 +1,156 @@
+.share-this-place-button {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.header {
+  font-size: 14px;
+  margin-bottom: 10px;
+  display: inline-block;
+  justify-content: space-between;
+}
+
+.infos {
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px;
+}
+
+.infos img {
+  height: 60px;
+  width: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  margin-left: 10px;
+}
+.infos p {
+  justify-content: flex-end;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+.details {
+  color: #666;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 20px;
+}
+
+.sharing-buttons {
+  display: flex;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.copy {
+  border-radius: 15px;
+
+  text-align: left;
+}
+
+.mail {
+  display: flex;
+  justify-content: center;
+}
+.message {
+  display: flex;
+  justify-content: center;
+}
+.whatsapp {
+  display: flex;
+  justify-content: center;
+}
+.messenger {
+  display: flex;
+  justify-content: center;
+}
+.fb {
+  display: flex;
+  justify-content: center;
+}
+.twitter {
+  display: flex;
+  justify-content: center;
+}
+.embed {
+  display: flex;
+  justify-content: center;
+}
+
+.emailButton {
+  flex-basis: calc(
+    50% - 20px
+  ); /* 50% minus the gap to ensure two buttons fit */
+  height: 40px; /* Adjust height as needed */
+  width: 100%; /* Each button takes up 50% of the container width */
+  border-radius: 25px; /* Adjust border-radius as needed */
+}
+
+.email img {
+  width: 60px;
+}
+
+.sharing-buttons button:hover {
+  background-color: #eee;
+}
+
+.sharing-buttons button {
+  margin: 0; /* Remove margin for closer button grouping */
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.copy-link-button {
+  background-color: #e3e3e3;
+  color: #333;
+}
+
+.email-button {
+  background-color: #f0f0f0;
+  color: #666;
+}
+
+.messages-button {
+  background-color: #d9d9d9;
+  color: #444;
+}
+
+.whatsapp-button {
+  background-color: #25d364;
+  color: white;
+}
+
+.messenger-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.facebook-button {
+  background-color: #4267b2;
+  color: white;
+}
+
+.twitter-button {
+  background-color: #00aced;
+  color: white;
+}
+
+.embed-button {
+  background-color: #ccc;
+  color: #333;
+}
+
+.fa {
+  font-size: 16px;
+  padding-right: 5px;
+}

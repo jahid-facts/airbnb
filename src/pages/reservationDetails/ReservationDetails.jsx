@@ -5,6 +5,7 @@ import {
   Avatar,
   Box,
   Button,
+  Dialog,
   Container,
   Divider,
   Grid,
@@ -16,6 +17,7 @@ import {
   Share,
   Wifi,
   DriveEta,
+  Cancel,
   LocationCity,
   Star,
   VerifiedUser,
@@ -31,7 +33,7 @@ import "./imageOverlay.css";
 import CustomHashLoader from "../../components/customLoader/CustomHashLoader";
 import { Icon } from "@iconify/react";
 import OpenAmenitiseList from "./AmenitiseList";
-
+import ShareThisPlace from "./ShareThisPlace";
 // import axios from "axios";
 import ReviewSection from "./reviewSection";
 
@@ -42,12 +44,11 @@ export default function ReservationDetails() {
   const [openImageList, setOpenImageList] = React.useState(false);
 
   const [openAmenitiseList, setOpenAmenitiseList] = React.useState(false);
- 
 
   const [itemDataImages, setItemDataImages] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const { propertyId } = useParams();
-
+  const [openShare, setOpenShare] = React.useState(false);
   React.useEffect(() => {
     const fetchDataServer = async () => {
       try {
@@ -157,12 +158,20 @@ export default function ReservationDetails() {
 
                   <Box>
                     <Button
+                      onClick={() => setOpenShare(true)}
                       startIcon={<Share />}
                       variant="text"
                       sx={{ textTransform: "capitalize" }}
                     >
                       Share
                     </Button>
+                    <Dialog onClose={handleClose} open={openShare}>
+                      <Button
+                        onClick={handleClose}
+                        startIcon={<Cancel />}
+                      ></Button>
+                      <ShareThisPlace propertyValues={propertyValues} />
+                    </Dialog>
                     <Button
                       startIcon={<FavoriteOutlined />}
                       variant="text"
@@ -441,12 +450,6 @@ export default function ReservationDetails() {
                       </Grid>
                     </Grid>
                     <Divider sx={{ my: 4 }} />
-
-
-
-
-
-
 
                     {/* Review section */}
                     <Grid container spacing={3}>
