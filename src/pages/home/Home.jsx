@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+// import React, { useState } from "react";  //changed for chatbot/fahim
+
 import {
   Box,
   Button,
@@ -24,8 +26,11 @@ import { markers } from "./property";
 import "./markerStyle.css";
 import axios from "axios";
 import { useAuthInfo } from "../../helpers/AuthCheck";
+import ChatButton from "../../components/chat_window/ChatButton"; //added for chatbot/fahim
+import ChatWindow from "../../components/chat_window/ChatWindow"; //added for chatbot/fahim
 
 import { NoRecord } from "../../components/noRecord";
+
 
 // const iconControl = {
 //   images: {
@@ -56,6 +61,16 @@ const iconControl = (price) => {
 };
 
 export default function Home() {
+
+
+//added for chatbot/fahim SSSSSS
+const [isChatOpen, setIsChatOpen] = useState(false);
+
+const toggleChat = () => {
+  setIsChatOpen(!isChatOpen);
+};
+//added for chatbot/fahim EEEEEE
+
   const dispatch = useDispatch();
   const { properties } = useSelector((state) => state.properties);
 
@@ -274,7 +289,9 @@ export default function Home() {
             </>
           </div>
         </Drawer>
+        <ChatButton onClick={toggleChat} /> {/* Add the ChatButton component/fahim */}
       </>
+      {isChatOpen && <ChatWindow onClose={toggleChat} />} {/* Show the chat window when isChatOpen is true/fahim */}
     </AppLayout>
   );
 }
