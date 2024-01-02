@@ -28,7 +28,7 @@ const Description = ({ setStepValue, values }) => {
 
   const analyzeDescription = async () => {
     try {
-      const response = await axios.post("http://127.0.0.1:7050/description", {
+      const response = await axios.post("http://127.0.0.1:7050/api/description", {
         // description: text,
         text
       });
