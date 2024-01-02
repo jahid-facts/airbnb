@@ -8,7 +8,8 @@ import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import { Dialog, DialogContent,DialogTitle, Grid, TextField } from '@mui/material';
+import { Dialog, DialogContent, 
+    DialogTitle, Grid, TextField } from '@mui/material';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import './VoiceSearch.css';
 import axios from 'axios';
@@ -44,7 +45,7 @@ export default function VoiceSearch() {
 
     const handleTextSearch = async () => {
         try {
-            const response = await axios.get(`http://127.0.0.1:5050/search?searchText=${searchQuery}`);
+            const response = await axios.get(`http://127.0.0.1:7050/api/search?searchText=${searchQuery}`);
             console.log('API Response:', response.data);   
 
             const searchData = response.data;
