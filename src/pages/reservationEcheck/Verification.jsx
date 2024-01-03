@@ -3,6 +3,7 @@ import { Button, Input } from "@mui/material";
 import WebCam from "../../components/webcam";
 import { useAuthInfo } from "../../helpers/AuthCheck";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 //import { getApi, getApiById } from "../../config/configAxios";
 
@@ -17,7 +18,8 @@ function NIDVerificationForm({ bookingId, mode, close}) {
 
 
 
-  //const location = useLocation();
+  const location = useLocation();
+  //console.log(location)
   const [file, setFile] = useState(null);
   const UserInfo = useAuthInfo();
   //console.log(UserInfo);
@@ -131,8 +133,8 @@ function NIDVerificationForm({ bookingId, mode, close}) {
         <div
           style={{
             display: "flex",
-            paddingInline:"16px",
-            flexDirection: "column",
+            paddingInline:"10px",
+            flexDirection: location.pathname === "/e-check" ? "row" : "column",
             alignItems: "center",
             justifyContent: "center",
           }}

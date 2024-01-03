@@ -79,6 +79,7 @@ const ReservationCheck = () => {
           return (
             <Grid item xs={12} md={10} mx={10} >
               <Box
+               
                 display={"flex"}
                 alignItems={"center"}
                 p={3}
@@ -112,7 +113,7 @@ const ReservationCheck = () => {
                 {/* <img src={propertyData.propertyId.images.url} alt=""/> */}
 
                 {/* info box */}
-                <Box width={"40%"}>
+                <Box width={"30%"}>
                   {/* <Grid item xs={12} md={6} mx = {2}> 
           </Grid> */}
 
@@ -192,7 +193,7 @@ const ReservationCheck = () => {
                 </Box>
 
                 {/* action box */}
-                <Box width={"40%"}>
+                <Box width={"60%"}>
                   {propertyData ? (
                     
                 

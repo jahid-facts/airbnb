@@ -30,7 +30,7 @@ const Prices = ({ setStepValue, values }) => {
     console.log(price);
     // Make an HTTP request to your Flask API
     axios
-      .post("http://127.0.0.1:7050/price", {
+      .post("http://127.0.0.1:7050/api/price", {
         values, // Send the user-entered price to the API
         // Include other necessary data in the request body
       })
