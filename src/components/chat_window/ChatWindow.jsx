@@ -13,7 +13,7 @@ const ChatWindow = ({ onClose }) => {
   const handleSend = async () => {
     if (userInput.trim() !== '') { 
       try {
-        const response = await axios.post('http://localhost:5000/chat_bot', { text: userInput });
+        const response = await axios.post('http://127.0.0.1:7050/api/chat_bot', { text: userInput });
         const chatResponse = response.data.response;
         setChatMessages([...chatMessages, { text: userInput, type: 'user' }, { text: chatResponse, type: 'bot' }]);
         setUserInput('');
