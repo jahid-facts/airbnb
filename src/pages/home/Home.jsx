@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import React, { useState } from "react";  //changed for chatbot/fahim
 
 import {
   Box,
@@ -31,7 +30,6 @@ import ChatWindow from "../../components/chat_window/ChatWindow"; //added for ch
 
 import { NoRecord } from "../../components/noRecord";
 
-
 // const iconControl = {
 //   images: {
 //     mapIcon: new L.Icon({
@@ -61,15 +59,13 @@ const iconControl = (price) => {
 };
 
 export default function Home() {
+  //added for chatbot/fahim SSSSSS
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
-
-//added for chatbot/fahim SSSSSS
-const [isChatOpen, setIsChatOpen] = useState(false);
-
-const toggleChat = () => {
-  setIsChatOpen(!isChatOpen);
-};
-//added for chatbot/fahim EEEEEE
+  const toggleChat = () => {
+    setIsChatOpen(!isChatOpen);
+  };
+  //added for chatbot/fahim EEEEEE
 
   const dispatch = useDispatch();
   const { properties } = useSelector((state) => state.properties);
@@ -77,6 +73,39 @@ const toggleChat = () => {
   const [matchedProperties, setMatchedProperties] = useState("");
   const [loading, setLoading] = useState(false);
   const userInfo = useAuthInfo();
+
+  const [recommended_properties, setrecommended_properties] = useState([]);
+  // const [loadingRecommended, setLoadingRecommended] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+
+    // Fetch recommended properties from your API
+
+    fetch(`http://localhost:5000/api/recommended/${userInfo._id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (
+          data.recommended_properties &&
+          data.recommended_properties.length > 0
+        ) {
+          setrecommended_properties(data.recommended_properties);
+        } else {
+          console.warn(
+            "No recommended properties found in the API response:",
+            data
+          );
+        }
+      })
+      .catch((error) =>
+        console.error("Error fetching recommended properties:", error)
+      )
+      .finally(() => setLoading(false));
+
+    // Fetch active properties (assuming getActiveProperties is defined in your redux slice)
+    dispatch(getActiveProperties());
+  }, [dispatch, userInfo._id]);
 
   const getPropertiesFromWishlist = () => {
     try {
@@ -120,6 +149,10 @@ const toggleChat = () => {
       <>
         <Container maxWidth="xl">
           <Grid container spacing={4}>
+            {/* Display recommended properties */}
+            <Grid item xs={12}>
+              <h3 style={{ marginTop: "10px" }}>Active Properties</h3>
+            </Grid>
             {loading ? (
               <CustomHashLoader />
             ) : (
@@ -152,8 +185,30 @@ const toggleChat = () => {
                 )}
               </>
             )}
+
+            {/* Display recommended properties */}
             <Grid item xs={12}>
-              <h3 style={{ marginTop: "10px" }}>Suggeste property</h3>
+              <h3 style={{ marginTop: "10px" }}>Recommended Properties</h3>
+            </Grid>
+            {loading ? (
+              <CustomHashLoader />
+            ) : (
+              <>
+                {recommended_properties && recommended_properties.length > 0 ? (
+                  recommended_properties.map((propertyId, index) => (
+                    <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+                      {/* Render your recommended property using the propertyId */}
+                      <ReservationCard propertyId={propertyId} />
+                    </Grid>
+                  ))
+                ) : (
+                  <CustomHashLoader />
+                )}
+              </>
+            )}
+
+            <Grid item xs={12}>
+              <h3 style={{ marginTop: "10px" }}>Demo Properties</h3>
             </Grid>
             {images.map((card, index) => (
               <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
@@ -289,9 +344,11 @@ const toggleChat = () => {
             </>
           </div>
         </Drawer>
-        <ChatButton onClick={toggleChat} /> {/* Add the ChatButton component/fahim */}
+        <ChatButton onClick={toggleChat} />{" "}
+        {/* Add the ChatButton component/fahim */}
       </>
-      {isChatOpen && <ChatWindow onClose={toggleChat} />} {/* Show the chat window when isChatOpen is true/fahim */}
+      {isChatOpen && <ChatWindow onClose={toggleChat} />}{" "}
+      {/* Show the chat window when isChatOpen is true/fahim */}
     </AppLayout>
   );
 }
