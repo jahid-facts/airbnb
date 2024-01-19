@@ -19,7 +19,6 @@ import ReservationCardCopy from "../../components/reservationCard/index copy";
 import { Close } from "@mui/icons-material";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-// import assets from "../../assets";
 import L from "leaflet";
 import { markers } from "./property";
 import "./markerStyle.css";
@@ -28,7 +27,6 @@ import { useAuthInfo } from "../../helpers/AuthCheck";
 import ChatButton from "../../components/chat_window/ChatButton"; //added for chatbot/fahim
 import ChatWindow from "../../components/chat_window/ChatWindow"; //added for chatbot/fahim
 
-// import { NoRecord } from "../../components/noRecord";
 
 const iconControl = (price) => {
   const width = 10 + price.length * 8;
@@ -36,8 +34,6 @@ const iconControl = (price) => {
     className: "custom-marker",
     html: `<div>${price}</div>`,
     iconSize: [width, 20],
-    // iconAnchor: [16, 32],
-    // popupAnchor: [0, -32],
   });
   // return new L.Icon({
   //   iconUrl: assets.images.mapIcon,
@@ -48,13 +44,13 @@ const iconControl = (price) => {
 };
 
 export default function Home() {
-  //added for chatbot/fahim SSSSSS
+
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
   };
-  //added for chatbot/fahim EEEEEE
+ 
 
   const dispatch = useDispatch();
   const { properties } = useSelector((state) => state.properties);
@@ -172,6 +168,7 @@ export default function Home() {
             )}
 
             {/* Display recommended properties */}
+            {/* fixed the bug of recomended id issue for jayeed */}
 
             {recommended_properties && recommended_properties.length > 0 ? (
               <Grid item xs={12}>
