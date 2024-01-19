@@ -19,7 +19,7 @@ import ReservationCardCopy from "../../components/reservationCard/index copy";
 import { Close } from "@mui/icons-material";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import assets from "../../assets";
+// import assets from "../../assets";
 import L from "leaflet";
 import { markers } from "./property";
 import "./markerStyle.css";
@@ -28,18 +28,7 @@ import { useAuthInfo } from "../../helpers/AuthCheck";
 import ChatButton from "../../components/chat_window/ChatButton"; //added for chatbot/fahim
 import ChatWindow from "../../components/chat_window/ChatWindow"; //added for chatbot/fahim
 
-import { NoRecord } from "../../components/noRecord";
-
-// const iconControl = {
-//   images: {
-//     mapIcon: new L.Icon({
-//       iconUrl: assets.images.mapIcon,
-//       iconSize: [32, 32],
-//       iconAnchor: [16, 32],
-//       popupAnchor: [0, -32],
-//     }),
-//   },
-// };
+// import { NoRecord } from "../../components/noRecord";
 
 const iconControl = (price) => {
   const width = 10 + price.length * 8;
@@ -75,37 +64,30 @@ export default function Home() {
   const userInfo = useAuthInfo();
 
   const [recommended_properties, setrecommended_properties] = useState([]);
-  // const [loadingRecommended, setLoadingRecommended] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-
-    // Fetch recommended properties from your API
-
-    fetch(`http://localhost:5000/api/recommended/${userInfo._id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (
-          data.recommended_properties &&
-          data.recommended_properties.length > 0
-        ) {
-          setrecommended_properties(data.recommended_properties);
-        } else {
-          console.warn(
-            "No recommended properties found in the API response:",
-            data
-          );
-        }
-      })
-      .catch((error) =>
-        console.error("Error fetching recommended properties:", error)
-      )
-      .finally(() => setLoading(false));
-
-    // Fetch active properties (assuming getActiveProperties is defined in your redux slice)
-    dispatch(getActiveProperties());
-  }, [dispatch, userInfo._id]);
+  const getRecommendedProperties = () => {
+    try {
+      // Fetch recommended properties from your API
+      fetch(`http://localhost:5050/api/recommended/${userInfo._id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          if (
+            data.recommended_properties &&
+            data.recommended_properties.length > 0
+          ) {
+            setrecommended_properties(data.recommended_properties);
+          } else {
+            console.warn(
+              "No recommended properties found in the API response:",
+              data
+            );
+          }
+        });
+    } catch (error) {
+      console.error("Error fetching recommended properties:", error);
+    }
+  };
 
   const getPropertiesFromWishlist = () => {
     try {
@@ -126,6 +108,10 @@ export default function Home() {
 
   useEffect(() => {
     getPropertiesFromWishlist();
+    setLoading(true);
+    getRecommendedProperties();
+    setLoading(false);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -149,7 +135,6 @@ export default function Home() {
       <>
         <Container maxWidth="xl">
           <Grid container spacing={4}>
-            {/* Display recommended properties */}
             <Grid item xs={12}>
               <h3 style={{ marginTop: "10px" }}>Active Properties</h3>
             </Grid>
@@ -187,23 +172,26 @@ export default function Home() {
             )}
 
             {/* Display recommended properties */}
-            <Grid item xs={12}>
-              <h3 style={{ marginTop: "10px" }}>Recommended Properties</h3>
-            </Grid>
+
+            {recommended_properties && recommended_properties.length > 0 ? (
+              <Grid item xs={12}>
+                <h3 style={{ marginTop: "10px" }}>Recommended Properties</h3>
+              </Grid>
+            ) : (
+              ""
+            )}
             {loading ? (
               <CustomHashLoader />
             ) : (
               <>
-                {recommended_properties && recommended_properties.length > 0 ? (
-                  recommended_properties.map((propertyId, index) => (
-                    <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-                      {/* Render your recommended property using the propertyId */}
-                      <ReservationCard propertyId={propertyId} />
-                    </Grid>
-                  ))
-                ) : (
-                  <CustomHashLoader />
-                )}
+                {recommended_properties && recommended_properties.length > 0
+                  ? recommended_properties.map((propertyId, index) => (
+                      <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+                        {/* Render your recommended property using the propertyId */}
+                        <ReservationCard propertyId={propertyId} />
+                      </Grid>
+                    ))
+                  : ""}
               </>
             )}
 
