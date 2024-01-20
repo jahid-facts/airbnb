@@ -54,11 +54,14 @@ export default function ReservationDetails() {
 
   const getSentiment = async () => {
     try {
+      // console.log(propertyId)
       const response = await axios.post(
         "http://127.0.0.1:7050/api/get_review_sentiment",
         {
           propertyId: propertyId,
-        }
+        },   
+        { headers: { "Content-Type": "application/json" } }
+       
       );
       console.log(response);
 
@@ -99,9 +102,9 @@ export default function ReservationDetails() {
     };
 
     fetchDataServer();
-    getSentiment();
+    getSentiment(propertyId);
 
-  }, []);
+  }, [propertyId]);
 
   const handleImageLIst = () => {
     setOpenImageList(!openImageList);
@@ -286,7 +289,7 @@ export default function ReservationDetails() {
                           bgcolor: "primary.50",
                           border: "2px solid",
                           borderColor: "primary.100",
-                          color:   sentimentScore["Positive"]>= "60%" ? "greenyellow": "primary.700",
+                          color:   sentimentScore["Positive"]>= "50%" ? "green": "red",
                           fontWeight: "bold",
                           fontSize: 18,
                         }}
