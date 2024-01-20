@@ -69,8 +69,7 @@ export default function ReservationDetails() {
   };
 
   React.useEffect(() => {
-    getSentiment();
-
+  
     const fetchDataServer = async () => {
       try {
         setLoading(true);
@@ -100,6 +99,8 @@ export default function ReservationDetails() {
     };
 
     fetchDataServer();
+    getSentiment();
+
   }, []);
 
   const handleImageLIst = () => {
@@ -285,13 +286,16 @@ export default function ReservationDetails() {
                           bgcolor: "primary.50",
                           border: "2px solid",
                           borderColor: "primary.100",
-                          color: "primary.700",
+                          color:   sentimentScore["Positive"]>= "60%" ? "greenyellow": "primary.700",
                           fontWeight: "bold",
                           fontSize: 18,
                         }}
                       >
                         <InfoRounded sx={{ fontSize: 16 }} />
-                        {sentimentScore ? sentimentScore : "Positive: 85%"}
+                        {sentimentScore["Positive"] ?
+                        <span>Positive {sentimentScore["Positive"]}</span>
+                         : (<span>Negative {sentimentScore["Negative"]}</span>)
+                        }
                       </Box>
                       <Link to={"#avater"}>
                         <Avatar
