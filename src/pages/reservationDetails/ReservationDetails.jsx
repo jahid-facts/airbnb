@@ -284,7 +284,7 @@ export default function ReservationDetails() {
                           typography: "caption",
                           borderRadius: 10,
                           display: "flex",
-                          justifyContent: "center",
+                          justifyContent: "end",
                           alignItems: "center",
                           bgcolor: "primary.50",
                           border: "2px solid",
@@ -295,8 +295,9 @@ export default function ReservationDetails() {
                         }}
                       >
                         <InfoRounded sx={{ fontSize: 16 }} />
+                        <small> reviewed:  </small>{" "} 
                         {sentimentScore["Positive"] ?
-                        <span>Positive {sentimentScore["Positive"]}</span>
+                        <span>   Positive {sentimentScore["Positive"]}</span>
                          : (<span>Negative {sentimentScore["Negative"]}</span>)
                         }
                       </Box>
@@ -324,7 +325,7 @@ export default function ReservationDetails() {
                         </Typography>
                         <Typography
                           variant="text"
-                          fontSize={"14px"}
+                          fontSize={"14px"} 
                           color={"primary.main"}
                         >
                           At 73 Mbps, you can take video calls and stream videos

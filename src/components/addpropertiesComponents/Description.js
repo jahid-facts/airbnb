@@ -91,7 +91,10 @@ const Description = ({ setStepValue, values }) => {
               )}
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} sx={{
+              boxShadow:2,
+              border: "1px solid",
+            }}>
               {emotion && (
                 <Typography variant="text" mt={2}>
                   Emotion: {emotion}

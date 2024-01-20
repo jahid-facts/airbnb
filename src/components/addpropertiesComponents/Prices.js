@@ -112,9 +112,12 @@ const Prices = ({ setStepValue, values }) => {
               </Box>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} 
+            sx={{
+              boxShadow:2,
+            }}>
               {suggestedPrice !== null && (
-                <Typography variant="text" mt={2}>
+                <Typography variant="subtitle1" mt={2}>
                   Suggested Price: ${suggestedPrice}
                 </Typography>
               )}
