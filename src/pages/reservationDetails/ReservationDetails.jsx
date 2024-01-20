@@ -1,6 +1,7 @@
 import * as React from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
+import InfoRounded from "@mui/icons-material/InfoRounded";
 import {
   Avatar,
   Box,
@@ -34,7 +35,7 @@ import CustomHashLoader from "../../components/customLoader/CustomHashLoader";
 import { Icon } from "@iconify/react";
 import OpenAmenitiseList from "./AmenitiseList";
 import ShareThisPlace from "./ShareThisPlace";
-// import axios from "axios";
+import axios from "axios";
 import ReviewSection from "./reviewSection";
 
 export default function ReservationDetails() {
@@ -49,9 +50,27 @@ export default function ReservationDetails() {
   const [loading, setLoading] = React.useState(true);
   const { propertyId } = useParams();
   const [openShare, setOpenShare] = React.useState(false);
+  const [sentimentScore, setSentimentScore] = React.useState(0);
 
+  const getSentiment = async () => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:7050/api/get_review_sentiment",
+        {
+          propertyId: propertyId,
+        }
+      );
+      console.log(response);
+
+      setSentimentScore(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   React.useEffect(() => {
+    getSentiment();
+
     const fetchDataServer = async () => {
       try {
         setLoading(true);
@@ -81,7 +100,7 @@ export default function ReservationDetails() {
     };
 
     fetchDataServer();
-  }, [propertyId]);
+  }, []);
 
   const handleImageLIst = () => {
     setOpenImageList(!openImageList);
@@ -167,7 +186,10 @@ export default function ReservationDetails() {
                     >
                       Share
                     </Button>
-                    <Dialog onClose={() => setOpenShare(false)} open={openShare}>
+                    <Dialog
+                      onClose={() => setOpenShare(false)}
+                      open={openShare}
+                    >
                       <Button
                         onClick={() => setOpenShare(false)}
                         startIcon={<Cancel />}
@@ -250,6 +272,26 @@ export default function ReservationDetails() {
                         >
                           {`${propertyValues?.guests.guests} guests, ${propertyValues?.guests.bathrooms} bathrooms, ${propertyValues?.guests.bedrooms} bedrooms, ${propertyValues?.guests.beds} beds`}
                         </Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          mt: 1,
+                          px: 1.5,
+                          typography: "caption",
+                          borderRadius: 10,
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          bgcolor: "primary.50",
+                          border: "2px solid",
+                          borderColor: "primary.100",
+                          color: "primary.700",
+                          fontWeight: "bold",
+                          fontSize: 18,
+                        }}
+                      >
+                        <InfoRounded sx={{ fontSize: 16 }} />
+                        {sentimentScore ? sentimentScore : "Positive: 85%"}
                       </Box>
                       <Link to={"#avater"}>
                         <Avatar
