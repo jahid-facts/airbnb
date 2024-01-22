@@ -12,6 +12,7 @@ function NIDVerificationForm({ bookingId, mode, close}) {
   // const update_url = process.env.REACT_APP_STATUS_ENDPOINT;
   // const delete_url = process.env.REACT_APP_DELETE_ENDPOINT;
   const REACT_APP_AI_URL = process.env.REACT_APP_AI_URL;
+  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
   const api_url =
     mode === "check"
       ? REACT_APP_AI_URL+"/idVerification/upload"
