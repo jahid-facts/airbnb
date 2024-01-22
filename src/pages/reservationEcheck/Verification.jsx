@@ -11,10 +11,11 @@ function NIDVerificationForm({ bookingId, mode, close}) {
 
   // const update_url = process.env.REACT_APP_STATUS_ENDPOINT;
   // const delete_url = process.env.REACT_APP_DELETE_ENDPOINT;
+  const REACT_APP_AI_URL = process.env.REACT_APP_AI_URL;
   const api_url =
     mode === "check"
-      ? "http://127.0.0.1:7050/api/idVerification/upload"
-      : "http://127.0.0.1:7050/api/idVerification/update";
+      ? REACT_APP_AI_URL+"/idVerification/upload"
+      : REACT_APP_AI_URL+"/idVerification/update";
 
 
 
@@ -30,7 +31,7 @@ function NIDVerificationForm({ bookingId, mode, close}) {
   // booking status update
   const handleStatusUpdate = () => {
     axios
-      .post("http://localhost:5050/api/booking-status-update", {
+      .post(REACT_APP_BASE_URL+"/booking-status-update", {
         //${process.env.REACT_APP_BASE_URL}
         bookingId: bookingId,
         // invoiceId: invoiceId,
@@ -46,7 +47,7 @@ function NIDVerificationForm({ bookingId, mode, close}) {
   //   /booking-delete
   const handleStatusDelete = () => {
     axios
-      .post("http://localhost:5050/api/booking-delete", {
+      .post(REACT_APP_BASE_URL+"/booking-delete", {
         //${process.env.REACT_APP_BASE_URL}
         bookingId: bookingId,
       })

@@ -27,6 +27,7 @@ export default function VoiceSearch() {
     const [searchQuery, setSearchQuery] = useState('');
     const [propertyData, setPropertyData] = useState([]);
     const [message, setMessage] = useState('');
+    const REACT_APP_AI_URL = process.env.REACT_APP_AI_URL;
 
     // Speech Recognition start (SN)
     const {
@@ -45,7 +46,7 @@ export default function VoiceSearch() {
 
     const handleTextSearch = async () => {
         try {
-            const response = await axios.get(`http://127.0.0.1:7050/api/search?searchText=${searchQuery}`);
+            const response = await axios.get(`${REACT_APP_AI_URL}/search?searchText=${searchQuery}`);
             console.log('API Response:', response.data);   
 
             const searchData = response.data;

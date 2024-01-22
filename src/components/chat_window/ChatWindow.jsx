@@ -9,11 +9,12 @@ const ChatWindow = ({ onClose }) => {
   const [userInput, setUserInput] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
   const chatContainerRef = useRef(null);
+  const REACT_APP_AI_URL = process.env.REACT_APP_AI_URL;
 
   const handleSend = async () => {
     if (userInput.trim() !== '') { 
       try {
-        const response = await axios.post('http://127.0.0.1:7050/api/chat_bot', { text: userInput });
+        const response = await axios.post(REACT_APP_AI_URL+"/chat_bot", { text: userInput });
         const chatResponse = response.data.response;
         setChatMessages([...chatMessages, { text: userInput, type: 'user' }, { text: chatResponse, type: 'bot' }]);
         setUserInput('');

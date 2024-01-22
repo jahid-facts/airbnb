@@ -10,6 +10,7 @@ const IncomeForm = ({ close }) => {
   const fileRefButton =useRef(null);
   const userInfo = useAuthInfo();
   const userId = userInfo._id;
+  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 
   const [file, setFile] = useState(null);
@@ -44,7 +45,7 @@ const IncomeForm = ({ close }) => {
     
 
     try {
-      const response = await fetch("http://localhost:5050/api/income-info", {
+      const response = await fetch(REACT_APP_BASE_URL+"/income-info", {
         method: "POST",
         body: formData,
       });

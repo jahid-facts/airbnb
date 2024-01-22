@@ -7,6 +7,7 @@ const Description = ({ setStepValue, values }) => {
 
   const [sentiment, setSentiment] = useState(null);
   const [emotion, setEmotion] = useState(null);
+  const REACT_APP_AI_URL = process.env.REACT_APP_AI_URL;
 
   const maxLength = 500;
 
@@ -28,7 +29,7 @@ const Description = ({ setStepValue, values }) => {
 
   const analyzeDescription = async () => {
     try {
-      const response = await axios.post("http://127.0.0.1:7050/api/description", {
+      const response = await axios.post(REACT_APP_AI_URL+"/description", {
         // description: text,
         text
       });
@@ -86,7 +87,7 @@ const Description = ({ setStepValue, values }) => {
             <Grid item xs={12}>
               {sentiment && (
                 <Typography variant="text" mt={2}>
-                  Sentiment: {sentiment}
+                  Sentiment: {sentiment}   
                 </Typography>
               )}
             </Grid>

@@ -33,6 +33,7 @@ function ProfilePage() {
   const [isUploadOpen, setUploadOpen] = useState(false);
   // const userInfo = useAuthInfo();
   const [file, setFile] = useState(null);
+  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
   const userInfo = useAuthInfo();
   const userId = userInfo._id;
@@ -46,7 +47,7 @@ function ProfilePage() {
     formData.append("userId", userId);
 
     try {
-      const response = await fetch("http://localhost:5050/api/users/avatar", {
+      const response = await fetch(REACT_APP_BASE_URL+"/users/avatar", {
         method: "POST",
         body: formData,
       });
