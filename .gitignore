@@ -1,6 +1,7 @@
-/node_modules
 node_modules
+.vscode
 package.json
 package-lock.json
 0.pack
 index.pack
+.vscode/settings.json

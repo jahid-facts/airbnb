@@ -12,11 +12,16 @@ import {
   Box,
   Divider,
 } from "@mui/material";
-import { ContactSupportOutlined, EmailOutlined, PhotoCamera, UploadFile } from "@mui/icons-material";
+import {
+  ContactSupportOutlined,
+  EmailOutlined,
+  PhotoCamera,
+  UploadFile,
+} from "@mui/icons-material";
 import PersonalInfo from "./ProfileContent/PersonalInfo";
 import ActiveRenting from "./ProfileContent/ActiveRenting";
 import UpcomingRenting from "./ProfileContent/UpcomingRenting";
-import { AppLayout } from "../../layouts/appLayout";
+import AppLayout from "../../layouts/appLayout";
 import MyTrips from "../profile/ProfileContent/MyTrips";
 // import Verification from "../reservationEcheck/Verification";
 import Confirmation from "../reservationEcheck/confirmation";
@@ -28,6 +33,7 @@ function ProfilePage() {
   const [isUploadOpen, setUploadOpen] = useState(false);
   // const userInfo = useAuthInfo();
   const [file, setFile] = useState(null);
+  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
   const userInfo = useAuthInfo();
   const userId = userInfo._id;
@@ -41,7 +47,7 @@ function ProfilePage() {
     formData.append("userId", userId);
 
     try {
-      const response = await fetch("http://localhost:5050/api/users/avatar", {
+      const response = await fetch(REACT_APP_BASE_URL+"/users/avatar", {
         method: "POST",
         body: formData,
       });
@@ -52,7 +58,6 @@ function ProfilePage() {
         );
         return;
       }
-
 
       // const response = await axios.post('/users/avatar', formData);
       // console.log(response.data);
@@ -74,7 +79,7 @@ function ProfilePage() {
   };
 
   //const handleVerify = () => {};
-// console.log(userInfo.avatar.url);
+  // console.log(userInfo.avatar.url);
   return (
     <AppLayout>
       <Box sx={{ m: 1 }}>
@@ -175,8 +180,12 @@ function ProfilePage() {
                     User's confirmed information
                   </Typography>
 
-                  <Typography variant="subtitle1" sx={{display:"flex",gap:1}}  gutterBottom>
-                    <EmailOutlined/>  {userInfo.email}
+                  <Typography
+                    variant="subtitle1"
+                    sx={{ display: "flex", gap: 1 }}
+                    gutterBottom
+                  >
+                    <EmailOutlined /> {userInfo.email}
                   </Typography>
                 </Box>
                 <Divider

@@ -1,15 +1,12 @@
 import React, { useRef, useState } from "react";
 import { Box, Divider, MenuItem, Stack, Typography } from "@mui/material";
-import {
-  Search,
-} from "@mui/icons-material";
+import { Search } from "@mui/icons-material";
 
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Grow from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
 import MenuList from "@mui/material/MenuList";
-
 
 import Who from "./Who";
 import Where from "./Where";
@@ -58,25 +55,22 @@ const SearchFilter = () => {
   const box3Ref = useRef(null);
   const box4Ref = useRef(null);
 
-   // Handle the selected range in your parent component
-   const [selectedRange, setSelectedRange] = useState({
+  // Handle the selected range in your parent component
+  const [selectedRange, setSelectedRange] = useState({
     startDate: null,
     endDate: null,
-    key: 'selection',
+    key: "selection",
   });
 
   const handleDateSelect = (newRange) => {
     setSelectedRange(newRange);
   };
 
-
   /// who
   const [adultsCount, setAdultsCount] = useState(0);
   const [childrenCount, setChildrenCount] = useState(0);
   const [infantsCount, setInfantsCount] = useState(0);
   const [petsCount, setPetsCount] = useState(0);
-
-
 
   return (
     <Stack
@@ -123,8 +117,7 @@ const SearchFilter = () => {
               bgcolor: "activeColor",
               boxShadow: "0px 0px 18px 0px #6363633b",
             },
-            }
-          }
+          }}
         >
           <Box sx={{ px: "15px" }}>
             <Typography
@@ -224,9 +217,9 @@ const SearchFilter = () => {
               fontSize={"12px"}
               fontWeight={"400"}
             >
-             {selectedRange.startDate?.toLocaleDateString() == null
-                ? 'Add dates'
-                : selectedRange.startDate?.toLocaleDateString('en-GB')}
+              {selectedRange.startDate?.toLocaleDateString() == null
+                ? "Add dates"
+                : selectedRange.startDate?.toLocaleDateString("en-GB")}
             </Typography>
           </Box>
         </Box>
@@ -314,8 +307,8 @@ const SearchFilter = () => {
               fontWeight={"400"}
             >
               {selectedRange.endDate?.toLocaleDateString() == null
-                ? 'Add dates'
-                : selectedRange.endDate?.toLocaleDateString('en-GB')}
+                ? "Add dates"
+                : selectedRange.endDate?.toLocaleDateString("en-GB")}
             </Typography>
           </Box>
         </Box>

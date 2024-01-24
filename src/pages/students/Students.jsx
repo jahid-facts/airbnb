@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { AppLayout } from "../../layouts/appLayout";
+import AppLayout from "../../layouts/appLayout";
 import {
   Alert,
   Button,

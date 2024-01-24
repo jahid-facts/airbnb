@@ -3,6 +3,7 @@ import { Button, Input } from "@mui/material";
 import WebCam from "../../components/webcam";
 import { useAuthInfo } from "../../helpers/AuthCheck";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 //import { getApi, getApiById } from "../../config/configAxios";
 
@@ -10,14 +11,16 @@ function NIDVerificationForm({ bookingId, mode, close}) {
 
   // const update_url = process.env.REACT_APP_STATUS_ENDPOINT;
   // const delete_url = process.env.REACT_APP_DELETE_ENDPOINT;
+  const REACT_APP_AI_URL = process.env.REACT_APP_AI_URL;
   const api_url =
     mode === "check"
-      ? "http://127.0.0.1:7050/api/idVerification/upload"
-      : "http://127.0.0.1:7050/api/idVerification/update";
+      ? REACT_APP_AI_URL+"/idVerification/upload"
+      : REACT_APP_AI_URL+"/idVerification/update";
 
 
 
-  //const location = useLocation();
+  const location = useLocation();
+  //console.log(location)
   const [file, setFile] = useState(null);
   const UserInfo = useAuthInfo();
   //console.log(UserInfo);
@@ -28,7 +31,7 @@ function NIDVerificationForm({ bookingId, mode, close}) {
   // booking status update
   const handleStatusUpdate = () => {
     axios
-      .post("http://localhost:5050/api/booking-status-update", {
+      .post(REACT_APP_BASE_URL+"/booking-status-update", {
         //${process.env.REACT_APP_BASE_URL}
         bookingId: bookingId,
         // invoiceId: invoiceId,
@@ -44,7 +47,7 @@ function NIDVerificationForm({ bookingId, mode, close}) {
   //   /booking-delete
   const handleStatusDelete = () => {
     axios
-      .post("http://localhost:5050/api/booking-delete", {
+      .post(REACT_APP_BASE_URL+"/booking-delete", {
         //${process.env.REACT_APP_BASE_URL}
         bookingId: bookingId,
       })
@@ -131,8 +134,8 @@ function NIDVerificationForm({ bookingId, mode, close}) {
         <div
           style={{
             display: "flex",
-            paddingInline:"16px",
-            flexDirection: "column",
+            paddingInline:"10px",
+            flexDirection: location.pathname === "/e-check" ? "row" : "column",
             alignItems: "center",
             justifyContent: "center",
           }}

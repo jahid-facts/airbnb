@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-import { AppLayout } from "../../layouts/appLayout";
+import AppLayout from "../../layouts/appLayout";
 
 const Cancel = () => {
   return (

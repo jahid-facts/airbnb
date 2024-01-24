@@ -149,6 +149,20 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const socialLoginSignup = createAsyncThunk(
+  "auth/socialLoginSignup",
+  async (loginData, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      const response = await postApi("/social-login-singup", loginData);
+      console.log(response.data);
+      return fulfillWithValue(response.data);
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
 export const verifyOTP = createAsyncThunk(
   "auth/verifyOTP",
   async (otpData, { rejectWithValue, fulfillWithValue }) => {
@@ -204,6 +218,23 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(registerUser.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload.error;
+        state.success = null;
+      })
+      .addCase(socialLoginSignup.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(socialLoginSignup.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.user = action.payload;
+        state.isLoggedIn = true;
+        localStorage.setItem("user", JSON.stringify(action.payload));
+        localStorage.setItem("isLoggedIn", "true");
+        state.isEmailVerified = true;
+        state.error = null;
+      })
+      .addCase(socialLoginSignup.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload.error;
         state.success = null;

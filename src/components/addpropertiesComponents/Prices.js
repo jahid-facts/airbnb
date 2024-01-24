@@ -7,12 +7,16 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const Prices = ({ setStepValue, values }) => {
   const [price, setPrice] = useState(values.prices || "");
+  const [suggestedPrice, setSuggestedPrice] = useState(null);
+  const REACT_APP_AI_URL = process.env.REACT_APP_AI_URL;
 
   useEffect(() => {
     setStepValue("prices", price);
+    fetchSuggestedPrice();
   }, [price]);
 
   const handlePrice = (e) => {
@@ -21,6 +25,25 @@ const Prices = ({ setStepValue, values }) => {
       setPrice(value);
     }
   };
+
+  // Function to fetch the suggested price from the API
+  const fetchSuggestedPrice = () => {
+    console.log(price);
+    // Make an HTTP request to your Flask API
+    axios
+      .post(REACT_APP_AI_URL+"/price", {
+        values, // Send the user-entered price to the API
+        // Include other necessary data in the request body
+      })
+      .then((response) => {
+        const suggestedPrice = response.data.suggested_price;
+        setSuggestedPrice(suggestedPrice);
+      })
+      .catch((error) => {
+        console.error("Error fetching suggested price: " + error);
+      });
+  };
+
   return (
     <>
       <Container>
@@ -87,11 +110,18 @@ const Prices = ({ setStepValue, values }) => {
                   }
                   disableUnderline
                 />
-                {/* <Icon
-                      icon="ep:edit"
-                      style={{ fontSize: "40px" }}
-                    /> */}
               </Box>
+            </Grid>
+
+            <Grid item xs={12} 
+            sx={{
+              boxShadow:2,
+            }}>
+              {suggestedPrice !== null && (
+                <Typography variant="subtitle1" mt={2}>
+                  Suggested Price: ${suggestedPrice}
+                </Typography>
+              )}
             </Grid>
           </Grid>
         </Box>

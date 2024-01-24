@@ -3,7 +3,7 @@ import axios from "axios";
 import {
   Avatar,
   Box,
- //Drawer,
+  //Drawer,
   Button,
   //Container,
   Divider,
@@ -16,13 +16,12 @@ import OpenReviewList from "./ItemList";
 
 function ReviewSection() {
   const { propertyId } = useParams();
-  
 
   const [openReviewLists, setOpenReviewLists] = React.useState(false);
 
   const [reviewResponsedData, setreviewResponsedData] = React.useState([]);
   const [totalResults, setTotalResults] = React.useState([]);
-  
+
   const [overAllAverage, setOverAllAverage] = React.useState(null);
   const [communicationAverage, setCommunicationAverage] = React.useState(null);
   const [recommendAverage, setRecommendAverage] = React.useState(null);
@@ -31,8 +30,6 @@ function ReviewSection() {
   // const [reviewDate, setReviewDate] = React.useState("");
   // const [reviewUserName, setReviewUserName] = React.useState("");
   // const [reviewUserImage, setReviewUserImage] = React.useState("");
-
-
 
   function calculateAverage(array) {
     let sum = 0;
@@ -53,7 +50,6 @@ function ReviewSection() {
         const reviewResponse = await axios.get(
           `/getReviews?propertyId=${propertyId}&limit=${5}`
         );
-
 
         const responData = reviewResponse.data.reviws;
         //console.log(reviewResponse.data)
@@ -124,11 +120,9 @@ function ReviewSection() {
       return formattedDate;
     } catch (error) {
       // Handle invalid date formats here (e.g., display a default format or an error message)
-      console.error(error); 
+      console.error(error);
+    }
   };
-  };
-
- 
 
   const handleReviewLists = () => {
     setOpenReviewLists(!openReviewLists);
@@ -138,162 +132,161 @@ function ReviewSection() {
     <>
       {/* Review section */}
 
-        <Grid item xs={12}>
-          <Typography variant="h6" fontSize={"18px"} fontWeight={"600"}>
-            Reviews
-          </Typography>
-          <Typography
-            variant="text"
-            fontSize={"15px"}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            {totalResults} reviews for this property
-            <Rating
-              name="half-rating-read"
-              value={overAllAverage}
-              precision={0.5}
-              readOnly
-              sx={{ mx: 1 }}
-            />
-            {/* {parseFloat(overAllAverage.toFixed("0.02"))} */}
-            {Number(overAllAverage).toFixed(2)}
-          </Typography>
-        </Grid>
+      <Grid item xs={12}>
+        <Typography variant="h6" fontSize={"18px"} fontWeight={"600"}>
+          Reviews
+        </Typography>
+        <Typography
+          variant="text"
+          fontSize={"15px"}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          {totalResults} reviews for this property
+          <Rating
+            name="half-rating-read"
+            value={overAllAverage}
+            precision={0.5}
+            readOnly
+            sx={{ mx: 1 }}
+          />
+          {/* {parseFloat(overAllAverage.toFixed("0.02"))} */}
+          {Number(overAllAverage).toFixed(2)}
+        </Typography>
+      </Grid>
 
-        <Grid item xs={12}>
-          <Typography
-            variant="h6"
-            mt={2}
-            mb={1}
-            fontSize={"16px"}
-            fontWeight={"600"}
-          >
-            Rating Breakdown
-          </Typography>
-        </Grid>
+      <Grid item xs={12}>
+        <Typography
+          variant="h6"
+          mt={2}
+          mb={1}
+          fontSize={"16px"}
+          fontWeight={"600"}
+        >
+          Rating Breakdown
+        </Typography>
+      </Grid>
 
-        <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
-          <Typography
-            variant="text"
-            fontSize={"14px"}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            Communication
-            <Rating name="read-only" value={communicationAverage} readOnly />
-          </Typography>
-        </Grid>
+      <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
+        <Typography
+          variant="text"
+          fontSize={"14px"}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          Communication
+          <Rating name="read-only" value={communicationAverage} readOnly />
+        </Typography>
+      </Grid>
 
-        <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
-          <Typography
-            variant="text"
-            fontSize={"14px"}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            Recommend
-            <Rating name="read-only" value={recommendAverage} readOnly />
-          </Typography>
-        </Grid>
-        <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
-          <Typography
-            variant="text"
-            fontSize={"14px"}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            Services
-            <Rating name="read-only" value={servicesAverage} readOnly />
-          </Typography>
-        </Grid>
+      <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
+        <Typography
+          variant="text"
+          fontSize={"14px"}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          Recommend
+          <Rating name="read-only" value={recommendAverage} readOnly />
+        </Typography>
+      </Grid>
+      <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
+        <Typography
+          variant="text"
+          fontSize={"14px"}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          Services
+          <Rating name="read-only" value={servicesAverage} readOnly />
+        </Typography>
+      </Grid>
 
-        <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
-          <Typography
-            variant="text"
-            fontSize={"14px"}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            Location
-            <Rating name="read-only" value={locationAverage} readOnly />
-          </Typography>
-        </Grid>
+      <Grid item xs={12} md={6} style={{ paddingTop: "8px" }}>
+        <Typography
+          variant="text"
+          fontSize={"14px"}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          Location
+          <Rating name="read-only" value={locationAverage} readOnly />
+        </Typography>
+      </Grid>
 
-        {reviewResponsedData.slice(0, 3).map(( review) => (
-          <Grid item xs={12} my={1} >
-            <Box display={"flex"} alignItems={"start"}>
+      {reviewResponsedData.slice(0, 3).map((review) => (
+        <Grid item xs={12} my={1}>
+          <Box display={"flex"} alignItems={"start"}>
             {/* src={review.reviewedBy.avatar.url} */}
-              <Avatar  
+            <Avatar
               src={review.reviewedBy.avatar}
-              alt={review.reviewedBy.avatar} 
-              sx={{ width: 40, height: 40, mr: 3 }} />
+              alt={review.reviewedBy.name}
+              sx={{ width: 40, height: 40, mr: 3 }}
+            />
+            <Box>
+              <Typography fontWeight={"bold"}>
+                {review.reviewedBy.name}
+              </Typography>
               <Box>
-                <Typography fontWeight={"bold"}>
-                  {review.reviewedBy.name}                     
+                <Typography
+                  variant="text"
+                  fontSize={"14px"}
+                  sx={{ display: "flex", alignItems: "center" }}
+                >
+                  <Rating
+                    name={review.reviewedBy.name}
+                    sx={{ fontSize: "18px" }}
+                    value={review.overAllRating}
+                    precision={0.5}
+                    readOnly
+                  />{" "}
+                  {/* {review.overAllRating} */}
+                  <Divider
+                    sx={{ mx: 1 }}
+                    orientation="vertical"
+                    variant="fullWidth"
+                    flexItem
+                  />{" "}
+                  {dateFormatting(review.createdAt)}
                 </Typography>
-                <Box>
-                  <Typography
-                    variant="text"
-                    fontSize={"14px"}
-                    sx={{ display: "flex", alignItems: "center" }}
-                  >
-                    <Rating
-                      name={review.reviewedBy.name}
-                      sx={{ fontSize: "18px" }}
-                      value={review.overAllRating}
-                      precision={0.5}
-                      readOnly
-                    />{" "}
-                    {/* {review.overAllRating} */}
-                    <Divider
-                      sx={{ mx: 1 }}
-                      orientation="vertical"
-                      variant="fullWidth"
-                      flexItem
-                    />{" "}
-                    {dateFormatting(review.createdAt)}
+                <Box mt={1}>
+                  <Typography variant="text" fontSize={"14px"}>
+                    {review.reviewMessage}
                   </Typography>
-                  <Box mt={1}>
-                    <Typography variant="text" fontSize={"14px"}>
-                      {review.reviewMessage}
-                    </Typography>
-                  </Box>
                 </Box>
               </Box>
             </Box>
-          </Grid>
-        ))}
+          </Box>
+        </Grid>
+      ))}
 
-        {reviewResponsedData.length > 4 && (
-          <Grid item xs={12}>
-            <Button
-              sx={{ mt: "20px", textTransform: "capitalize" }}
-              variant="outlined"
-              onClick={handleReviewLists}
-            >
-              Show all reviews
-            </Button>
-          </Grid>
-        )}
+      {reviewResponsedData.length > 4 && (
+        <Grid item xs={12}>
+          <Button
+            sx={{ mt: "20px", textTransform: "capitalize" }}
+            variant="outlined"
+            onClick={handleReviewLists}
+          >
+            Show all reviews
+          </Button>
+        </Grid>
+      )}
 
-  
-
-{/* modal  */}
+      {/* modal  */}
       <OpenReviewList
         //propertyId={propertyId}
         open={openReviewLists}
@@ -305,23 +298,18 @@ function ReviewSection() {
 
 export default ReviewSection;
 
+// const handleReviewedUser = (reviewedBy) => {
+//   axios
+//     .get(`http://localhost:5050/api/user/${reviewedBy}`)
+//     .then((response) => {
+//       setReviewUserName(response.data.user.name);
+//       setReviewUserImage(response.data.user.avatar);
 
-
-
- // const handleReviewedUser = (reviewedBy) => {
-  //   axios
-  //     .get(`http://localhost:5050/api/user/${reviewedBy}`)
-  //     .then((response) => {
-  //       setReviewUserName(response.data.user.name);
-  //       setReviewUserImage(response.data.user.avatar);
-        
-  //     })
-  //     .catch((error) => {
-  //       if (error.response) {
-  //         console.log("Server returned error:", error.response.data);
-  //       }
-  //     });
-  //   return reviewUserName;
-  // };
-
-
+//     })
+//     .catch((error) => {
+//       if (error.response) {
+//         console.log("Server returned error:", error.response.data);
+//       }
+//     });
+//   return reviewUserName;
+// };

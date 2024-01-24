@@ -23,7 +23,7 @@ const OpenAmenitiseList = ({ open, onClose, amenitiseItem }) => {
               sx={{
                 width: {
                   xs: "100%",
-                  md: "650px",
+                  md: "100%",
                 },
                 margin: "auto",
                 marginBottom: "130px",

@@ -29,7 +29,7 @@ import Reserve from "../../components/Reserve";
 import { Link } from "react-router-dom";
 import Maps from "../../components/leaftLet/Maps";
 import OpenImageList from "./ImageList";
-import { AppLayout } from "../../layouts/appLayout";
+import AppLayout from "../../layouts/appLayout";
 // import Maps from "../../components/leaftLet/Maps";
 
 function srcset(image, size, rows = 1, cols = 1) {

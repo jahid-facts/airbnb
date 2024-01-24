@@ -1,10 +1,12 @@
 import * as React from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
+import InfoRounded from "@mui/icons-material/InfoRounded";
 import {
   Avatar,
   Box,
   Button,
+  Dialog,
   Container,
   Divider,
   Grid,
@@ -16,6 +18,7 @@ import {
   Share,
   Wifi,
   DriveEta,
+  Cancel,
   LocationCity,
   Star,
   VerifiedUser,
@@ -25,14 +28,14 @@ import Reserve from "../../components/Reserve";
 import { Link, useParams } from "react-router-dom";
 import Maps from "../../components/leaftLet/Maps";
 import OpenImageList from "./ImageList";
-import { AppLayout } from "../../layouts/appLayout";
+import AppLayout from "../../layouts/appLayout";
 import { getApiById } from "../../config/configAxios";
 import "./imageOverlay.css";
 import CustomHashLoader from "../../components/customLoader/CustomHashLoader";
 import { Icon } from "@iconify/react";
 import OpenAmenitiseList from "./AmenitiseList";
-
-// import axios from "axios";
+import ShareThisPlace from "./ShareThisPlace";
+import axios from "axios";
 import ReviewSection from "./reviewSection";
 
 export default function ReservationDetails() {
@@ -42,13 +45,34 @@ export default function ReservationDetails() {
   const [openImageList, setOpenImageList] = React.useState(false);
 
   const [openAmenitiseList, setOpenAmenitiseList] = React.useState(false);
- 
 
   const [itemDataImages, setItemDataImages] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const { propertyId } = useParams();
+  const [openShare, setOpenShare] = React.useState(false);
+  const [sentimentScore, setSentimentScore] = React.useState(0);
+  const REACT_APP_AI_URL = process.env.REACT_APP_AI_URL;
+  const getSentiment = async () => {
+    try {
+      // console.log(propertyId)
+      const response = await axios.post(
+        REACT_APP_AI_URL+"/get_review_sentiment",
+        {
+          propertyId: propertyId,
+        },   
+        { headers: { "Content-Type": "application/json" } }
+       
+      );
+      console.log(response);
+
+      setSentimentScore(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   React.useEffect(() => {
+  
     const fetchDataServer = async () => {
       try {
         setLoading(true);
@@ -78,6 +102,8 @@ export default function ReservationDetails() {
     };
 
     fetchDataServer();
+    getSentiment(propertyId);
+
   }, [propertyId]);
 
   const handleImageLIst = () => {
@@ -157,12 +183,23 @@ export default function ReservationDetails() {
 
                   <Box>
                     <Button
+                      onClick={() => setOpenShare(true)}
                       startIcon={<Share />}
                       variant="text"
                       sx={{ textTransform: "capitalize" }}
                     >
                       Share
                     </Button>
+                    <Dialog
+                      onClose={() => setOpenShare(false)}
+                      open={openShare}
+                    >
+                      <Button
+                        onClick={() => setOpenShare(false)}
+                        startIcon={<Cancel />}
+                      ></Button>
+                      <ShareThisPlace propertyValues={propertyValues} />
+                    </Dialog>
                     <Button
                       startIcon={<FavoriteOutlined />}
                       variant="text"
@@ -240,6 +277,30 @@ export default function ReservationDetails() {
                           {`${propertyValues?.guests.guests} guests, ${propertyValues?.guests.bathrooms} bathrooms, ${propertyValues?.guests.bedrooms} bedrooms, ${propertyValues?.guests.beds} beds`}
                         </Typography>
                       </Box>
+                      <Box
+                        sx={{
+                          mt: 1,
+                          px: 1.5,
+                          typography: "caption",
+                          borderRadius: 10,
+                          display: "flex",
+                          justifyContent: "end",
+                          alignItems: "center",
+                          bgcolor: "primary.50",
+                          border: "2px solid",
+                          borderColor: "primary.100",
+                          color:   sentimentScore["Positive"]>= "50%" ? "green": "red",
+                          fontWeight: "bold",
+                          fontSize: 18,
+                        }}
+                      >
+                        <InfoRounded sx={{ fontSize: 16 }} />
+                        <small> reviewed:  </small>{" "} 
+                        {sentimentScore["Positive"] ?
+                        <span>   Positive {sentimentScore["Positive"]}</span>
+                         : (<span>Negative {sentimentScore["Negative"]}</span>)
+                        }
+                      </Box>
                       <Link to={"#avater"}>
                         <Avatar
                           alt="Remy Sharp"
@@ -264,7 +325,7 @@ export default function ReservationDetails() {
                         </Typography>
                         <Typography
                           variant="text"
-                          fontSize={"14px"}
+                          fontSize={"14px"} 
                           color={"primary.main"}
                         >
                           At 73 Mbps, you can take video calls and stream videos
@@ -442,12 +503,6 @@ export default function ReservationDetails() {
                     </Grid>
                     <Divider sx={{ my: 4 }} />
 
-
-
-
-
-
-
                     {/* Review section */}
                     <Grid container spacing={3}>
                       <ReviewSection propertyID={propertyId} />
@@ -489,100 +544,3 @@ export default function ReservationDetails() {
     </AppLayout>
   );
 }
-
-// const [reviewResponsedData, setreviewResponsedData] = React.useState([]);
-// const [overAllAverage, setOverAllAverage] = React.useState(null);
-// const [communicationAverage, setCommunicationAverage] = React.useState(null);
-//const [openReviewLists, setOpenReviewLists] = React.useState(false);
-// const [recommendAverage, setRecommendAverage] = React.useState(null);
-// const [servicesAverage, setServicesAverage] = React.useState(null);
-// const [locationAverage, setLocationAverage] = React.useState(null);
-// const [reviewDate, setReviewDate] = React.useState("");
-//const [reviewUserName, setReviewUserName] = React.useState("");
-
-// function calculateAverage(array) {
-//   let sum = 0;
-//   const length = array.length;
-
-//   for (let i = 0; i < length; i++) {
-//     sum += array[i];
-//   }
-
-//   const average = sum / length;
-//   return average;
-// }
-
-// // getting review response from mongodb
-// const reviewResponse = await axios.get(
-//   `/getReviews?propertyId=${propertyId}`
-// );
-
-// const responData = reviewResponse.data.reviws;
-// setreviewResponsedData(responData);
-
-// // for (const Data of reviewResponsedData) {
-// //   console.log(Data.reviewMessage);
-// //   console.log(Data.CommunicationRating);
-// //   console.log(Data.RecommendRating);
-// //   console.log(Data.ServicesRating);
-// //   console.log(Data.LocationRating);
-// //   console.log(Data.overAllRating);
-// //   console.log(Data.createdAt);
-// // }
-
-// const communicationRatings = reviewResponse.data.reviws.map(
-//   (data) => data.CommunicationRating
-// );
-
-// const recommendRatings = reviewResponse.data.reviws.map(
-//   (data) => data.RecommendRating
-// );
-// const servicesRatings = reviewResponse.data.reviws.map(
-//   (data) => data.ServicesRating
-// );
-// const locationRatings = reviewResponse.data.reviws.map(
-//   (data) => data.LocationRating
-// );
-
-// const overAllRating = reviewResponse.data.reviws.map(
-//   (data) => data.overAllRating
-// );
-
-// setCommunicationAverage(calculateAverage(communicationRatings));
-// setRecommendAverage(calculateAverage(recommendRatings));
-// setServicesAverage(calculateAverage(servicesRatings));
-// setLocationAverage(calculateAverage(locationRatings));
-// setOverAllAverage(calculateAverage(overAllRating));
-
-//console.log(communicationAverage, recommendAverage);
-
-// const handleReviewedUser = (reviewedBy) => {
-//   axios
-//     .get(`http://localhost:5050/api/user/${reviewedBy}`)
-//     .then((response) => {
-//       setReviewUserName(response.data.user.name);
-//     })
-//     .catch((error) => {
-//       if (error.response) {
-//         console.log("Server returned error:", error.response.data);
-//       }
-//     });
-//   return reviewUserName;
-// };
-
-// const dateFormatting = (reviewDate) => {
-//   const date = new Date(reviewDate);
-//   // December 25, 2023
-//   const formattedDate = new Intl.DateTimeFormat("en-GB", {
-//     year: "numeric",
-//     month: "long",
-//     day: "numeric",
-//   })
-//     .formatToParts(date)
-//     .map((part) => part.value)
-//     .join(" ");
-//   // const formattedDate = date.toISOString().substring(0, 10);
-//   // "2023-12-25"
-//   //console.log(formattedDate);dateFormatting
-//   return formattedDate;
-// };
