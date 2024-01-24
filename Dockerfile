@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install app dependencies
-RUN npm install
+RUN npm ci
 
 # Copy the rest of the application code
 COPY . .
@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Serve the React App
-FROM node:20.9.0 as app-server
+FROM node:18.12.0 as app-server
 
 # Set the working directory
 WORKDIR /usr/src/app

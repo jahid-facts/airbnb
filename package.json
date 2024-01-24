@@ -96,7 +96,6 @@
     ]
   },
   "devDependencies": {
-    "@iconify/react": "^4.1.1",
-    "@babel/plugin-proposal-private-property-in-object"
+    "@iconify/react": "^4.1.1"
   }
 }
