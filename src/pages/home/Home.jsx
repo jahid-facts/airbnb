@@ -47,6 +47,8 @@ export default function Home() {
 
   const [isChatOpen, setIsChatOpen] = useState(false);
 
+  const REACT_APP_AI_URL = process.env.REACT_APP_AI_URL;
+
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
   };
@@ -64,7 +66,7 @@ export default function Home() {
   const getRecommendedProperties = () => {
     try {
       // Fetch recommended properties from your API
-      fetch(`http://localhost:5050/api/recommended/${userInfo._id}`)
+      fetch(`${REACT_APP_AI_URL}/recommended/${userInfo._id}`)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -83,6 +85,10 @@ export default function Home() {
     } catch (error) {
       console.error("Error fetching recommended properties:", error);
     }
+
+
+
+    
   };
 
   const getPropertiesFromWishlist = () => {
