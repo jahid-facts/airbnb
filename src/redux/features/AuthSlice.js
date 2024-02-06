@@ -1,4 +1,4 @@
-// import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"; 
+// import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 // import { postApi } from "../../config/configAxios";
 
 // export const registerUser = createAsyncThunk(
@@ -48,7 +48,7 @@
 
 // const authSlice = createSlice({
 //   name: "auth",
-//   initialState, 
+//   initialState,
 //   reducers: {
 //     logoutUser(state) {
 //       state.status = "idle";
@@ -154,10 +154,8 @@ export const socialLoginSignup = createAsyncThunk(
   async (loginData, { rejectWithValue, fulfillWithValue }) => {
     try {
       const response = await postApi("/social-login-singup", loginData);
-      console.log(response.data);
       return fulfillWithValue(response.data);
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error?.response?.data);
     }
   }
@@ -186,7 +184,7 @@ const initialState = {
 
 const authSlice = createSlice({
   name: "auth",
-  initialState, 
+  initialState,
   reducers: {
     logoutUser(state) {
       state.status = "idle";
@@ -231,12 +229,13 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         localStorage.setItem("user", JSON.stringify(action.payload));
         localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("isEmailVerified", "true");
         state.isEmailVerified = true;
         state.error = null;
       })
       .addCase(socialLoginSignup.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload.error;
+        state.error = "Something went wrong. Please try again later.";
         state.success = null;
       })
       .addCase(loginUser.pending, (state) => {
@@ -252,7 +251,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload.error;
+        state.error = "Something went wrong. Please try again later.";
         state.success = null;
       })
       .addCase(verifyOTP.pending, (state) => {
